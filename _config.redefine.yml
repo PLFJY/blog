@@ -176,11 +176,11 @@ home_banner:
     style: center # default, reverse, center
     # Social links
     links:
-      fa-regular fa-house: "https://plfjy.top/"  # your GitHub URL
-      bilibili: "https://space.bilibili.com/453909624/"  # your GitHub URL
-      github: "https://github.com/PLFJY/"  # your GitHub URL
-      email: "zero@plfjy.top" # your email
-      /img/neo-bpsys.ico: "https://bpsys.plfjy.top/" # your email
+      fa-regular fa-house: https://plfjy.top/  # your GitHub URL
+      bilibili: https://space.bilibili.com/453909624/  # your GitHub URL
+      github: https://github.com/PLFJY/  # your GitHub URL
+      email: zero@plfjy.top # your email
+      /img/neo-bpsys.ico: https://bpsys.plfjy.top/ # your email
       # ...... # you can add more
     # Social links with QRcode drawers
     qrs:
@@ -215,19 +215,20 @@ navbar:
       icon: fa-regular fa-user
       submenus:
         关于我: /about
-        我的主页: "https://plfjy.top"
-        哔哩哔哩: "https://space.bilibili.com/453909624"
-        Github: "https://github.com/PLFJY/"
+        我的主页: https://plfjy.top
+        哔哩哔哩: https://space.bilibili.com/453909624
+        Github: https://github.com/PLFJY/
     Links: 
       icon: fa-regular fa-link
       submenus:
-        第五人格ASG赛事: "https://idvasg.cn/"
-        ZeroNode 零枢: "https://zeronode.cn/"
-        neo-bpsys-wpf: "https://bpsys.plfjy.top/"
+        第五人格ASG赛事: https://idvasg.cn/
+        ZeroNode 零枢: https://zeronode.cn/"
+        neo-bpsys-wpf: https://bpsys.plfjy.top/
+        净灵: https://www.jinglingstu.top/
   # Navbar search (local search). Requires hexo-generator-searchdb (npm i hexo-generator-searchdb). See https://github.com/theme-next/hexo-generator-searchdb
   search:
     # Whether to enable
-    enable: true
+    enable: false
     # Preload search data when the page loads
     preload: true
 # NAVIGATION BAR <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
