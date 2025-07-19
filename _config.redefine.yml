@@ -76,7 +76,7 @@ global:
   # Scroll progress
   scroll_progress:
     bar: false # progress bar
-    percentage: false # percentage
+    percentage: true # percentage
   # Website counter
   website_counter:
     url: https://cn.vercount.one/js # counter API URL (no need to change)
@@ -88,7 +88,7 @@ global:
   single_page: true
   # Whether to enable Preloader.
   preloader:
-    enable: false
+    enable: true
     custom_message: "客官里边儿请~" # Custom message. If empty, the site title will be displayed
   # Side tools settings
   side_tools:
@@ -98,9 +98,9 @@ global:
     auto_expand: false
   # Whether to enable open graph
   open_graph:
-    enable: false
-    image: /images/redefine-og.webp  # default og:image
-    description: Hexo Theme Redefine, Redefine Your Hexo Journey.
+    enable: true
+    image: /img/header.PNG  # default og:image
+    description: PLFJY's Blog
   # Google Analytics
   google_analytics:
     enable: false # Whether to enable Google Analytics
@@ -173,7 +173,7 @@ home_banner:
     # Whether to enable
     enable: true
     # Social links style
-    style: reverse # default, reverse, center
+    style: center # default, reverse, center
     # Social links
     links:
       fa-regular fa-house: "https://plfjy.top/"  # your GitHub URL
@@ -206,9 +206,9 @@ navbar:
   # Navbar links
   links:
     Home: 
-      path: /
+      path: / 
       icon: fa-regular fa-house # can be empty
-    Archive: 
+    Archives: 
       path: /archives 
       icon: fa-regular fa-archive # can be empty
     About: 
@@ -393,9 +393,9 @@ footer:
   # Show website running time
   runtime: true # show website running time or not
   # Icon in footer, write fontawesome icon code here
-  icon: ''
+  icon: '<img src="/img/logo.png" style="width: 40px; margin: auto;"/>'
   # The start time of the website, format: YYYY/MM/DD HH:mm:ss
-  start: 2025/07/19 11:45:14
+  start: 2025/07/19 19:30:00
   # Site statistics
   statistics: true # show site statistics or not (total articles, total words)
   # Footer message
@@ -416,9 +416,10 @@ inject:
   # Inject custom head html code
   head: 
     - <link rel="stylesheet" href="/css/adjust_bg.css">
-    - <script type="text/javascript" src="/js/adjust_bg.js"></script>
   # Inject custom footer html code
-  footer: 
+  footer:
+    -
+    -
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
