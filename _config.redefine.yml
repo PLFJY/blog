@@ -225,6 +225,7 @@ navbar:
         ZeroNode 零枢: https://zeronode.cn/"
         neo-bpsys-wpf: https://bpsys.plfjy.top/
         净灵: https://www.jinglingstu.top/
+        本站随机占位图片来自樱花: https://www.dmoe.cc/
   # Navbar search (local search). Requires hexo-generator-searchdb (npm i hexo-generator-searchdb). See https://github.com/theme-next/hexo-generator-searchdb
   search:
     # Whether to enable
@@ -298,8 +299,8 @@ articles:
   # Author label
   author_label: 
     enable: true # Whether to enable
-    auto: false # Whether to automatically add author label, e.g. Lv1, Lv2, Lv3...
-    list: []
+    auto: true # Whether to automatically add author label, e.g. Lv1, Lv2, Lv3...
+    list: ["Lv6"]
   # Code block settings
   code_block:
     copy: true # Whether to enable code block copy button
@@ -329,7 +330,7 @@ articles:
   # Article recommendation. Requires nodejieba (npm install nodejieba). Transplanted from hexo-theme-volantis.
   recommendation:
     # Whether to enable article recommendation
-    enable: false
+    enable: true
     # Article recommendation title
     title: 推荐阅读
     # Max number of articles to display
@@ -337,7 +338,7 @@ articles:
     # Max number of articles to display mobile
     mobile_limit: 2
     # Placeholder image
-    placeholder: /images/wallhaven-wqery6-light.webp
+    placeholder: https://www.dmoe.cc/random.php/
     # Skip directory
     skip_dirs: []
 # ARTICLE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
