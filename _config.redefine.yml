@@ -243,7 +243,7 @@ home:
     enable: true # Whether to enable sidebar
     position: left # Sidebar position. left, right
     first_item: menu # First item in sidebar. menu, info
-    announcement: 一个在代码中遨游的旅人 # Announcement text
+    announcement: アイ無限恒久☆永遠推し!!!☆ # Announcement text
     show_on_mobile: true # Whether to show sidebar navigation on mobile sheet menu
     links:
       标签: 
