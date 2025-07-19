@@ -1,0 +1,32 @@
+- category: 框架
+  icon: fa-folder # 分类的图标，使用 FontAwesome 图标
+  items:
+    - name: .Net
+      link: https://dotnet.microsoft.com/ # 从 url 改为 link
+      description: 一个安全、可靠且高性能的应用程序平台
+      image: https://dotnet.microsoft.com/blob-assets/images/dotnet-icons/square.png # 从 icon 改为 image，用于显示网站图标
+    - name: Avalonia
+      link: https://avaloniaui.net/
+      description: 免费开源的跨平台UI框架
+      image: https://framerusercontent.com/images/ZdwwfU7VZvXEsyJiWGIdNEl3ZE.png
+    - name: Hexo
+      link: https://hexo.io/zh-cn/
+      description: 快速、简洁且高效的博客框架
+      image: https://hexo.io/icon/favicon-96x96.png
+    - name: Redefine
+      link: https://github.com/EvanNotFound/hexo-theme-redefine
+      description: 一个好看的Hexo主题
+      image: https://redefine.ohevan.com/images/redefine-favicon.svg
+      
+
+- category: 工具
+  icon: fa-tools
+  items:
+    - name: docsmall
+      link: https://docsmall.com/image-compress
+      description: docsmall 提供在线图片压缩，在线图片压缩工具，可压缩PNG、JPG格式的图片，不牺牲视觉质量，极大压缩图片体积
+      image: https://docsmall.com/favicon.png
+    - name: hexo-asset-img
+      link: https://github.com/yiyungent/hexo-asset-img
+      description: 帮助我正常使用和预览博客图片的插件
+      image: https://static-production.npmjs.com/f1786e9b7cba9753ca7b9c40e8b98f67.png
