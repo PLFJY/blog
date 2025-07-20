@@ -1,30 +1,45 @@
 .description.flex.flex-col.justify-center.items-center.w-screen.font-medium.text-center {
-  text-shadow: #000 2.5px 2.5px 5px
+    text-shadow: #000 2.5px 2.5px 5px
 }
 
-.navbar-content.transition-navbar.has-home-banner .left .logo-title h1,
-.navbar-content.transition-navbar.has-home-banner .right .desktop a,
-.navbar-content.transition-navbar.has-home-banner .right .desktop a i,
-.navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-item.search.search-popup-trigger i {
-  color: #fff !important;
-  text-shadow: #000 1px 1px 10px
+.navbar-content.transition-navbar.has-home-banner .left .logo-title h1,.navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-item.search.search-popup-trigger i,.navbar-content.transition-navbar.has-home-banner .right .desktop a,.navbar-content.transition-navbar.has-home-banner .right .desktop a i {
+    color: #fff!important;
+    text-shadow: #000 1px 1px 10px
 }
 
-.navbar-content.transition-navbar.has-home-banner .right .desktop a:hover,
-.navbar-content.transition-navbar.has-home-banner .right .desktop a:hover i,
-.navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-item.search.search-popup-trigger i:hover {
-  color: var(--primary-color) !important;
-  text-shadow: #000 1px 1px 10px
+.navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-item.search.search-popup-trigger i:hover,.navbar-content.transition-navbar.has-home-banner .right .desktop a:hover,.navbar-content.transition-navbar.has-home-banner .right .desktop a:hover i {
+    color: var(--primary-color)!important;
+    text-shadow: #000 1px 1px 15px
 }
 
-.navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu,
-.navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu a:hover {
-  color: var(--primary-color) !important;
-  background: rgba(255, 255, 255, .2) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px)
+.navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu,.navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu a:hover {
+    background: rgba(255,255,255,.2)!important;
+    backdrop-filter: blur(10px)!important;
+    -webkit-backdrop-filter: blur(10px)!important;
+    fill-opacity: none
 }
 
 .navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-list .navbar-item .sub-menu a::after {
-  background: transparent !important
+    background: 0 0!important
+}
+
+.search-pop-overlay.active #result,.search-pop-overlay.active .search-header,.search-pop-overlay.active div {
+    border-radius: 8px
+}
+
+.search-pop-overlay.active div {
+    background: 0 0;
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px)
+}
+
+navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex {
+    background: rgb(from var(--background-color) r g b / 75%)!important;
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px)
+}
+
+.article-title.relative.w-full h1,
+div.article-header.flex.flex-row.gap-2.items-center.px-2.sm\:px-6.md\:px-8 div.info.flex.flex-col.justify-between div.author.flex.items-center span.name{
+    color: var(--default-text-color)
 }
