@@ -417,6 +417,7 @@ inject:
   enable: true
   # Inject custom head html code
   head: 
+    - <meta name="color-scheme" content="light dark">
     - <link rel="stylesheet" href="/css/adjust_bg.css">
   # Inject custom footer html code
   footer:
