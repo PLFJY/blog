@@ -419,10 +419,11 @@ inject:
   # Inject custom head html code
   head: 
     - <meta name="color-scheme" content="light dark">
-    - <link rel="stylesheet" href="/css/adjust_bg.css">
+    - <link rel="stylesheet" href="/css/custom.css">
   # Inject custom footer html code
   footer:
-    - <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/autoload.js"></script>
+    - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/autoload.js"></script>
+    - <script src="/js/dynamic-title.js"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
