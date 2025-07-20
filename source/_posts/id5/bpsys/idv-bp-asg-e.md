@@ -11,7 +11,7 @@ categories:
 ---
 
 本项目已停止维护，新作传送门 ==>
-[bp-sys-wpf](https://blog.plfjy.top/2024/08/18/bp-sys-wpf/)
+[bp-sys-wpf](../bp-sys-wpf/)
 
 ---
 

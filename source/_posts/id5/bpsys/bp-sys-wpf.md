@@ -1,6 +1,7 @@
 ---
 title: 最强自制第五人格BP展示软件（没有之一）
 date: 2024-08-19 00:09
+permalink: /id5/bpsys/bp-sys-wpf/
 tags: 
 - 第五人格
 - bp软件
@@ -11,7 +12,7 @@ categories:
 - 第五人格
 - bp软件
 ---
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112878350763126&bvid=BV15uvSeCEKf&cid=500001633071575&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112878350763126&bvid=BV15uvSeCEKf&cid=500001633071575&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
 ![bpfront](bp-sys-wpf/1.jpg)
 
@@ -35,7 +36,7 @@ categories:
 
 当前演示用的版本为V2.2
 
-本软件已在Github开源：[点击前往仓库](https://github.com/PLFJY/bp-sys-wpf)
+本软件已在Github开源：[PLFJY/bp-sys-wpf](https://github.com/PLFJY/bp-sys-wpf)
 
 **下载地址：**
 比较符合文章的版本：https://plfjy.lanzouq.com/ie1Q11tt7cgf
@@ -123,4 +124,4 @@ Resource：里面还有一个gui文件夹，用于存放软件前台的UI，可�
 
 对于源使用滤镜添加“色值”，关键颜色为“绿色”，相似度调整为刚刚好看不到绿色即可（多了会把要展示的也扣没了）
 
-**写在最后：** 建议安装“汉仪第五人格体”、“华康POP1体W5”、“得意黑”字体以达到更好的显示效果，不然会很丑，前两款字体可以在第五人格Wiki(dwrg.wiki)下方的“字体”处找到，后一款可在B站直接搜索到，由oooooohmygosh大佬制作
+**写在最后：** 建议安装“汉仪第五人格体”、“华康POP1体W5”、“得意黑”字体以达到更好的显示效果，不然会很丑，前两款字体可以在[第五人格Wiki](dwrg.wiki)下方的“字体”处找到，后一款可在B站直接搜索到，由oooooohmygosh大佬制作
