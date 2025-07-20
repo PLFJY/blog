@@ -226,7 +226,7 @@ navbar:
         neo-bpsys-wpf: https://bpsys.plfjy.top/
         净灵: https://www.jinglingstu.top/
         本站随机背景图片来自栗次元API: https://t.alcy.cc/
-        本站部分随机占位图来自樱花: https://www.dmoe.cc/
+        本站部分随机占位图来自LuoliAPI: https://www.loliapi.com/
   # Navbar search (local search). Requires hexo-generator-searchdb (npm i hexo-generator-searchdb). See https://github.com/theme-next/hexo-generator-searchdb
   search:
     # Whether to enable
@@ -339,7 +339,7 @@ articles:
     # Max number of articles to display mobile
     mobile_limit: 2
     # Placeholder image
-    placeholder: https://www.dmoe.cc/random.php/
+    placeholder: https://www.loliapi.com/acg/
     # Skip directory
     skip_dirs: []
 # ARTICLE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
