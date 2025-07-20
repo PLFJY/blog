@@ -1,9 +1,30 @@
-.description {
-  text-shadow:#000 2.5px 2.5px 5px;
+.description.flex.flex-col.justify-center.items-center.w-screen.font-medium.text-center {
+  text-shadow: #000 2.5px 2.5px 5px
 }
-.navbar-content .logo-title h1,
-.navbar-content .navbar-list .navbar-item i,
-.navbar-content .navbar-list .navbar-item a{
-  color:#fff!important;
-  text-shadow:#000 1px 1px 10px
+
+.navbar-content.transition-navbar.has-home-banner .left .logo-title h1,
+.navbar-content.transition-navbar.has-home-banner .right .desktop a,
+.navbar-content.transition-navbar.has-home-banner .right .desktop a i,
+.navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-item.search.search-popup-trigger i {
+  color: #fff !important;
+  text-shadow: #000 1px 1px 10px
+}
+
+.navbar-content.transition-navbar.has-home-banner .right .desktop a:hover,
+.navbar-content.transition-navbar.has-home-banner .right .desktop a:hover i,
+.navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-item.search.search-popup-trigger i:hover {
+  color: var(--primary-color) !important;
+  text-shadow: #000 1px 1px 10px
+}
+
+.navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu,
+.navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu a:hover {
+  color: var(--primary-color) !important;
+  background: rgba(255, 255, 255, .2) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px)
+}
+
+.navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-list .navbar-item .sub-menu a::after {
+  background: transparent !important
 }
