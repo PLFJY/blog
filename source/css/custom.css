@@ -60,7 +60,7 @@ navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex {
 }
 
 div.search-pop-overlay.active div.search-header{
-    background: #36363e!important;
+    opacity: 25%;
 }
 
 .article-title.relative.w-full h1,
