@@ -40,7 +40,7 @@ hexo server
 或者 powershell 上
 
 ```powershell
-.\server.bat
+.\server.ps1
 ```
 
 ### 到Github
