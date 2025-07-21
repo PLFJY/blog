@@ -12,14 +12,15 @@
 }
 
 .navbar-container .right .mobile .navbar-bar .navbar-bar-middle,
-.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:before,
-.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:after {
+.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:after,
+.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:before {
     background: #fff !important;
-    text-shadow: #000 1px 1px 10px
+    box-shadow: #000 1px 1px 10px
 }
 
 .navbar-drawer-show .navbar-container .right .mobile .navbar-bar .navbar-bar-middle {
     background: 0 0 !important;
+    box-shadow: 0 0
 }
 
 .navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-item.search.search-popup-trigger i:hover,
@@ -59,7 +60,7 @@ navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex {
     -webkit-backdrop-filter: blur(50px)
 }
 
-div.search-pop-overlay.active div.search-header{
+div.search-pop-overlay.active div.search-header {
     opacity: 25%;
 }
 
