@@ -47,7 +47,7 @@ Java因为是半编译型语言，所以是跑在一个叫做 JVM (Java Virtual 
 
 ## 配环境
 
-接下来是装JDK配环境，直接看别人写好的文章就好了，我不造轮子了
+接下来是装 JDK 配环境，直接看别人写好的文章就好了，我不造轮子了
 
 - [Windows](https://developer.aliyun.com/article/1572475)
 - [Mac](https://juejin.cn/post/7477926585087213604)
@@ -57,11 +57,11 @@ Java因为是半编译型语言，所以是跑在一个叫做 JVM (Java Virtual 
 
 然后是你写代码的地方，你总不可能拿记事本写不是？
 
-下载个VS Code -\> https://code.visualstudio.com/Download
+下载个 VS Code -\> https://code.visualstudio.com/Download
 
-然后调中文这一步我就不教了，都要考AP了还调什么中文
+然后调中文这一步我就不教了，都要考 AP 了还调什么中文
 
-左边Extension打开，搜索Java，然后安装第一个就行
+左边 Extensions 打开，搜索 Java，然后安装第一个就行
 
 ## 写代码
 
