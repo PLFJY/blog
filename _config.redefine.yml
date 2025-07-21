@@ -421,6 +421,7 @@ inject:
   enable: true
   # Inject custom head html code
   head: 
+    - <meta name="baidu-site-verification" content="codeva-30XQxsoqso" />
     - <meta name="color-scheme" content="light dark">
     - <link rel="stylesheet" href="/css/custom.css">
   # Inject custom footer html code
