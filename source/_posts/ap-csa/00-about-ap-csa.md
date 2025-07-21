@@ -30,4 +30,6 @@ A: 不，会基础就好，最难也就递归了
 
 A: 个人认为理解了本质就很好上手，下面是考试大纲，我接下来的文章会按照我自己的新编排序来讲，理解完再回去看大纲然后刷题，结束
 
-![ap csa range](00-about-ap-csa/ap csa range.png)
+### 考试大纲
+
+![ap csa range](00-about-ap-csa/ap-csa-range.png)

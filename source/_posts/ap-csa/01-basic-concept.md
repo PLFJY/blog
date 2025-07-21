@@ -7,7 +7,6 @@ tags:
 - AP CSA
 categories:
 - AP CSA
-
 ---
 
 ## 先介绍一些编程基础概念：
@@ -51,9 +50,7 @@ Java因为是半编译型语言，所以是跑在一个叫做 JVM (Java Virtual 
 
 - [Windows](https://developer.aliyun.com/article/1572475)
 - [Mac](https://juejin.cn/post/7477926585087213604)
-- <button onclick="alert('都玩Linux了还用我教吗')" 
-              class="bg-primary hover:bg-secondary text-white font-medium py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-lg">
-              Linux</button>
+- <a onclick="alert('都玩Linux了还用我教吗')" >Linux</a>
 
 然后是你写代码的地方，你总不可能拿记事本写不是？
 
@@ -71,7 +68,6 @@ Java因为是半编译型语言，所以是跑在一个叫做 JVM (Java Virtual 
 public class <你刚刚敲进去的文件名> {
     
 }
-
 ```
 
 在这个地方里面直接粘贴下面的代码，现在先不用管，后面的章节我会解释这个什么意思
@@ -87,5 +83,23 @@ public static void main(String[] args) {
 ![image-20250721123619401](01-basic-concept/image-20250721123619401.png)
 
 你看到那个 `Hello World` 就是成功了
+
+## 一定一定要注意的
+
+编程中的所有符号全部给我用英文的半角符号，比如逗号，区分一下，`，` 这个是中文的，`,` 这个是英文的，中文的是全角符号，会比英文的宽好多，而且会圆润一点，你敲中文的编译器不认识，敲错了没看出来别说你编程是我教的
+
+以下是容易敲错符号的列表，代码跑不起来的时候请自查符号问题：
+
+|符号名称|中文符号|英文符号|
+|-------|------|-------|
+|逗号 comma|`，`|`,`|
+|分号 semicolon|`；`|`;`|
+|句点 period|`。`|`.`|
+|小括号 curve|`（` `）`|`(` `)`|
+|中括号 square bracket|`【` `】`|`[` `]`|
+|大括号 bracket|`「` `」`|`{` `}`|
+|感叹号 bang or shriek|`！`|`!`|
+|双引号 double quotes|`“` `”`|`"` `"`|
+|单引号 single quote|`‘` `’`|`'` `'`|
 
 本章节到此结束

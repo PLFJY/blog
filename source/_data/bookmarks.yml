@@ -1,3 +1,31 @@
+- category: 本站的重要组成部分
+  icon: fa-star # 分类的图标，使用 FontAwesome 图标
+  items:
+    - name: CloudFlare
+      link: https://www.cloudflare.com/
+      description: 免费提供了本站的资源托管和域名CDN的服务
+      image: https://www.cloudflare-cn.com/favicon.ico
+    - name: Github
+      link: https://github.com/
+      description: "免费提供了本站的代码托管和静态内容自动构建，同时托管了PLFJYの大量代码"
+      image: https://github.githubassets.com/favicons/favicon.svg
+    - name: Hexo
+      link: https://hexo.io/zh-cn/
+      description: 快速、简洁且高效的博客框架
+      image: https://ts3.tc.mm.bing.net/th/id/OIP-C.O6GwwULa7qHXmWT1UwrIcAHaHa?rs=1&pid=ImgDetMain
+    - name: Redefine
+      link: https://github.com/EvanNotFound/hexo-theme-redefine
+      description: 一个好看的Hexo主题
+      image: https://redefine.ohevan.com/images/redefine-favicon.svg
+    - name: hexo-asset-img
+      link: https://github.com/yiyungent/hexo-asset-img
+      description: 帮助我正常使用和预览博客图片的插件
+      image: https://static-production.npmjs.com/f1786e9b7cba9753ca7b9c40e8b98f67.png
+    - name: live2d-widget
+      link: https://github.com/stevenjoezhang/live2d-widget
+      description: 左下角的不一定看得见的看板娘
+      image: https://github.githubassets.com/favicons/favicon.svg
+
 - category: 框架
   icon: fa-folder # 分类的图标，使用 FontAwesome 图标
   items:
@@ -9,15 +37,6 @@
       link: https://avaloniaui.net/
       description: 免费开源的跨平台UI框架
       image: https://framerusercontent.com/images/ZdwwfU7VZvXEsyJiWGIdNEl3ZE.png
-    - name: Hexo
-      link: https://hexo.io/zh-cn/
-      description: 快速、简洁且高效的博客框架
-      image: https://hexo.io/icon/favicon-96x96.png
-    - name: Redefine
-      link: https://github.com/EvanNotFound/hexo-theme-redefine
-      description: 一个好看的Hexo主题
-      image: https://redefine.ohevan.com/images/redefine-favicon.svg
-      
 
 - category: 工具
   icon: fa-tools
@@ -26,7 +45,3 @@
       link: https://docsmall.com/image-compress
       description: docsmall 提供在线图片压缩，在线图片压缩工具，可压缩PNG、JPG格式的图片，不牺牲视觉质量，极大压缩图片体积
       image: https://docsmall.com/favicon.png
-    - name: hexo-asset-img
-      link: https://github.com/yiyungent/hexo-asset-img
-      description: 帮助我正常使用和预览博客图片的插件
-      image: https://static-production.npmjs.com/f1786e9b7cba9753ca7b9c40e8b98f67.png
