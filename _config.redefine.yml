@@ -424,9 +424,9 @@ inject:
     - <meta name="baidu-site-verification" content="codeva-30XQxsoqso" />
     - <meta name="color-scheme" content="light dark">
     - <link rel="stylesheet" href="/css/custom.css">
+    - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/autoload.js"></script>
   # Inject custom footer html code
   footer:
-    - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/autoload.js"></script>
     - <script src="/js/dynamic-title.js"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
