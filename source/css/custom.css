@@ -32,7 +32,7 @@
 
 .navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu,
 .navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu a:hover {
-    background: rgba(255, 255, 255, .2) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
     fill-opacity: none
@@ -54,7 +54,7 @@
     -webkit-backdrop-filter: blur(50px)
 }
 
-div.navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex {
+.navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex {
     background: rgb(from var(--background-color) r g b / 75%) !important;
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px)
@@ -87,7 +87,8 @@ div.search-pop-overlay.active div.search-header {
 }
 
 .home-sidebar-container .sidebar-content .statistics.flex.justify-around.my-2\.5 a .label.text-third-text-color.text-sm,
-.author.flex.items-center .author-label.ml-1\.5.text-xs.px-2.py-0\.5.rounded-small.text-third-text-color.border.border-shadow-color-1 {
+.author.flex.items-center .author-label.ml-1\.5.text-xs.px-2.py-0\.5.rounded-small.text-third-text-color.border.border-shadow-color-1,
+.navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex.flex-col.justify-between div a .label.text-third-text-color.text-sm {
     color: var(--third-text-color)
 }
 
