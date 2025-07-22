@@ -1,5 +1,5 @@
 ---
-title: KNN的浅薄学习笔记
+title: KNN 的浅薄学习笔记
 date: 2025-07-22 17:32:37
 tags:
 - python
