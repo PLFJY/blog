@@ -54,7 +54,7 @@
     -webkit-backdrop-filter: blur(50px)
 }
 
-#swup > div.main-content-container.flex.flex-col.justify-between.min-h-dvh > div.main-content-header > header > div.navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex.flex-col.justify-between {
+.navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex.flex-col.justify-between {
     background: rgb(from var(--background-color) r g b / 75%) !important;
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px)
