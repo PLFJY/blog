@@ -203,93 +203,193 @@ Similarity(3,160) #checking similarity between any 2 random movies
 
 那么我们现在看到，这个代码的遍历方式和比较方式是很笨拙的，可扩展性不高，要是再有多一点东西，基本上就能感觉到修改极其吃力，并且我们理解也需要花很高的成本
 
-在我看来，我觉得这个电影可以直接写成一个类，然后电影集合也可以是一个类，这样提高了可服用性和可扩展性，同时在实际的应用开发中也提高了可维护性，以下代码为 AI 生成的实例，主要是为了体现面向对象编程的思想
+下面这个音乐分类的例子采用了面向对象的思想
 
 ```python
-import pandas as pd
-import numpy as np
-from scipy import spatial
+import random
+from typing import List, Dict, Tuple, Optional
+from py_linq import Enumerable
 
-# 电影类
-class Movie:
-    def __init__(self, original_title, genres, vote_average, 
-                 genres_bin, cast_bin, director_bin, words_bin):
-        self.original_title = original_title  # 电影标题
-        self.genres = genres                  # 类型
-        self.vote_average = vote_average      # 评分
-        self.genres_bin = genres_bin          # 类型二进制向量
-        self.cast_bin = cast_bin              # 演员二进制向量
-        self.director_bin = director_bin      # 导演二进制向量
-        self.words_bin = words_bin            # 关键词二进制向量
+GENRES = ["classical", "rock", "jazz", "pop", "hiphop", "electronic"]
 
-    # 计算与另一部电影的相似度（距离越小越相似）
-    def similarity(self, other):
-        # 计算各特征的余弦距离
-        genre_dist = spatial.distance.cosine(self.genres_bin, other.genres_bin)
-        cast_dist = spatial.distance.cosine(self.cast_bin, other.cast_bin)
-        director_dist = spatial.distance.cosine(self.director_bin, other.director_bin)
-        words_dist = spatial.distance.cosine(self.words_bin, other.words_bin)
+ARTISTS = {
+    "classical": ["Bach", "Mozart", "Beethoven", "Chopin", "Tchaikovsky"],
+    "rock": ["The Beatles", "The Rolling Stones", "Queen", "AC/DC", "Nirvana"],
+    "jazz": ["Miles Davis", "Louis Armstrong", "Duke Ellington", "Charlie Parker"],
+    "pop": ["Taylor Swift", "Ed Sheeran", "Rihanna", "Bruno Mars"],
+    "hiphop": ["Jay-Z", "Kendrick Lamar", "Eminem", "Drake"],
+    "electronic": ["Deadmau5", "Daft Punk", "Avicii", "Skrillex"]
+}
+
+KEYS = ["C Major", "D Major", "E Major", "F Major", "G Major", "A Major", "B Major",
+        "C Minor", "D Minor", "E Minor", "F Minor", "G Minor", "A Minor", "B Minor"]
+
+LANGUAGES = ["English", "中文", "한국어", "日本語", "Español", "Русский язык", "اللغة العربية", "Français"]
+
+class Music:
+    def __init__(self, title, genre, bpm, artist, key, lang, complexity, is_labeled = False):
+        self.title = title
+        self.genre = genre
+        self.bpm = bpm
+        self.artist = artist
+        self.key = key
+        self.lang = lang
+        self.complexity = complexity
+        self.is_labeled = is_labeled
+
+    def __repr__(self) -> str:
+        return f"{self.title}: {self.genre} (BPM: {self.bpm:.1f}, Artist: {self.artist})"
+    
+    def artist_diff(self, other):
+        if(self.artist == other.artist):
+            return 0
+            
+        self_artist_key = (Enumerable(ARTISTS.items())
+                           .where(lambda x : self.artist in x[1])
+                           .select(lambda x : x[0])
+                           .first())
         
-        # 总距离为各特征距离之和
-        return genre_dist + cast_dist + director_dist + words_dist
-
-
-# 电影集合类：管理所有电影，提供查询和推荐功能
-class MovieCollection:
-    def __init__(self, movies_df):
-        # 将DataFrame转换为Movie对象列表
-        self.movies = []
-        for _, row in movies_df.iterrows():
-            movie = Movie(
-                original_title=row['original_title'],
-                genres=row['genres'],
-                vote_average=row['vote_average'],
-                genres_bin=row['genres_bin'],
-                cast_bin=row['cast_bin'],
-                director_bin=row['director_bin'],
-                words_bin=row['words_bin']
-            )
-            self.movies.append(movie)
-
-    # 根据标题查找电影
-    def find_movie(self, title):
-        for movie in self.movies:
-            if title in movie.original_title:
-                return movie
-        return None
-
-    # 预测电影评分（通过K近邻）
-    def predict_rating(self, title, k=10):
-        target_movie = self.find_movie(title)
-        if not target_movie:
-            print(f"未找到电影：{title}")
-            return
-
-        print(f"选中的电影：{target_movie.original_title}")
+        return 1 if other.artist in ARTISTS[self_artist_key] else 2
         
-        # 计算与其他所有电影的距离
+    def genres_diff(self, other):
+        return 0 if self.genre == other.genre else 2
+    
+    def keys_diff(self, other):
+        return 0 if self.key == other.key else 2
+        
+    def langs_diff(self, other):
+        return 0 if self.lang == other.lang else 2
+    
+    def bpm_diff(self, other):
+        return abs(self.bpm - other.bpm)
+    
+    def distance(self, other):
+        return self.artist_diff(other) + self.bpm_diff(other) + self.genres_diff(other) + self.keys_diff(other) + self.langs_diff(other)
+
+class Music_Collection:
+    def __init__(self, l):
+        self.l = l
+
+    def find_neighbors(self, music, num):
         distances = []
-        for movie in self.movies:
-            if movie != target_movie:
-                dist = target_movie.similarity(movie)
-                distances.append((movie, dist))
-        
-        # 按距离排序，取前K个近邻
-        distances.sort(key=lambda x: x[1])
-        neighbors = distances[:k]
+        for item in self.l:
+            if(item == music):
+                continue
+            distances.append((music.distance(item), item))
 
-        # 输出推荐结果并计算平均评分
-        print("\n推荐电影：")
-        total_rating = 0
-        for neighbor, _ in neighbors:
-            total_rating += neighbor.vote_average
-            genres_str = str(neighbor.genres).strip('[]').replace(' ', '')
-            print(f"{neighbor.original_title} | 类型：{genres_str} | 评分：{neighbor.vote_average}")
+        distances.sort(key=lambda x : x[0])
+        return [item for (dist, item) in distances[:num]]
+
+# Generated By AI
+class MusicDataGenerator:
+    """静态音乐数据生成器类，提供静态方法生成符合特征范围的随机数据集"""
+    # 静态方法无需实例化即可调用
+    @staticmethod
+    def set_seed(seed: int) -> None:
+        """设置随机种子，用于复现结果"""
+        random.seed(seed)
+    
+    @staticmethod
+    def generate_music(genre: str, title: str, is_labeled: bool = True) -> Music:
+        GENRE_FEATURE_RANGES = {
+        "classical": {"bpm_min": 60, "bpm_max": 120, "complexity": (7, 10)},
+        "rock": {"bpm_min": 100, "bpm_max": 160, "complexity": (5, 8)},
+        "jazz": {"bpm_min": 80, "bpm_max": 140, "complexity": (6, 10)},
+        "pop": {"bpm_min": 100, "bpm_max": 130, "complexity": (3, 6)},
+        "hiphop": {"bpm_min": 80, "bpm_max": 110, "complexity": (4, 7)},
+        "electronic": {"bpm_min": 120, "bpm_max": 180, "complexity": (5, 9)}
+        }
+        """生成一首特定类型的音乐"""
+        if genre not in GENRE_FEATURE_RANGES:
+            raise ValueError(f"Unknown genre: {genre}")
+            
+        features = GENRE_FEATURE_RANGES[genre]
         
-        # 计算预测评分
-        predicted_rating = total_rating / k
-        print(f"\n《{target_movie.original_title}》的预测评分：{predicted_rating:.2f}")
-        print(f"《{target_movie.original_title}》的实际评分：{target_movie.vote_average:.2f}")
+        # 在类型特征范围内生成BPM
+        bpm = random.uniform(features["bpm_min"], features["bpm_max"])
+        
+        # 从该类型的艺术家列表中随机选择
+        artist = random.choice(ARTISTS[genre])
+        
+        # 随机选择音调和语言
+        key = random.choice(KEYS)
+        lang = random.choice(LANGUAGES)
+        
+        # 生成复杂度
+        complexity = random.uniform(features["complexity"][0], features["complexity"][1])
+        
+        return Music(
+            title=title,
+            genre=genre,
+            bpm=bpm,
+            artist=artist,
+            key=key,
+            lang=lang,
+            complexity=complexity,
+            is_labeled=is_labeled
+        )
+    
+    @staticmethod
+    def generate_by_genre(genre: str, count: int, start_index: int = 0) -> List[Music]:
+        """生成指定数量的特定类型音乐"""
+        music_list = []
+        for i in range(count):
+            title = f"{genre}_track_{start_index + i + 1}"
+            music = MusicDataGenerator.generate_music(genre, title)
+            music_list.append(music)
+        return music_list
+    
+    @staticmethod
+    def generate_balanced_dataset(total_count: int) -> List[Music]:
+        """生成均衡的数据集，每个类型数量大致相同"""
+        genre_count = len(GENRES)
+        base_count = total_count // genre_count
+        remainder = total_count % genre_count
+        
+        dataset = []
+        current_index = 0
+        
+        for i, genre in enumerate(GENRES):
+            # 分配数量，处理余数
+            count = base_count + (1 if i < remainder else 0)
+            genre_tracks = MusicDataGenerator.generate_by_genre(genre, count, current_index)
+            dataset.extend(genre_tracks)
+            current_index += count
+        
+        # 打乱数据集顺序
+        random.shuffle(dataset)
+        return dataset
+    
+    @staticmethod
+    def generate_unknown_music(count: int) -> List[Music]:
+        """生成指定数量的未分类音乐"""
+        unknowns = []
+        for i in range(count):
+            # 随机选择一个类型作为基础，但不设置标签
+            genre = random.choice(GENRES)
+            title = f"unknown_track_{i+1}"
+            music = MusicDataGenerator.generate_music(genre, title, is_labeled=False)
+            music.genre = "unknown"  # 清除标签
+            unknowns.append(music)
+        return unknowns
+
+if(__name__ == "__main__"):
+    # random seed insure reproducible
+    MusicDataGenerator.set_seed(45)
+    
+    training_data = MusicDataGenerator.generate_balanced_dataset(20)
+
+    collection = Music_Collection(training_data)
+    
+    # unknown music genrate
+    unknown_tracks = MusicDataGenerator.generate_unknown_music(1)
+    
+    print("Found Tracks:\n")
+
+    found_tracks = collection.find_neighbors(unknown_tracks[0], 10)
+
+    for track in found_tracks:
+        print(track)
 ```
 
    
