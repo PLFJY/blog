@@ -330,7 +330,7 @@ class MusicDataGenerator:
         )
     
     @staticmethod
-    def generate_by_genre(genre: str, count: int, start_index: int = 0) -> List[Music]:
+    def generate_by_genre(genre: str, count: int = 1, start_index: int = 0) -> List[Music]:
         """生成指定数量的特定类型音乐"""
         music_list = []
         for i in range(count):
@@ -340,7 +340,7 @@ class MusicDataGenerator:
         return music_list
     
     @staticmethod
-    def generate_balanced_dataset(total_count: int) -> List[Music]:
+    def generate_balanced_dataset(total_count: int = 1) -> List[Music]:
         """生成均衡的数据集，每个类型数量大致相同"""
         genre_count = len(GENRES)
         base_count = total_count // genre_count
@@ -361,7 +361,7 @@ class MusicDataGenerator:
         return dataset
     
     @staticmethod
-    def generate_unknown_music(count: int) -> List[Music]:
+    def generate_unknown_music(count: int = 1) -> List[Music]:
         """生成指定数量的未分类音乐"""
         unknowns = []
         for i in range(count):
@@ -376,18 +376,17 @@ class MusicDataGenerator:
 if(__name__ == "__main__"):
     # random seed insure reproducible
     MusicDataGenerator.set_seed(45)
-    
-    training_data = MusicDataGenerator.generate_balanced_dataset(20)
+    training_data = MusicDataGenerator.generate_balanced_dataset(1000)
+    collection = Music_Collection(training_data) # training data generate
 
-    collection = Music_Collection(training_data)
-    
     # unknown music genrate
-    unknown_tracks = MusicDataGenerator.generate_unknown_music(1)
-    
-    print("Found Tracks:\n")
-
+    # unknown_tracks = MusicDataGenerator.generate_by_genre("pop")
+    # unknown_tracks = MusicDataGenerator.generate_by_genre("classical")
+    # unknown_tracks = MusicDataGenerator.generate_by_genre("rock")
+    unknown_tracks = MusicDataGenerator.generate_by_genre("electronic")
+    print(f"Unknown tracks detail is:{unknown_tracks[0]}")
+    print("\nFound Tracks:")
     found_tracks = collection.find_neighbors(unknown_tracks[0], 10)
-
     for track in found_tracks:
         print(track)
 ```
