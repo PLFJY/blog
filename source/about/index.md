@@ -33,6 +33,7 @@ public class 零风PLFJY : 男生
         //社交账号
         Console.WriteLine("BiliBili: 零风PLFJY");
         Console.WriteLine("QQ: 3424127335");
+        Console.WriteLine("E-Mail: zero_plfjy@outlook.com");
         Console.WriteLine("GitHub: https://github.com/PLFJY");
         //个人网站
         Console.WriteLine("主页: https://plfjy.top/");
