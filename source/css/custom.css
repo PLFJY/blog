@@ -14,7 +14,7 @@
 .navbar-container .right .mobile .navbar-bar .navbar-bar-middle,
 .navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:after,
 .navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:before {
-    background: #fff !important;
+    background: var(--primary-color) !important;
     box-shadow: #000 1px 1px 10px
 }
 

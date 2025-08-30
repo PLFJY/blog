@@ -424,7 +424,6 @@ inject:
   # Inject custom footer html code
   footer:
     - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/autoload.js"></script>
-    - <script src="/js/dynamic-title.js"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
