@@ -11,14 +11,21 @@
     text-shadow: #000 1px 1px 10px
 }
 
-.navbar-container .right .mobile .navbar-bar .navbar-bar-middle,
+.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle,
 .navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:after,
 .navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:before {
-    background: var(--primary-color) !important;
+    background: #fff !important;
     box-shadow: #000 1px 1px 10px
 }
 
-.navbar-drawer-show .navbar-container .right .mobile .navbar-bar .navbar-bar-middle {
+.navbar-content .icon-item.navbar-bar .navbar-bar-middle,
+.navbar-content .icon-item.navbar-bar .navbar-bar-middle:after,
+.navbar-content .icon-item.navbar-bar .navbar-bar-middle:before {
+    background: var(--default-text-color);
+}
+
+
+.navbar-drawer-show .navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle {
     background: 0 0 !important;
     box-shadow: 0 0
 }
