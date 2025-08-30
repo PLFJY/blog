@@ -1,1 +1,0 @@
-var timeout,OriginTitle=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="🤨 嗯嗯？怎么就走了！~",clearTimeout(timeout)):(document.title="😊 欢迎回来（嘻嘻）！",timeout=setTimeout(function(){document.title=OriginTitle},3e3))});
