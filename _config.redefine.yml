@@ -25,11 +25,11 @@ info:
 # Docs: https://redefine-docs.ohevan.com/basic/defaults
 defaults:
   # Favicon
-  favicon: /img/header.PNG
+  favicon: /img/header.png
   # Site logo
-  logo: /img/header.PNG
+  logo: /img/header.png
   # Site avatar
-  avatar: /img/header.PNG
+  avatar: /img/header.png
 # IMAGE CONFIGURATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -99,7 +99,7 @@ global:
   # Whether to enable open graph
   open_graph:
     enable: true
-    image: /img/header.PNG  # default og:image
+    image: /img/header.png  # default og:image
     description: PLFJY's Blog
   # Google Analytics
   google_analytics:
