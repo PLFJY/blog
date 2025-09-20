@@ -112,3 +112,8 @@ deploy:
 css_minifier:
   exclude:
     - "tailwind.source.css"
+
+markdown:
+  plugins:
+    - "markdown-it"
+    - "markdown-it-mark"

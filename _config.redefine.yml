@@ -421,6 +421,9 @@ inject:
     - <meta name="baidu-site-verification" content="codeva-30XQxsoqso" />
     - <meta name="color-scheme" content="light dark">
     - <link rel="stylesheet" href="/css/custom.css">
+#    - <script src="/js/latex.js"></script>
+#    - <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+#    - <script src="/js/highlight_text.js"></script>
   # Inject custom footer html code
   footer:
     - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/autoload.js"></script>

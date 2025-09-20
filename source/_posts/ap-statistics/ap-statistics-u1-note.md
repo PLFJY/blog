@@ -225,7 +225,7 @@ Def: 数据围绕平均值的离散程度
 
 Formula: 
 
-$z=\frac{x-mean}{standard \quad deviation}$
+$z=\frac{x-mean}{standard\ deviation}$
 
 > $x$ is below/above the mean by $z$ standard deviation
 
@@ -286,7 +286,7 @@ $N(0,1)$ 代表标准化后数据以0作为mean，1作为标准差得到的分�
 
 ##### 算出两个Z-Score区间内的数据所占整体的比例
 
-会被分成Standard Normal $N(0,1)$或者Normal (before standarded) $N(\mu(mean),\sigma(Standard \quad deviation))$ 两种情况
+会被分成Standard Normal $N(0,1)$或者Normal (before standarded) $N(\mu(mean),\sigma(Standard\ deviation))$ 两种情况
 
 找表然后相减
 
