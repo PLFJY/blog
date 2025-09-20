@@ -1,5 +1,4 @@
 cd "%~dp0"
 git add .
 git commit -m "Auto Commit"
-git pull
 git push
