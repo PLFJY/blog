@@ -39,9 +39,7 @@
 
 .navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu,
 .navbar-content.transition-navbar.has-home-banner .right .desktop .sub-menu a:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+    background: linear-gradient(120deg,rgba(200,157,235,.145) 0,rgba(152,156,240,.145) 100%) !important;
     fill-opacity: none
 }
 
