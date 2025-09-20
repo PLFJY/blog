@@ -53,7 +53,7 @@ git push
 
 或者 powershell 上
 
-```bat
+```powershell
 .\push.bat
 ```
 
