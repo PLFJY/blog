@@ -183,7 +183,7 @@ $x < Q_1 - 1.5 \times IQR$	or	$x > Q_3 + 1.5 \times IQR$
 >
 > We can't know: sample size, sample mean
 
-### Standard Deviation ($s_x$) $>= 0$
+### Standard Deviation 标准方差 $s_x >= 0$
 
 $$
 s_x^2 = \frac{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \cdots + (x_n - \bar{x})^2}{n - 1} = \frac{1}{n - 1} \sum (x_i - \bar{x})^2$
