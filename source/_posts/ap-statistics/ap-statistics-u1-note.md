@@ -153,7 +153,7 @@ frequency histogram / relative frequency histogram (more useful)
 
 ### Median
 
-$Q_2$(value at 50%)
+$Q_2(value\ at\ 50\%)$
 
 ### Mode
 
@@ -165,11 +165,11 @@ maximum - minimum
 
 ### IQR (描述波动性的)
 
-$Q_3$(value at 75%) - $Q_1$(value at 25%)
+$Q_3(value\ at\ 75\%) - Q_1(value\ at\ 25\%)$
 
 #### Identify outliers:
 
-x < $Q_1$ - 1.5 * IQR	or	x > $Q_3$ + 1.5 * IQR
+$x < Q_1 - 1.5 \times IQR$	or	$x > Q_3 + 1.5 \times IQR$
 
 #### Box Plot
 
@@ -185,9 +185,13 @@ x < $Q_1$ - 1.5 * IQR	or	x > $Q_3$ + 1.5 * IQR
 
 ### Standard Deviation ($s_x$) $>= 0$
 
-$s_x^2 = \frac{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \cdots + (x_n - \bar{x})^2}{n - 1} = \frac{1}{n - 1} \sum (x_i - \bar{x})^2$
-
-$s_x = \sqrt{\frac{1}{n - 1} \sum (x_i - \bar{x})^2} = \sqrt{s_x^2}$
+$$
+s_x^2 = \frac{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \cdots + (x_n - \bar{x})^2}{n - 1} = \frac{1}{n - 1} \sum (x_i - \bar{x})^2$
+$$
+$$
+s_x = \sqrt{\frac{1}{n - 1} \sum (x_i - \bar{x})^2} 
+= \sqrt{s_x^2}$
+$$
 
 s: sample variance 样本方差	VS	population variance 总体方差
 
@@ -225,7 +229,9 @@ Def: 数据围绕平均值的离散程度
 
 Formula: 
 
-$z=\frac{x-mean}{standard\ deviation}$
+$$
+z=\frac{x-mean}{standard\ deviation}
+$$
 
 > $x$ is below/above the mean by $z$ standard deviation
 
@@ -286,7 +292,7 @@ $N(0,1)$ 代表标准化后数据以0作为mean，1作为标准差得到的分�
 
 ##### 算出两个Z-Score区间内的数据所占整体的比例
 
-会被分成Standard Normal $N(0,1)$或者Normal (before standarded) $N(\mu(mean),\sigma(Standard\ deviation))$ 两种情况
+会被分成Standard Normal $N(0,1)$或者Normal (before standarded) $N(\ \mu\ (mean),\sigma\ (Standard\ deviation)\ )$ 两种情况
 
 找表然后相减
 
