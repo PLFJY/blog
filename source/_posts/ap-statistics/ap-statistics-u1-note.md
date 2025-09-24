@@ -186,11 +186,11 @@ $x < Q_1 - 1.5 \times IQR$	or	$x > Q_3 + 1.5 \times IQR$
 ### Standard Deviation 标准方差 $s_x >= 0$
 
 $$
-s_x^2 = \frac{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \cdots + (x_n - \bar{x})^2}{n - 1} = \frac{1}{n - 1} \sum (x_i - \bar{x})^2$
+s_x^2 = \frac{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \cdots + (x_n - \bar{x})^2}{n - 1} = \frac{1}{n - 1} \sum (x_i - \bar{x})^2
 $$
 $$
 s_x = \sqrt{\frac{1}{n - 1} \sum (x_i - \bar{x})^2} 
-= \sqrt{s_x^2}$
+= \sqrt{s_x^2}
 $$
 
 s: sample variance 样本方差	VS	population variance 总体方差
