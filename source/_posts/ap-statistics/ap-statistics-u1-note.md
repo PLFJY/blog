@@ -154,7 +154,7 @@ frequency histogram / relative frequency histogram (more useful)
 
 ### Median
 
-$Q_2(value\ at\ 50\%)$
+$Q_2 \text{ (value at 50\%) }$
 
 ### Mode
 
@@ -166,7 +166,7 @@ maximum - minimum
 
 ### IQR (描述波动性的)
 
-$Q_3(value\ at\ 75\%) - Q_1(value\ at\ 25\%)$
+$Q_3\text{ (value at 75\%) } - Q_1 \text{ (value at 25\%) }$
 
 #### Identify outliers:
 
@@ -231,7 +231,7 @@ Def: 数据围绕平均值的离散程度
 Formula: 
 
 $$
-z=\frac{x-mean}{standard\ deviation}
+z=\frac{x-\text{mean}}{ \text{ standard deviation } }
 $$
 
 > $x$ is below/above the mean by $z$ standard deviation
@@ -293,7 +293,7 @@ $N(0,1)$ 代表标准化后数据以0作为mean，1作为标准差得到的分�
 
 ##### 算出两个Z-Score区间内的数据所占整体的比例
 
-会被分成Standard Normal $N(0,1)$或者Normal (before standarded) $N(\ \mu\ (mean),\sigma\ (Standard\ deviation)\ )$ 两种情况
+会被分成Standard Normal $N(0,1)$或者Normal (before standarded) $N(\mu \text{ (mean) },\sigma \text{ (Standard deviation) })$ 两种情况
 
 找表然后相减
 
