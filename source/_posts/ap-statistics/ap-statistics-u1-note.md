@@ -106,7 +106,7 @@ The proportion of count of all individuals in a variable among the total individ
 
 表示数据的离散程度，分散就大，聚合就小
 
-一般用 Range 或者 [standard deviation](#Standard Deviation 标准方差 $s_x >= 0$)
+一般用 Range 或者 [standard deviation](#Standard Deviation 标准方差 $s_x>=0$)
 
 #### Outliers 
 
@@ -183,7 +183,7 @@ $x < Q_1 - 1.5 \times IQR$	or	$x > Q_3 + 1.5 \times IQR$
 >
 > We can't know: sample size, sample mean
 
-### Standard Deviation 标准方差 $s_x >= 0$
+### Standard Deviation 标准方差 $s_x>=0$
 
 $$
 s_x^2 = \frac{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \cdots + (x_n - \bar{x})^2}{n - 1} = \frac{1}{n - 1} \sum (x_i - \bar{x})^2
