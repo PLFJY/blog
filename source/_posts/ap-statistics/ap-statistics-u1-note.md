@@ -106,7 +106,7 @@ The proportion of count of all individuals in a variable among the total individ
 
 表示数据的离散程度，分散就大，聚合就小
 
-一般用 Range 或者 [standard deviation](#Standard Deviation ($s_x$) $>= 0$)
+一般用 Range 或者 [standard deviation](#Standard Deviation 标准方差 $s_x >= 0$)
 
 #### Outliers 
 
