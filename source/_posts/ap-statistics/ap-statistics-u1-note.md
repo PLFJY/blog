@@ -154,7 +154,7 @@ frequency histogram / relative frequency histogram (more useful)
 
 ### Median
 
-$Q_2 \text{ (value at 50\%) }$
+$Q_2$ (value at 50%)
 
 ### Mode
 
@@ -166,7 +166,7 @@ maximum - minimum
 
 ### IQR (描述波动性的)
 
-$Q_3\text{ (value at 75\%) } - Q_1 \text{ (value at 25\%) }$
+$Q_3$ (value at 75%) - $Q_1$ (value at 25%) 
 
 #### Identify outliers:
 
