@@ -112,7 +112,7 @@ The proportion of count of all individuals in a variable among the total individ
 
 异常值 （极大或极小）
 
-[How to determine](./#Identify outliers)
+[How to determine](#Identify outliers)
 
 #### An example
 > The data shows that the distribution is roughly symmetric.*(Reason)* Therefore it is approximately as a normal distribution.*(Shape)* The center of the data is between 227 and 252.*(Center)* The data varies from 56 to 422.*(Spread)* We do not see any observations outside the pattern of the distribution.*(Outliers)*
