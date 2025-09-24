@@ -75,7 +75,7 @@ global:
     scale: true # scale effect
   # Scroll progress
   scroll_progress:
-    bar: false # progress bar
+    bar: true # progress bar
     percentage: true # percentage
   # Website counter
   website_counter:
@@ -232,7 +232,7 @@ navbar:
     # Whether to enable
     enable: true
     # Preload search data when the page loads
-    preload: false
+    preload: true
 # NAVIGATION BAR <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -421,6 +421,7 @@ inject:
     - <meta name="baidu-site-verification" content="codeva-30XQxsoqso" />
     - <meta name="color-scheme" content="light dark">
     - <link rel="stylesheet" href="/css/custom.css">
+    - <script src="/js/text-highlight.js"></script>
   # Inject custom footer html code
   footer:
     - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/autoload.js"></script>
@@ -451,7 +452,7 @@ plugins:
       # .... you can add more audios here
   # Mermaid JS. Requires hexo-filter-mermaid-diagrams (npm i hexo-filter-mermaid-diagrams). See https://mermaid.js.org/
   mermaid:
-    enable: false # enable mermaid or not
+    enable: true # enable mermaid or not
     version: "11.4.1" # default v11.4.1
 # PLUGINS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 

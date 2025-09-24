@@ -6,6 +6,7 @@ tags:
 - AP Statistics
 categories:
 - AP Statistics
+mathjax: true
 ---
 
 ## Exam  Structure
