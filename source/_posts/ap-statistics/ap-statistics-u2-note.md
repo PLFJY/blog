@@ -36,7 +36,7 @@ mathjax: true
 Formula: 
 
 $$
-z=\frac{x_i-\text{mean}}{ \text{ standard deviation } }
+z=\frac{x_i-\bar{x}}{ s_x }
 $$
 
 > $x$ is below/above the mean by $z$ standard deviation
