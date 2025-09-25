@@ -90,12 +90,19 @@ The proportion of count of all individuals in a variable among the total individ
 左边much longer than the right
 
 拱起来的在右边
+$$
+\text{mean}<\text{median}<\text{mode}
+$$
 
-##### 右偏 skew to the right 
+##### 右偏 skew to the right
 
-右边much longer than the left 
+右边much longer than the left
 
 拱起来在左边
+$$
+\text{mean}>\text{median}>\text{mode}
+$$
+![skew](ap-statistics-u1-note/skew.png)
 
 #### Center
 
@@ -103,11 +110,13 @@ The proportion of count of all individuals in a variable among the total individ
 
 一般取 mean 或者 median
 
+还可以叫做 typical
+
 #### Spread 波动性
 
 表示数据的离散程度，分散就大，聚合就小
 
-一般用 Range 或者 [standard deviation](#Standard Deviation 标准方差 $s_x>=0$)
+一般用 Range 或者 [standard deviation](#Standard Deviation 标准方差)
 
 #### Outliers 
 
@@ -179,13 +188,17 @@ $x < Q_1 - 1.5 \times IQR$	or	$x > Q_3 + 1.5 \times IQR$
 3. a line connect minimum and maximum
 4. Box between $Q_1$ and $Q_3$
 5. a line at $Q_2$
+6. usually using median and IQR to measure the center and spread
 
 > We only know: five values above
 >
 > We can't know: sample size, sample mean
 
-### Standard Deviation 标准方差 $s_x>=0$
+### Standard Deviation 标准方差
 
+$$
+s_x>=0
+$$
 $$
 s_x^2 = \frac{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \cdots + (x_n - \bar{x})^2}{n - 1} = \frac{1}{n - 1} \sum (x_i - \bar{x})^2
 $$
@@ -269,6 +282,10 @@ Unchanged:
 
 - Mean / Center: 0
 - Standard Diviation: 1
+
+#### 对于数据改变的题的回答
+
+> 描述变化的部分，然后与其它数据再次做比较（如有可说的点，类似雅思小作文）
 
 ## 2.2 Density Curves & Normal Distributions
 
