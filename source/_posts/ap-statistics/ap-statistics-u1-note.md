@@ -251,6 +251,8 @@ $$
 
 计算Z-Score的过程叫做数据标准化 (Standardizing)
 
+标准化用于把数据拉到同一标准下，可以直接数值比较，不用考虑标准不同
+
 ### Teansforming Data
 
 #### Add or Subtract
