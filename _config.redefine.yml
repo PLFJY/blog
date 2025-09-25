@@ -134,7 +134,7 @@ home_banner:
     light: https://t.alcy.cc/ycy # light mode
     dark: https://t.alcy.cc/ycy # dark mode
   # Home banner title
-  title: "零风PLFJY的博客"
+  title: "零风PLFJYのBlog"
   # Home banner subtitle
   subtitle:
     text: ["Hi, Welcome to my blog", "I'll share some ideas here", "アイ無限恒久☆永遠推し!!!☆"] # subtitle text, array
