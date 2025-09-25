@@ -137,7 +137,7 @@ home_banner:
   title: "零风PLFJY的博客"
   # Home banner subtitle
   subtitle:
-    text: ["Hi, 欢迎来到我的博客", "我会在这里分享一些随笔", "アイ無限恒久☆永遠推し!!!☆"] # subtitle text, array
+    text: ["Hi, Welcome to my blog", "I'll share some ideas here", "アイ無限恒久☆永遠推し!!!☆"] # subtitle text, array
     hitokoto:  # 一言配置
       enable: false # Whether to enable hitokoto
       show_author: false # Whether to show author
@@ -214,11 +214,11 @@ navbar:
     About: 
       icon: fa-regular fa-user
       submenus:
-        关于我: /about
-        我的主页: https://plfjy.top
-        哔哩哔哩: https://space.bilibili.com/453909624
+        About Me: /about
+        My Homepage: https://plfjy.top
+        Bilibili: https://space.bilibili.com/453909624
         Github: https://github.com/PLFJY/
-    开往:
+    Travelling:
       path: https://www.travellings.cn/go.html
       icon: fa-regular fa-train-subway
     Links: 
@@ -227,9 +227,8 @@ navbar:
         第五人格ASG赛事: https://idvasg.cn/
         ZeroNode 零枢: https://zeronode.cn/
         neo-bpsys-wpf: https://bpsys.plfjy.top/
-        净灵: https://www.jinglingstu.top/
-        本站随机背景图片来自栗次元API: https://t.alcy.cc/
-        本站部分随机占位图来自LuoliAPI: https://www.loliapi.com/
+        Jingling 净灵: https://www.jinglingstu.top/
+        Random background image comes from 栗次元API: https://t.alcy.cc/
   # Navbar search (local search). Requires hexo-generator-searchdb (npm i hexo-generator-searchdb). See https://github.com/theme-next/hexo-generator-searchdb
   search:
     # Whether to enable
@@ -250,13 +249,13 @@ home:
     announcement: アイ無限恒久☆永遠推し!!!☆ # Announcement text
     show_on_mobile: true # Whether to show sidebar navigation on mobile sheet menu
     links:
-      标签: 
+      Tags: 
         path: /tags 
         icon: fa-regular fa-tags # can be empty
-      分类: 
+      Categories: 
         path: /categories 
         icon: fa-regular fa-folder # can be empty
-      书签: 
+      Bookmarks: 
         path: /bookmarks 
         icon: fa-regular fa-bookmark # can be empty
       # ...... # you can add more
