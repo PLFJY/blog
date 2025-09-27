@@ -1,5 +1,5 @@
 ---
-title: ap-statistics-u2-note
+title: AP Statistics U2 Note
 date: 2025-09-25 20:23:01
 tags: 
 - AP

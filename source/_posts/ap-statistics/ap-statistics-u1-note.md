@@ -1,5 +1,5 @@
 ---
-title: AP Statistics U1-Note
+title: AP Statistics U1 Note
 date: 2025-09-20 17:32:37
 tags: 
 - AP
