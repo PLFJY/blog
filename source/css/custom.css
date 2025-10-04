@@ -99,3 +99,7 @@ div.search-pop-overlay.active div.search-header {
 .author.flex.items-center .name.text-default-text-color.text-lg.font-semibold {
     color: var(--default-text-color)
 }
+
+div.main-content-container.flex.flex-col.justify-between.min-h-dvh > div.main-content-header > header > div.navbar-content.transition-navbar > div.left > a.logo-title {
+    font-size: 1.5rem!important;
+}
