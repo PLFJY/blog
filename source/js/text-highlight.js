@@ -1,180 +1,106 @@
-// Markdown 高亮扩展支持脚本 (Hexo Redefine + Swup 专用版)
-(function() {
+(function () {
   'use strict';
 
-  // 配置选项
-  const config = {
-    markClass: 'mark-highlight', // 高亮元素的 class
-    contentSelector: '.post-content', // Redefine 主题的文章容器
-    skipTags: ['pre', 'code', 'script', 'style', 'textarea', 'noscript'] // 跳过处理的标签
-  };
+  // 要跳过的标签（不在这些标签内进行替换）
+  const SKIP_TAGS = new Set(['CODE', 'PRE', 'SCRIPT', 'STYLE', 'TEXTAREA']);
 
-  // 处理单个文本节点
-  function processTextNode(textNode) {
-    const text = textNode.textContent;
-    
-    // 修复正则：确保边界匹配，避免误匹配 HTML 标签
-    // (^|[^>=]) - 开头或非 > 和 = 的字符
-    // == - 匹配标记
-    // ([^=]+) - 中间内容（至少一个非=字符）
-    // == - 闭合标记
-    // ([^<]|$) - 结尾或非<字符
-    const regex = /(^|[^>=])==([^=]+)==([^<]|$)/g;
+  // 非贪婪匹配 ==...==，允许跨空格和特殊字符
+  const MARK_RE = /==([\s\S]+?)==/g;
+
+  // 判断节点是否在我们需要跳过的标签内
+  function isInsideSkippedTag(node) {
+    while (node) {
+      if (node.nodeType === 1 && SKIP_TAGS.has(node.tagName)) return true;
+      node = node.parentNode;
+    }
+    return false;
+  }
+
+  // 将单个文本节点里的所有 ==...== 替换为 <mark>...</mark>
+  function replaceInTextNode(textNode) {
+    const text = textNode.nodeValue;
+    if (!text || text.indexOf('==') === -1) return;
+
+    MARK_RE.lastIndex = 0;
     let match;
     let lastIndex = 0;
-    const fragments = [];
+    const frag = document.createDocumentFragment();
 
-    while ((match = regex.exec(text)) !== null) {
-      // 添加匹配前的文本（注意：包含边界字符）
-      if (match.index > lastIndex) {
-        fragments.push(document.createTextNode(
-          text.substring(lastIndex, match.index + match[1].length)
-        ));
-      }
+    while ((match = MARK_RE.exec(text)) !== null) {
+      const before = text.slice(lastIndex, match.index);
+      if (before) frag.appendChild(document.createTextNode(before));
 
-      // 创建高亮元素
       const mark = document.createElement('mark');
-      mark.className = config.markClass;
-      mark.textContent = match[2];
-      fragments.push(mark);
+      // 只设置 textContent，保持 HTML 安全
+      mark.textContent = match[1];
+      frag.appendChild(mark);
 
-      // 更新最后匹配位置（减去结尾边界字符长度）
-      lastIndex = match.index + match[0].length - match[3].length;
+      lastIndex = MARK_RE.lastIndex;
     }
 
-    // 添加剩余文本
-    if (lastIndex < text.length) {
-      fragments.push(document.createTextNode(text.substring(lastIndex)));
-    }
+    const after = text.slice(lastIndex);
+    if (after) frag.appendChild(document.createTextNode(after));
 
-    // 如果有匹配项，替换原文本节点
-    if (fragments.length > 0) {
-      const parent = textNode.parentNode;
-      fragments.forEach(fragment => {
-        parent.insertBefore(fragment, textNode);
-      });
-      parent.removeChild(textNode);
-      return true; // 标记已修改
-    }
-    return false;
+    // 用片段替换原文本节点
+    textNode.parentNode.replaceChild(frag, textNode);
   }
 
-  // 检查是否应该跳过该节点
-  function shouldSkip(node) {
-    if (node.nodeType !== Node.TEXT_NODE) return true;
-    
-    let parent = node.parentNode;
-    while (parent && parent.nodeType === Node.ELEMENT_NODE) {
-      if (config.skipTags.includes(parent.tagName.toLowerCase())) {
-        return true;
+  // 在 root 上处理所有可见文本节点
+  function process(root = document.body) {
+    if (!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue) return NodeFilter.FILTER_REJECT;
+        if (node.nodeValue.indexOf('==') === -1) return NodeFilter.FILTER_REJECT;
+        // 如果仅包含空白（回车空格），跳过
+        if (node.nodeValue.trim() === '') return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
       }
-      parent = parent.parentNode;
-    }
-    
-    return false;
-  }
+    }, false);
 
-  // 处理指定元素内的高亮
-  function processHighlights(rootElement = document.body) {
-    const target = rootElement.querySelector(config.contentSelector) || rootElement;
-    
-    // 使用 TreeWalker 高效遍历文本节点
-    const walker = document.createTreeWalker(
-      target,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: function(node) {
-          return shouldSkip(node) ? 
-            NodeFilter.FILTER_REJECT : 
-            NodeFilter.FILTER_ACCEPT;
-        }
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    for (const n of nodes) {
+      // 跳过 code/pre 等
+      if (!isInsideSkippedTag(n.parentNode)) {
+        replaceInTextNode(n);
       }
-    );
-    
-    const textNodes = [];
-    let node;
-    while (node = walker.nextNode()) {
-      textNodes.push(node);
     }
-    
-    // 处理所有文本节点
-    let modified = false;
-    textNodes.forEach(node => {
-      if (processTextNode(node)) modified = true;
-    });
-    
-    return modified;
   }
 
-  // 防抖函数
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
+  // 在初次加载时运行一次
+  function onReadyRun() {
+    process();
   }
 
-  // 初始化函数
-  function initMarkdownHighlights() {
-    // 立即处理当前页面
-    processHighlights();
-    
-    // 处理 Swup 事件（兼容 2.x 和 3.x）
-    if (typeof window.swup !== 'undefined') {
-      const swup = window.swup;
-      
-      // Swup 3.x
-      if (typeof swup.on === 'function') {
-        swup.on('contentReplaced', debounce(() => {
-          console.log('Swup 3.x: Replaced content - processing highlights');
-          processHighlights();
-        }, 100));
-      } 
-      // Swup 2.x
-      else if (swup._handlers && swup._handlers.contentReplaced) {
-        document.addEventListener('swup:contentReplaced', debounce(() => {
-          console.log('Swup 2.x: Replaced content - processing highlights');
-          processHighlights();
-        }, 100));
-      }
-      
-      // 额外保险：监听 DOM 变化
-      new MutationObserver(debounce(mutations => {
-        let shouldProcess = false;
-        mutations.forEach(mutation => {
-          if (mutation.addedNodes.length > 0) {
-            shouldProcess = true;
-          }
-        });
-        if (shouldProcess) {
-          console.log('DOM changed - processing highlights');
-          processHighlights();
-        }
-      }, 100)).observe(document.querySelector('.swup') || document.body, {
-        childList: true,
-        subtree: true
-      });
-    }
-
-    // 暴露全局 API 便于调试
-    window.markdownHighlights = {
-      process: processHighlights,
-      refresh: initMarkdownHighlights
-    };
-  }
-
-  // 页面加载时执行
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMarkdownHighlights);
+    document.addEventListener('DOMContentLoaded', onReadyRun);
   } else {
-    initMarkdownHighlights();
+    onReadyRun();
   }
 
-  // 调试辅助：在控制台输入 markdownHighlights.process() 可手动触发
-  console.log('Markdown highlight script loaded. Use markdownHighlights.process() to refresh.');
+  // swup 支持：
+  // 1) 如果存在全局 swup 实例并且有 on 方法，使用它
+  // 2) 兼容 swup 自定义 DOM 事件（document 上的 'swup:contentReplaced'）
+  if (window.swup && typeof window.swup.on === 'function') {
+    try { window.swup.on('contentReplaced', () => process()); } catch (e) { /* ignore */ }
+  }
+  document.addEventListener('swup:contentReplaced', () => process());
+
+  // 兜底：监听 DOM 的新插入（节流）
+  let idleTimer = null;
+  const observer = new MutationObserver(() => {
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      process();
+      idleTimer = null;
+    }, 60);
+  });
+  // 观察整个文档的子节点变化（轻量级配置）
+  observer.observe(document.documentElement || document.body, { childList: true, subtree: true });
+
+  // 可选：暴露一个手动触发的函数，方便调试 / 在控制台直接调用
+  window.__applyDoubleEqualsMark = process;
+
 })();
