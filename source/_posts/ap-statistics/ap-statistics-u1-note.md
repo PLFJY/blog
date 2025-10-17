@@ -103,6 +103,7 @@ $$
 \text{mean}>\text{median}>\text{mode}
 $$
 ![skew](ap-statistics-u1-note/skew.png)
+*来源:[medium.com](https://medium.com/geekculture/what-are-right-skewed-and-left-skewed-distributions-a29b3def7598)
 
 #### Center
 
