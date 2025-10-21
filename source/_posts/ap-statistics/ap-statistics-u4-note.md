@@ -79,7 +79,7 @@ the only source of fully convincing data
 
 `experimental units` 实验单位（被施加了treatment的最小个体集合），如果是人的话叫做 `subject`
 
-描述解释变量的时候经常能见到 `whethe`，用于表示是否启用某个 treatment
+描述解释变量的时候经常能见到 `whether`，用于表示是否启用某个 treatment
 
 有时候explanatory variable也叫做 `factor`，尤其是出现多种 explanatory variables 且有嵌套关系的时候
 
