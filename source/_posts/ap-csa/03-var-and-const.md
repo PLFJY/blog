@@ -1,5 +1,5 @@
 ---
-title: 变量和常量（WIP）
+title: AP CSA 02-Variables and Constants（WIP）
 date: 2025-09-22 16:11:15
 tags:
 - AP
