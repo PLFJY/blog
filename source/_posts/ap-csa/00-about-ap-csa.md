@@ -9,7 +9,7 @@ categories:
 - AP CSA
 ---
 
-{% notel blue fa-info 警告 %}
+{% notel blue fa-circle-info 警告 %}
 因为目前仍在施工中，部分内容仍未完成。标题中所有标记了“WIP（Working in progress）”的都是未完成的部分
 {% endnotel %}
 
