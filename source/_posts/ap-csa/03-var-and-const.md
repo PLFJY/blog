@@ -1,5 +1,5 @@
 ---
-title: AP CSA 02-Variables and Constants（WIP）
+title: AP CSA 03-Variables and Constants（WIP）
 date: 2025-09-22 16:11:15
 tags:
 - AP
