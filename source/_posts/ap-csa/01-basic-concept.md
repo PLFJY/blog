@@ -52,7 +52,7 @@ Java因为是半编译型语言，所以是跑在一个叫做 JVM (Java Virtual 
 
 - [Windows](https://developer.aliyun.com/article/1572475)
 - [Mac](https://juejin.cn/post/7477926585087213604)
-- <a onclick="alert('都玩Linux了还用我教吗')" >Linux</a>
+- <a onclick="alert('都玩Linux了还用我教吗，自己查去')" >Linux</a>
 
 然后是你写代码的地方，你总不可能拿记事本写不是？
 
