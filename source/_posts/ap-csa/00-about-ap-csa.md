@@ -1,5 +1,5 @@
 ---
-title: AP CSA 00-About AP Computer Science A
+title: AP CSA 00 - 关于AP Computer Science A
 date: 2025-07-21 11:08:12
 tags:
 - AP
