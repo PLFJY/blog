@@ -1,14 +1,13 @@
 ---
 title: Hexo 支持 Markdown == 高亮扩展语法
 date: 2025-09-24 23:27:51
-published: false
 tags: 
 - Hexo
 categories:
 - Hexo
 ---
 
-借助Deepseek和Qwen弄了个js脚本，增加到header就行，它可以自动监听`swup`的页面切换事件并替换`==`为`<mark></mark>`，代码如下：
+借助GPT弄了个js脚本，增加到header就行，它可以自动监听`swup`的页面切换事件并替换`==`为`<mark></mark>`，代码如下：
 
 ```javascript
 (function () {
@@ -117,5 +116,6 @@ categories:
   window.__applyDoubleEqualsMark = process;
 
 })();
+
 ```
 
