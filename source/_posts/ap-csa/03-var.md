@@ -143,7 +143,7 @@ var c = 5;
 #### 变量的命名 (Naming Variables)
 
 好的接下来是个重点，变量名称不能是编译器预定关键字，这些东西编译器另有他用，不能用于取名
-包括上一章里面的所有数据类型和boolean的值，全部的都列在本章节最后附录的表里面了，你要脑力充足可以去背，我建议是不用背，变量取名的时候稍微用稍微复杂一点的名字就好了：[Java 保留关键字 (Java Reserved Keywords)](#JavaReservedKeywords)
+包括上一章里面的所有数据类型和boolean的true或false，全部的都列在本章节最后附录的表里面了，你要脑力充足可以去背，我建议是不用背，变量取名的时候稍微用稍微复杂一点的名字就好了：[Java 保留关键字 (Java Reserved Keywords)](#JavaReservedKeywords)
 
 变量的命名应该遵循易读原则，需要描述清楚它的用途，且不应过长
 
