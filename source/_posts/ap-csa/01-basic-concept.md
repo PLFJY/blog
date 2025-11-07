@@ -58,13 +58,23 @@ Java因为是半编译型语言，所以是跑在一个叫做 JVM (Java Virtual 
 
 下载个 VS Code -\> https://code.visualstudio.com/Download
 
-然后调中文这一步我就不教了，都要考 AP 了还调什么中文
+然后调中文这一步我就不教了，都要考 AP 了还调什么中文，有需要的可以自行 Google 搜索
 
-左边 Extensions 打开，搜索 Java，然后安装第一个就行
+接下来为了能在 VS Code 丝滑的写 Java 代码用于练习安装 Java 插件
+
+我们可以在这里看到一个这个Extensions图标，点开它
+
+![VSCode_1](01-basic-concept/VSCode_1.png)
+
+然后在搜索框内搜索 Java，然后根据图示安装 `Extension Pack for Java`
+
+![VSCode_2](01-basic-concept/VSCode_2.png)
 
 ## 写代码
 
-点开左上角 `Files -> Open Folder` 选一个你喜欢的地方确定，然后左边上面那里把 `Explore` 打开，右键 `Explore` 的空白处 `New Java File -> Class...`，顶上会弹出来让你写文件名，把文件名敲进去回车，你应该能看到这个
+![VSCode_3](01-basic-concept/VSCode_3.png)
+
+点开左上角 `Files -> Open Folder` 选一个你喜欢的地方确定，然后在左侧的导航栏打开最上面的 `Explore`，右键 `Explore` 的空白处 `New Java File -> Class...`，顶上会弹出来让你写文件名，把文件名敲进去回车，你应该能看到这个
 
 ```java
 public class <你刚刚敲进去的文件名> {
@@ -82,7 +92,7 @@ public static void main(String[] args) {
 
 然后右上角点一下那个小三角▶️，不出意外你应该能看到下面大致长这样：
 
-![image-20250721123619401](01-basic-concept/image-20250721123619401.png)
+![VSCode_4](01-basic-concept/VSCode_4.png)
 
 你看到那个 `Hello World` 就是成功了
 
@@ -122,5 +132,132 @@ public static void main(String[] args) {
 |感叹号 bang or shriek|`！`|`!`|
 |双引号 double quotes|`“` `”`|`"` `"`|
 |单引号 single quote|`‘` `’`|`'` `'`|
+
+## 输出
+
+这里是 AP 选择题的一个考点，有关于 Java 程序的输出
+
+像刚刚我们在上方看到的如下代码
+
+```Java
+public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+```
+
+里面的
+
+```Java
+System.out.println("Hello World");
+```
+
+就是 Java 中的输出语句，它会将双引号里面的内容打印 (Print) 到你的控制台上，就像上面的图片里那样
+
+![VSCode_4](01-basic-concept/VSCode_4.png)
+
+这里我们就要引申出 AP 计算机科学一个我都不知道考了有什么意义的考点了，输出的两种语句
+
+Java 的输出有两个语句，一个是你上面看到的 `System.out.println("Hello World");`
+
+还有一个是下面这里的
+
+```Java
+System.out.print("Hello World");
+```
+
+它们的区别就是一个 `ln`，那么这一个 `ln` 究竟区别有多大呢？
+
+我们用下面的例子来理解一下：
+
+```Java
+//我们先执行一下
+System.out.print("Hello AP ");
+//然后紧接着执行一下
+System.out.println("Computer Science A");
+//然后我们再接一条
+System.out.println("This is an example");
+```
+
+执行之后的输出结果是这样的：
+
+```bash
+Hello AP Computer Science A
+This is an example
+```
+
+我相信细节的小伙伴已经发现区别了，没错不带 `ln` 的输出后不换行，带 `ln` 的输出后会进行换行，那么接着它打印的内容就会出现在下一行
+
+那么这里我就可以放一个我对练习题的改编题了，题目如下：
+
+```Java
+System.out.println("My Name is PLFJY");
+System.out.print("I Love ");
+System.out.println("AP Computer Science A");
+System.out.print("Glad to ");
+System.out.print("See you");
+```
+
+What is printed as a result of executing the code segment above?
+
+A. 
+My Name is PLFJY I Love 
+AP Computer Science A
+Glad to See you
+
+B. 
+My Name is PLFJY
+I Love AP Computer Science A
+Glad to See you
+
+C. 
+My Name is PLFJY
+I Love AP Computer Science A
+Glad to 
+See you
+
+C. 
+My Name is PLFJY
+I Love
+AP Computer Science A
+Glad to 
+See you
+
+正确答案是 B，解析：
+
+第1行 `System.out.println("My Name is PLFJY");` 带`ln`，所以下一行换行输出，所以此时输出内容如下
+
+```bash
+My Name is PLFJY
+```
+
+第2行 `System.out.print("I Love ");` 不带 `ln`，所以下一行不换行输出，当前控制台上的内容如下
+
+```bash
+My Name is PLFJY
+I Love 
+```
+
+第3行 `System.out.println("AP Computer Science A");` 带 `ln`，所以下一行换行输出，当前控制台上的内容如下
+
+```bash
+My Name is PLFJY
+I Love AP Computer Science A
+```
+
+第4行 `System.out.print("Glad to ");` 不带 `ln`，所以下一行换行输出，当前控制台上的内容如下
+
+```bash
+My Name is PLFJY
+I Love AP Computer Science A
+Glad to
+```
+
+第5行 `System.out.println("See you");` 带 `ln`，所以下一行换行输出，但是已经是最后一句了所以没啥影响，最后控制台上的内容如下
+
+```bash
+My Name is PLFJY
+I Love AP Computer Science A
+Glad to See you
+```
 
 本章节到此结束
