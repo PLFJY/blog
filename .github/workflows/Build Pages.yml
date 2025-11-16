@@ -39,6 +39,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
+          force_orphan: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           user_name: 'github-actions[bot]'
