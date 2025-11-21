@@ -25,6 +25,10 @@
       link: https://github.com/stevenjoezhang/live2d-widget
       description: 左下角的不一定看得见的看板娘
       image: https://github.githubassets.com/favicons/favicon.svg
+    - name: 栗次元API
+      link: https://t.alcy.cc/
+      description: 本站所有的随机图片来源
+      image: https://tc.alcy.cc/favicon.ico
 
 - category: 框架
   icon: fa-folder # 分类的图标，使用 FontAwesome 图标
