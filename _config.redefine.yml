@@ -223,12 +223,7 @@ navbar:
       icon: fa-regular fa-train-subway
     Links: 
       icon: fa-regular fa-link
-      submenus:
-        第五人格ASG赛事: https://idvasg.cn/
-        第五人格统一赛事平台: https://idvevent.cn/
-        neo-bpsys-wpf: https://bpsys.plfjy.top/
-        Jingling 净灵: https://www.jinglingstu.top/
-        Random background image comes from 栗次元API: https://t.alcy.cc/
+      path: /links
   # Navbar search (local search). Requires hexo-generator-searchdb (npm i hexo-generator-searchdb). See https://github.com/theme-next/hexo-generator-searchdb
   search:
     # Whether to enable
