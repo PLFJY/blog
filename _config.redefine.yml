@@ -176,11 +176,10 @@ home_banner:
     style: center # default, reverse, center
     # Social links
     links:
-      fa-regular fa-house: https://plfjy.top/  # your GitHub URL
-      bilibili: https://space.bilibili.com/453909624/  # your GitHub URL
+      fa-regular fa-house: https://plfjy.top/
+      bilibili: https://space.bilibili.com/453909624/  # your bilibili URL
       github: https://github.com/PLFJY/  # your GitHub URL
       email: zero_plfjy@outlook.com # your email
-      /img/neo-bpsys.ico: https://bpsys.plfjy.top/ # your email
       # ...... # you can add more
     # Social links with QRcode drawers
     qrs:
