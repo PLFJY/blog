@@ -1,0 +1,8 @@
+- links_category: 友情链接
+  has_thumbnail: false
+  list:
+      - name: jiangyin14 的 Blog
+        description: “让好的教学应用，来到每间课堂。”
+        url: https://blog.jiangyin14.top/
+        avatar: https://blog.jiangyin14.top/images/author.jpeg
+        rss: https://blog.jiangyin14.top/rss.xml
