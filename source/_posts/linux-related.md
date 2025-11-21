@@ -134,3 +134,9 @@ https://wiki.archlinux.org/title/V4l2loopback
 ## zsh
 
 直接用 ohmyzsh
+
+一些装了的插件：
+
+```
+git zsh-syntax-highlighting zsh-autosuggestions copypath copybuffer sudo colorize
+```
