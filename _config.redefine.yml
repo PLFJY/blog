@@ -401,9 +401,9 @@ footer:
   customize:
   # ICP record number. See https://beian.miit.gov.cn/
   icp:
-    enable: false # Whether to enable
-    number: # ICP record number
-    url: # ICP record url
+    enable: true # Whether to enable
+    number: 萌ICP备20259514号 # ICP record number
+    url: https://icp.gov.moe/ # ICP record url
 # FOOTER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
