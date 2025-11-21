@@ -1,4 +1,4 @@
-- category: 本站的重要组成部分
+- category: Essential Components of This Site
   icon: fa-star # 分类的图标，使用 FontAwesome 图标
   items:
     - name: CloudFlare
@@ -30,7 +30,7 @@
       description: 本站所有的随机图片来源
       image: https://tc.alcy.cc/favicon.ico
 
-- category: 框架
+- category: Frameworks
   icon: fa-folder # 分类的图标，使用 FontAwesome 图标
   items:
     - name: .Net
@@ -42,7 +42,7 @@
       description: 免费开源的跨平台UI框架
       image: https://framerusercontent.com/images/ZdwwfU7VZvXEsyJiWGIdNEl3ZE.png
 
-- category: 工具
+- category: Tools
   icon: fa-tools
   items:
     - name: docsmall
