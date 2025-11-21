@@ -403,7 +403,7 @@ footer:
   icp:
     enable: true # Whether to enable
     number: 萌ICP备20259514号 # ICP record number
-    url: https://icp.gov.moe/ # ICP record url
+    url: https://icp.gov.moe/?keyword=20259514 # ICP record url
 # FOOTER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
