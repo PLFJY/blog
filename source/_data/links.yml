@@ -1,4 +1,4 @@
-- links_category: Other Product Made by PLFJY
+- links_category: Other Products Made by PLFJY
   has_thumbnail: true
   list:
     - name: neo-bpsys-wpf
@@ -11,7 +11,15 @@
 - links_category: Friends
   has_thumbnail: false
   list:
-   - name: jiangyin14 的 Blog
-     description: “让好的教学应用，来到每间课堂。”
-     link: https://blog.jiangyin14.top/
-     avatar: https://blog.jiangyin14.top/images/author.jpeg
+    - name: 第五人格ASG赛事
+      description: 面向普通玩家的第五人格赛事
+      avatar: https://idvasg.cn/_nuxt/asg-logo.2xBiWjrM.png
+      link: https://idvasg.cn/
+    - name: 第五人格赛事统一平台
+      link: https://idvevent.cn/
+      description: 面向所有主办方的赛事创建、报名审核、赛程管理一体化平台。
+      avatar: https://idvevent.cn/logo.svg
+    - name: jiangyin14 的 Blog
+      description: 让好的教学应用，来到每间课堂。
+      link: https://blog.jiangyin14.top/
+      avatar: https://blog.jiangyin14.top/images/author.jpeg
