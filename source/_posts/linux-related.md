@@ -140,3 +140,9 @@ https://wiki.archlinux.org/title/V4l2loopback
 ```
 git zsh-syntax-highlighting zsh-autosuggestions copypath copybuffer sudo colorize
 ```
+
+## 好用的性能监视器
+
+```
+paru -S htop
+```
