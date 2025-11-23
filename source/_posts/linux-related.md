@@ -19,7 +19,7 @@ options snd_hda_intel power_save=0
 ## KDE导入splash Screen的地址:
 `/home/<user name>/.local/share/plasma/look-and-feel/`
 
-## KDE Wllpaper插件：
+## KDE Wallpaper插件：
 
 https://github.com/slynobody/SteamOS-wallpaper-engine-kde-plugin
 
