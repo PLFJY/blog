@@ -110,10 +110,6 @@ theme: redefine
 deploy:
   type: git
 
-css_minifier:
-  exclude:
-    - "tailwind.source.css"
-
 mathjax:
     tags: none # or 'ams' or 'all'
     single_dollars: true # enable single dollar signs as in-line math delimiters

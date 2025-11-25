@@ -20,7 +20,7 @@
 
 .navbar-content .icon-item.navbar-bar .navbar-bar-middle,
 .navbar-content .icon-item.navbar-bar .navbar-bar-middle:after,
-.navbar-content .icon-item.navbar-bar .navbar-bar-middle:before {
+.navbar-content .icon-item.navbar-bar .navbar-bar-middle:before{
     background: var(--default-text-color);
 }
 
@@ -86,7 +86,9 @@ div.search-pop-overlay.active div.search-header {
 }
 
 .home-sidebar-container .sidebar-content .statistics.flex.justify-around.my-2\.5 a .number.text-2xl.sm\:text-xl.text-second-text-color.font-semibold,
-.article-content-container .article-title.relative.w-full h1 {
+.article-content-container .article-title.relative.w-full h1,
+.friends-link-container.flex.flex-col,
+.friends-link-container.flex.flex-col div {
     color: var(--second-text-color)
 }
 
@@ -96,10 +98,12 @@ div.search-pop-overlay.active div.search-header {
     color: var(--third-text-color)
 }
 
-.author.flex.items-center .name.text-default-text-color.text-lg.font-semibold {
+.author.flex.items-center .name.text-default-text-color.text-lg.font-semibold,
+.navbar-content.transition-navbar .right .desktop ul li a {
     color: var(--default-text-color)
 }
 
 .main-content-container.flex.flex-col.justify-between.min-h-dvh .main-content-header header .navbar-content.transition-navbar .left .logo-title {
     font-size: 1.5rem!important;
 }
+
