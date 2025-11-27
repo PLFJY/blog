@@ -392,7 +392,7 @@ footer:
   # Show website running time
   runtime: true # show website running time or not
   # Icon in footer, write fontawesome icon code here
-  icon: '<img src="/img/logo.png" style="width: 40px; margin: auto;"/>'
+  icon: '<a href="https://plfjy.top/"><img src="/img/logo.png" style="width: 40px; margin: auto;"/></a>'
   # The start time of the website, format: YYYY/MM/DD HH:mm:ss
   start: 2025/07/19 19:30:00
   # Site statistics
