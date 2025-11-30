@@ -392,13 +392,19 @@ footer:
   # Show website running time
   runtime: true # show website running time or not
   # Icon in footer, write fontawesome icon code here
-  icon: '<a href="https://plfjy.top/"><img src="/img/logo.png" style="width: 40px; margin: auto;"/></a>'
+  icon: |
+    <a href="https://plfjy.top/">
+      <img src="/img/logo.png"
+        style="width:40px; margin:auto; transition:transform 0.2s ease;"
+        onmouseover="this.style.transform='scale(1.1)'"
+        onmouseout="this.style.transform='scale(1)'"/>
+    </a>
   # The start time of the website, format: YYYY/MM/DD HH:mm:ss
   start: 2025/07/19 19:30:00
   # Site statistics
   statistics: true # show site statistics or not (total articles, total words)
   # Footer message
-  customize:
+  customize: 
   # ICP record number. See https://beian.miit.gov.cn/
   icp:
     enable: true # Whether to enable
