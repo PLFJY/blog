@@ -131,8 +131,8 @@ home_banner:
   style: fixed # static or fixed
   # Home banner image
   image: 
-    light: https://t.alcy.cc/ycy # light mode
-    dark: https://t.alcy.cc/ycy # dark mode
+    light: https://t.alcy.cc/fj # light mode
+    dark: https://t.alcy.cc/fj # dark mode
   # Home banner title
   title: "零风PLFJYのBlog"
   # Home banner subtitle
