@@ -27,10 +27,6 @@ public class 零风PLFJY : 男
 
     public List<string> 想要或正在学习 { get; } = ["雅思", "C/C++", "JAVA", "HTML", "CSS", "Javascript", "SQL", "Rust"];
 
-    public string[] 雷点 { get; private set; } = ["大众雷点", "内娱、韩娱太重"];
-
-    public List<string> 我可能雷你 { get; } = ["情商不足TAT(发现了请帮我指出来)"];
-
     public 零风PLFJY()
     {
         Console.WriteLine("Hello World!");
