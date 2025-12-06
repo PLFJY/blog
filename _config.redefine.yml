@@ -210,13 +210,9 @@ navbar:
     Archives: 
       path: /archives 
       icon: fa-regular fa-archive # can be empty
-    About: 
+    About me: 
       icon: fa-regular fa-user
-      submenus:
-        About Me: /about
-        My Homepage: https://plfjy.top
-        Bilibili: https://space.bilibili.com/453909624
-        Github: https://github.com/PLFJY/
+      path: /about
     Travelling:
       path: https://www.travellings.cn/plain.html
       icon: fa-regular fa-train-subway
