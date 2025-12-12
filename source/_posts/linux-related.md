@@ -146,3 +146,12 @@ git zsh-syntax-highlighting zsh-autosuggestions copypath copybuffer sudo coloriz
 ```
 paru -S htop
 ```
+
+## Arch pacman 自动选出最快的镜像源
+
+https://qiedd.com/1203.html
+
+```
+paru -S reflector
+sudo reflector --verbose --country 'China' -l 200 -p https --sort rate --save /etc/pacman.d/mirrorlist
+```
