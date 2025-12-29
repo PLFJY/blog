@@ -76,7 +76,7 @@ Numlock=on
 ## 音量控制问题
 
 ```
-paru -S plasma-pa pavucontrol`
+paru -S plasma-pa pavucontrol
 ```
 
 ## VLC编码问题
