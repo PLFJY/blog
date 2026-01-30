@@ -37,7 +37,7 @@ hexo g
 hexo server
 ```
 
-或者 powershell 上
+或者 pwsh上
 
 ```powershell
 .\server.ps1
@@ -51,7 +51,7 @@ git commit -m "<Message>"
 git push
 ```
 
-或者 powershell 上
+或者 pwsh上
 
 ```powershell
 .\push.bat
