@@ -11,10 +11,6 @@
 - links_category: Friends
   has_thumbnail: false
   list:
-    - name: 第五人格ASG赛事
-      description: 面向普通玩家的第五人格赛事
-      avatar: https://idvasg.cn/_nuxt/asg-logo.2xBiWjrM.png
-      link: https://idvasg.cn/
     - name: 第五人格赛事统一平台
       link: https://idvevent.cn/
       description: 面向所有主办方的赛事创建、报名审核、赛程管理一体化平台。
