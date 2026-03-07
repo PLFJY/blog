@@ -59,6 +59,9 @@ importers:
       hexo-wordcount:
         specifier: ^6.0.1
         version: 6.0.1
+      js-yaml:
+        specifier: ^4.1.1
+        version: 4.1.1
       nodejieba:
         specifier: ^3.5.7
         version: 3.5.7
