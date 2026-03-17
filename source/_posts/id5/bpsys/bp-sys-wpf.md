@@ -12,6 +12,9 @@ categories:
 - 第五人格
 - bp软件
 ---
+
+<font color="red">**本项目现在已停止维护，新作请前往-> neo-bpsys-wpf 官网指路：[https://bpsys.plfjy.top/](https://bpsys.plfjy.top/)**</font>
+
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112878350763126&bvid=BV15uvSeCEKf&cid=500001633071575&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
 ![bpfront](bp-sys-wpf/1.jpg)
