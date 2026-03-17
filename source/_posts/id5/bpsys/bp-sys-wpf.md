@@ -1,5 +1,5 @@
 ---
-title: 最强自制第五人格BP展示软件（没有之一）
+title: 【已停止维护】（做出来的时候）最强自制第五人格BP展示软件
 date: 2024-08-19 00:09
 permalink: /id5/bpsys/bp-sys-wpf/
 tags: 
