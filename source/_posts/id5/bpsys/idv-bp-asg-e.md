@@ -10,8 +10,7 @@ categories:
 - bp软件
 ---
 
-本项目已停止维护，新作传送门 ==>
-[bp-sys-wpf](../bp-sys-wpf/)
+<font color="red">**本项目现在已停止维护，新作请前往-> neo-bpsys-wpf 官网指路：[https://bpsys.plfjy.top/](https://bpsys.plfjy.top/)**</font>
 
 ---
 
