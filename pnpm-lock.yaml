@@ -63,8 +63,8 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1
       nodejieba:
-        specifier: ^3.5.7
-        version: 3.5.7
+        specifier: ^3.5.8
+        version: 3.5.8
 
 packages:
 
@@ -1511,8 +1511,8 @@ packages:
       encoding:
         optional: true
 
-  nodejieba@3.5.7:
-    resolution: {integrity: sha512-iNXKScT5NH+OBZXOoIle/Dvn6wFYaEDc6jv6ZG/l1G8/5nZTydgkfWZHEBur+Brl6IV6LrzQD7WpShE30VVlqQ==}
+  nodejieba@3.5.8:
+    resolution: {integrity: sha512-TFiDYgEVmBgQwAr1sVj7err3Cn21qxMxTLA+LTEVqKcGqgwJuonJEW0g6oH2+7FhMKJfkWsvlj1SaTrWXe1Q9w==}
     engines: {node: '>= 14.0.0'}
 
   nopt@5.0.0:
@@ -3959,7 +3959,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  nodejieba@3.5.7:
+  nodejieba@3.5.8:
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.11
       node-addon-api: 5.1.0
