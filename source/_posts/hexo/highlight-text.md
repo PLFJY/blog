@@ -7,7 +7,7 @@ categories:
 - Hexo
 ---
 
-借助GPT弄了个js脚本，增加到header就行，它可以自动监听`swup`的页面切换事件并替换`==`为`<mark></mark>`，代码如下：
+借助 GPT 弄了个 js 脚本，增加到 header 就行，它可以自动监听`swup`的页面切换事件并替换`==`为`<mark></mark>`，代码如下：
 
 ```javascript
 (function () {
