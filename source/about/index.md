@@ -4,37 +4,43 @@ date: 2025-07-19 04:41:09
 ---
 
 ```c#
-/// <summary>
-/// 个人简介
-/// </summary>
-public class 零风PLFJY : 男
+public class Zero_PLFJY : Male
 {
-    public string 生日 { get; } = "08/10/05";
+    public string Nationality { get; } = "Chinese";
 
-    public Sign 星座 { get; } = Sign.天秤座;
+    public string Birthday { get; } = "05/10/2008";
+
+    public Sign My_Sign { get; } = Sign.Libra;
 
     public MBTI MBTI { get; } = MBTI.INTP;
 
-    public List<string> 主推 { get; } = ["星野愛", "YOASOBI", "洛天依", "梦之女巫", ".NET", "WPF", "C#", "Microsoft"];
+    public List<string> Favourites { get; } = ["星野愛 (Hoshino Ai)", "YOASOBI", "洛天依 (Luo Tianyi)", "初音ミク(Hatsune Miku)",
+                                    "梦之女巫 (Identity V)", ".NET", "WPF", "C#", "Microsoft"];
 
-    public List<string> 游戏 { get; } = ["第五人格", "Minecraft", "碧蓝航线", "蔚蓝档案", "王者", "原神", "崩铁", "弹丸论破", "千恋万花等gal"];
+    public List<string> Games { get; } = ["Identity V", "Minecraft", "Azur Lane", "Blue Archive", "Honor of Kings", 
+                                    "Genshin Impact", "Honkai: Star Rail", "Danganronpa", "Senren Banka"];
 
-    public List<string> 音乐 { get; } = ["YOASOBI", "ボカロ", "中V", "J-POP",  "EDM"];
+    public List<string> Music { get; } = ["YOASOBI", "ボカロ", "Vocaloid China", "J-POP", "EDM"];
 
-    public List<string> 看的番 { get; } = ["推子", "青猪", "春物", "超电磁炮", "莉可丽丝", "轻音", "紫罗兰", "CLANNAD", "败犬女主", "弹丸论破", "樱花庄", "魔圆", "邻家天使", "龙与虎", "中二病", "约战", "五等分", "芙莉莲", "高木"]; //此处省略 (70-看的番.Count) 项，恋爱番居多
+    public List<string> Anime { get; } = ["【推しの子】", "青春ブタ野郎シリーズ", "やはり俺の青春ラブコメはまちがっている。",
+                                    "とある科学の超電磁砲", "リコリス・リコイル", "けいおん! ", "ヴァイオレット・エヴァーガーデン", 
+                                    "CLANNAD","負けヒロインが多すぎる！", "ダンガンロンパ", "さくら荘のペットな彼女", 
+                                    "魔法少女まどか☆マギカ", "TIGER×DRAGON！", "中二病でも恋がしたい！", "デート・ア・ライブ", 
+                                    "五等分の花嫁", "葬送のフリーレン", "からかい上手の高木さん"]; // (70-Anime.Count) items omitted
 
-    public List<string> 技能 { get; } = ["C#", "WPF", "Avalonia", "Linux", "略懂一点电脑", "面向AI编程", "PPT", "PS", "PR", "AU"];
+    public List<string> Skills { get; } = ["C#", "WPF", "Avalonia", "Linux", "AI Oriented Programming"];
 
-    public List<string> 想要或正在学习 { get; } = ["雅思", "C/C++", "JAVA", "HTML", "CSS", "Javascript", "SQL", "Rust"];
+    public List<string> Learning { get; } = ["IELTS", "C/C++", "JAVA", "HTML", "CSS", "Javascript", "SQL", "Rust"];
 
-    public 零风PLFJY()
+    public Zero_PLFJY()
     {
         Console.WriteLine("Hello World!");
-        Console.WriteLine("个人主页: https://plfjy.top/");
-        //以下是一些社交账号
+        Console.WriteLine("My Home Page: https://plfjy.top/");
+        Console.WriteLine("My Blog: https://blog.plfjy.top/");
+        //Social Accounts
         Console.WriteLine("BiliBili: 零风PLFJY");
         Console.WriteLine("QQ: 3424127335");
-        Console.WriteLine("E-mail: zero_plfjy@outlook.com");
+        Console.WriteLine("E-mail: zero_plfjy.dev@outlook.com");
         Console.WriteLine("GitHub: PLFJY");
     }
 }
