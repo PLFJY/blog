@@ -6,6 +6,7 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
+    "generate:admin-index": "node tools/generate-admin-index.mjs",
     "server": "hexo server"
   },
   "hexo": {
