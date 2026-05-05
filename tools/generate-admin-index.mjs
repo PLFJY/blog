@@ -69,7 +69,10 @@ function parseFrontMatter(markdown) {
 
 function normalizeDate(value) {
   if (value instanceof Date) return value.toISOString()
-  if (typeof value === 'string') return value
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    return trimmed && Number.isFinite(Date.parse(trimmed)) ? trimmed : undefined
+  }
   return undefined
 }
 
@@ -77,6 +80,15 @@ async function getSourceCommitSha() {
   try {
     const { stdout } = await execFileAsync('git', ['rev-parse', 'HEAD'], { cwd: rootDir })
     return stdout.trim() || undefined
+  } catch {
+    return undefined
+  }
+}
+
+async function getGitFileDate(repoPath) {
+  try {
+    const { stdout } = await execFileAsync('git', ['log', '--follow', '--format=%aI', '-n', '1', '--', repoPath], { cwd: rootDir })
+    return normalizeDate(stdout.trim())
   } catch {
     return undefined
   }
@@ -156,7 +168,7 @@ for (const absolutePath of markdownFiles) {
   const assetDirRepo = [postsDir, folderPath, postSlug].filter(Boolean).join('/')
   const markdown = await fs.readFile(absolutePath, 'utf8')
   const frontMatter = parseFrontMatter(markdown)
-  const publishedAt = normalizeDate(frontMatter.date)
+  const publishedAt = normalizeDate(frontMatter.date) ?? await getGitFileDate(repoPath)
 
   posts.push({
     relativeId,
