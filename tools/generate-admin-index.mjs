@@ -38,13 +38,15 @@ async function collectMarkdownFiles(dir) {
 async function collectAssets(assetDirAbsolute, assetDirRepo, postSlug) {
   try {
     const entries = await fs.readdir(assetDirAbsolute, { withFileTypes: true })
-    return entries
+    const assets = await Promise.all(entries
       .filter((entry) => entry.isFile() && imageExtensions.has(path.extname(entry.name).toLowerCase()))
-      .map((entry) => ({
+      .map(async (entry) => ({
         filename: entry.name,
         repoPath: `${assetDirRepo}/${entry.name}`,
         markdownPath: `${postSlug}/${entry.name}`,
-      }))
+        size: (await fs.stat(path.join(assetDirAbsolute, entry.name))).size,
+      })))
+    return assets
       .sort((a, b) => a.filename.localeCompare(b.filename))
   } catch (error) {
     if (error?.code === 'ENOENT') return []
