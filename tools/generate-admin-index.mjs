@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import yaml from 'js-yaml'
 
 const rootDir = process.cwd()
@@ -18,6 +20,7 @@ const imageExtensions = new Set([
 
 const toPosix = (value) => value.split(path.sep).join('/')
 const trimExtension = (value) => value.replace(/\.md$/i, '')
+const execFileAsync = promisify(execFile)
 
 async function collectMarkdownFiles(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true })
@@ -70,6 +73,15 @@ function normalizeDate(value) {
   return undefined
 }
 
+async function getSourceCommitSha() {
+  try {
+    const { stdout } = await execFileAsync('git', ['rev-parse', 'HEAD'], { cwd: rootDir })
+    return stdout.trim() || undefined
+  } catch {
+    return undefined
+  }
+}
+
 function normalizeStringArray(value) {
   if (Array.isArray(value)) return value.map(String)
   if (typeof value === 'string') return [value]
@@ -89,11 +101,13 @@ function addToTree(tree, post) {
         id: idPrefix,
         name: segment,
         type: 'folder',
+        sortPublishedAt: post.publishedAt,
         children: [],
       }
       current.push(folder)
     }
 
+    folder.sortPublishedAt = olderDate(folder.sortPublishedAt, post.publishedAt)
     current = folder.children
   }
 
@@ -101,12 +115,26 @@ function addToTree(tree, post) {
     id: post.relativeId,
     name: segments.at(-1) ?? post.relativeId,
     type: 'post',
+    sortPublishedAt: post.publishedAt,
     post,
   })
 }
 
+function timestamp(value) {
+  const time = value ? Date.parse(value) : Number.NaN
+  return Number.isFinite(time) ? time : 0
+}
+
+function olderDate(a, b) {
+  if (!a) return b
+  if (!b) return a
+  return timestamp(a) <= timestamp(b) ? a : b
+}
+
 function sortTree(nodes) {
   nodes.sort((a, b) => {
+    const dateDiff = timestamp(b.sortPublishedAt) - timestamp(a.sortPublishedAt)
+    if (dateDiff !== 0) return dateDiff
     if (a.type !== b.type) return a.type === 'folder' ? -1 : 1
     return a.name.localeCompare(b.name)
   })
@@ -128,16 +156,21 @@ for (const absolutePath of markdownFiles) {
   const assetDirRepo = [postsDir, folderPath, postSlug].filter(Boolean).join('/')
   const markdown = await fs.readFile(absolutePath, 'utf8')
   const frontMatter = parseFrontMatter(markdown)
+  const publishedAt = normalizeDate(frontMatter.date)
 
   posts.push({
     relativeId,
     title: typeof frontMatter.title === 'string' ? frontMatter.title : postSlug,
     path: repoPath,
+    metadata: {
+      publishedAt,
+    },
+    publishedAt,
     folderPath,
     postSlug,
     assetDir: `${assetDirRepo}/`,
     markdownAssetPrefix: postSlug,
-    date: normalizeDate(frontMatter.date),
+    date: publishedAt,
     updated: normalizeDate(frontMatter.updated),
     tags: normalizeStringArray(frontMatter.tags),
     categories: normalizeStringArray(frontMatter.categories),
@@ -145,7 +178,10 @@ for (const absolutePath of markdownFiles) {
   })
 }
 
-posts.sort((a, b) => a.relativeId.localeCompare(b.relativeId))
+posts.sort((a, b) => {
+  const dateDiff = timestamp(b.publishedAt) - timestamp(a.publishedAt)
+  return dateDiff || a.relativeId.localeCompare(b.relativeId)
+})
 
 const tree = []
 for (const post of posts) {
@@ -156,6 +192,7 @@ sortTree(tree)
 const index = {
   version: 1,
   generatedAt: new Date().toISOString(),
+  sourceCommitSha: await getSourceCommitSha(),
   postsDir,
   assetMode: 'post-folder',
   posts,
