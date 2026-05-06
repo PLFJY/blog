@@ -7,7 +7,7 @@ tags:
 mathjax: true
 ---
 
-今天突然心血来 Vibe Coding 了一个纯 Workers 的 Hexo 博客管理后台，主要还是基于 Github API 完成
+今天突然心血来 Vibe Coding 了一个纯 Workers 的 Hexo 博客管理后台，主要还是基于 GitHub API 完成
 
 仓库是 [PLFJY/hexo-blog-admin](https://github.com/PLFJY/hexo-blog-admin)
 
@@ -23,18 +23,18 @@ mathjax: true
 
 ## 前言
 
-基于 Hexo 的博客传统上会直接使用 Git 仓库的管理方式，略微有些高阶者可能尝试过 Hexo admin 之类的面板，但是至少我的体验上还是挺差的，至少我的图片没有被正确加载出来，至少在官方的教程下的传统资源文件方式解析就是有问题的，于是 Hexo admin 基于官方错误的解析方式解析，根本没法对[hexo-asset-img](https://github.com/yiyungent/hexo-asset-img) 这种插件做很好的适配，并且对于诸如 `==` 的==高亮==扩展语法、$x+y=0$ 的 Latex 公式也咩有很好的支持。扯远了，对于其它类型的管理面板，例如 Decamp 的 泛用型 CMS 管理面板也并不是很完美的适配 Github Action 构建 + Cloudflare Pages 部署的环境，于是我灵机一动直接用 Codex 搓了一个。
+基于 Hexo 的博客传统上会直接使用 Git 仓库的管理方式，略微有些高阶者可能尝试过 Hexo admin 之类的面板，但是至少我的体验上还是挺差的，至少我的图片没有被正确加载出来，至少在官方的教程下的传统资源文件方式解析就是有问题的，于是 Hexo admin 基于官方错误的解析方式解析，根本没法对[hexo-asset-img](https://github.com/yiyungent/hexo-asset-img) 这种插件做很好的适配，并且对于诸如 `==高亮==` 的==高亮==扩展语法、$x+y=0$ 的 LaTex 公式也咩有很好的支持。扯远了，对于其它类型的管理面板，例如 Decamp 的泛用型 CMS 管理面板也并不是很完美的适配 GitHub Action 构建 + Cloudflare Pages 部署的环境，于是我灵机一动直接用 Codex 搓了一个。
 
 > 插个锚点，我解决图片问题是看的这篇文章，有兴趣可以去看看：[解决静态图片路径错误问题](https://tech.yemengstar.com/hexo-tutorial-postandimages-beginner/)
 
-此面板基于 React 19 和 Fluent UI，配上一些小巧思便诞生了这个作品。采用纯 Cloudflare 的方案，完美适配一切基于 Github 搭建的 Hexo 博客站。正文存放于 Github仓库，通过 Action 直接部署至 Github Pages、Cloudflare Pages 或者 Vercel，草稿存放在 Cloudflare 的 D1 存储库当中，草稿当中上传的图片存放在 Cloudflare 的 R2 存储桶里，会在部署时随着文章一起打包上传至仓库内，运行时的配置采用 KV 存储，配置项通过 Workers Variable 环境变量配置。同时需要依赖源站做一个小改动，加一个小脚本生成一个 `admin-index.json` 方便面板获取博客站点上的信息
+此面板基于 React 19 和 Fluent UI，配上一些小巧思便诞生了这个作品。采用纯 Cloudflare 的方案，完美适配一切基于 GitHub 搭建的 Hexo 博客站。正文存放于 GitHub仓库，通过 Action 直接部署至 GitHub Pages、Cloudflare Pages 或者 Vercel，草稿存放在 Cloudflare 的 D1 存储库当中，草稿当中上传的图片存放在 Cloudflare 的 R2 存储桶里，会在部署时随着文章一起打包上传至仓库内，运行时的配置采用 KV 存储，配置项通过 Workers Variable 环境变量配置。同时需要依赖源站做一个小改动，加一个小脚本生成一个 `admin-index.json` 方便面板获取博客站点上的信息
 
 ## 特色功能
 
 ### 1. 零成本部署
 完全依托于 Cloudflare 的免费方案，无需服务器，但可能 R2 和 D1 需要 CF 绑定信用卡才能开通
 
-Github 的 Git 操作利用 Github API完成
+Git 操作利用 GitHub API完成
 
 ### 2. 文章管理
 
@@ -81,7 +81,7 @@ Github 的 Git 操作利用 Github API完成
 
 #### 6. 部署
 
-这里可以手动触发 Github 的 部署 Action，强制同步仓库状态，不过如果 Action 的触发是通过 on push 的话这里主要还是起到一个看一眼上次部署状态的作用
+这里可以手动触发 GitHub 的 部署 Action，强制同步仓库状态，不过如果 Action 的触发是通过 on push 的话这里主要还是起到一个看一眼上次部署状态的作用
 
 #### 7. 设置
 
@@ -99,7 +99,7 @@ Github 的 Git 操作利用 Github API完成
 
 根据 README 当中的说明配置 [用于源博客站的 admin-index.json](https://github.com/PLFJY/hexo-blog-admin#%E5%8D%9A%E5%AE%A2%E4%BB%93%E5%BA%93%E4%BE%A7%E9%85%8D%E7%BD%AE-admin-indexjson)
 
-接下来来到 CloudFlare，创建 Workers 应用程序，选择刚刚 Fork 下来的仓库创建
+接下来来到 Cloudflare，创建 Workers 应用程序，选择刚刚 Fork 下来的仓库创建
 
 接下来去 Workers 设置中配置域名
 
@@ -109,7 +109,7 @@ Github 的 Git 操作利用 Github API完成
 
 ![setup dark](hexo-blog-admin/setup_dark.webp)
 
-其中，Github 的 Token (GITHUB_TOKEN)设置跟着下面的步骤走：
+其中，GitHub 的 Token (GITHUB_TOKEN)设置跟着下面的步骤走：
 
 1. ![clipboard-20260506-204450.png](hexo-blog-admin/github1.webp)
 
