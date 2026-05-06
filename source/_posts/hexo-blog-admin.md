@@ -23,7 +23,7 @@ mathjax: true
 
 ## 前言
 
-基于 Hexo 的博客传统上会直接使用 Git 仓库的管理方式，略微有些高阶者可能尝试过 Hexo admin 之类的面板，但是至少我的体验上还是挺差的，至少我的图片没有被正确加载出来，至少在官方的教程下的传统资源文件方式解析就是有问题的，于是 Hexo admin 基于官方错误的解析方式解析，根本没法对[hexo-asset-img](https://github.com/yiyungent/hexo-asset-img) 这种插件做很好的适配，并且对于诸如\=\=的==高亮==扩展语法、$x+y=0$ 的 Latex 公式也咩有很好的支持。扯远了，对于其它类型的管理面板，例如 Decamp 的 泛用型 CMS 管理面板也并不是很完美的适配 Github Action 构建 + Cloudflare Pages 部署的环境，于是我灵机一动直接用 Codex 搓了一个。
+基于 Hexo 的博客传统上会直接使用 Git 仓库的管理方式，略微有些高阶者可能尝试过 Hexo admin 之类的面板，但是至少我的体验上还是挺差的，至少我的图片没有被正确加载出来，至少在官方的教程下的传统资源文件方式解析就是有问题的，于是 Hexo admin 基于官方错误的解析方式解析，根本没法对[hexo-asset-img](https://github.com/yiyungent/hexo-asset-img) 这种插件做很好的适配，并且对于诸如 `==` 的==高亮==扩展语法、$x+y=0$ 的 Latex 公式也咩有很好的支持。扯远了，对于其它类型的管理面板，例如 Decamp 的 泛用型 CMS 管理面板也并不是很完美的适配 Github Action 构建 + Cloudflare Pages 部署的环境，于是我灵机一动直接用 Codex 搓了一个。
 
 > 插个锚点，我解决图片问题是看的这篇文章，有兴趣可以去看看：[解决静态图片路径错误问题](https://tech.yemengstar.com/hexo-tutorial-postandimages-beginner/)
 
