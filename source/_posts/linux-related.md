@@ -4,7 +4,7 @@ date: 2025-11-22 02:36:07
 tags:
 - linux
 - kde
-published: false
+published: true
 ---
 
 折腾了这么久linux，好多小问题，每解决一个我都扔进来一个，虽然可能只有我自己看的懂，就当随笔记录吧，我时不时可能会拿一些出来单独写点文章啥的
