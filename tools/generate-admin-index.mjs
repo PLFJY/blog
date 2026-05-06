@@ -100,6 +100,16 @@ function normalizeStringArray(value) {
   return []
 }
 
+function normalizePublished(value) {
+  if (typeof value === 'boolean') return value
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase()
+    if (normalized === 'true') return true
+    if (normalized === 'false') return false
+  }
+  return true
+}
+
 function addToTree(tree, post) {
   const segments = post.relativeId.split('/')
   let current = tree
@@ -169,6 +179,7 @@ for (const absolutePath of markdownFiles) {
   const markdown = await fs.readFile(absolutePath, 'utf8')
   const frontMatter = parseFrontMatter(markdown)
   const publishedAt = normalizeDate(frontMatter.date) ?? await getGitFileDate(repoPath)
+  const published = normalizePublished(frontMatter.published)
 
   posts.push({
     relativeId,
@@ -176,8 +187,10 @@ for (const absolutePath of markdownFiles) {
     path: repoPath,
     metadata: {
       publishedAt,
+      published,
     },
     publishedAt,
+    published,
     folderPath,
     postSlug,
     assetDir: `${assetDirRepo}/`,
