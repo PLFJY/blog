@@ -1,3 +1,11 @@
+allowBuilds:
+  gifsicle: true
+  hexo-util: true
+  jpegtran-bin: true
+  mozjpeg: true
+  nodejieba: true
+  optipng-bin: true
+  pngquant-bin: true
 onlyBuiltDependencies:
   - gifsicle
   - hexo-util
