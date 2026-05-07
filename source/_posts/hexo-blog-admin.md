@@ -7,7 +7,7 @@ tags:
 mathjax: true
 ---
 
-今天突然心血来 Vibe Coding 了一个纯 Workers 的 Hexo 博客管理后台，主要还是基于 GitHub API 完成
+今天突然心血来潮 Vibe Coding 了一个纯 Workers 的 Hexo 博客管理后台，主要还是基于 GitHub API 完成
 
 仓库是 [PLFJY/hexo-blog-admin](https://github.com/PLFJY/hexo-blog-admin)
 
