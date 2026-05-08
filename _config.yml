@@ -14,7 +14,7 @@ all_minifier: true
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://blog.plfjy.top/
+url: http://blog.plfjy.top
 permalink: :title/
 permalink_defaults:
 pretty_urls:
