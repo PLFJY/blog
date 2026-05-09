@@ -193,7 +193,9 @@ async function buildSiteAndCustomizeSummary() {
     ? getString(dependencies[themePackageName]) ?? getString(devDependencies[themePackageName])
     : undefined
   const isRedefine = detectedTheme === 'redefine'
-  const editableFiles = [...commonCustomizeFiles, ...(isRedefine ? redefineCustomizeFiles : [])]
+  const editableFiles = isRedefine
+    ? [commonCustomizeFiles[0], redefineCustomizeFiles[0], commonCustomizeFiles[1], ...redefineCustomizeFiles.slice(1)]
+    : commonCustomizeFiles
   const availablePanels = [...commonCustomizePanels, ...(isRedefine ? redefineCustomizePanels : [])]
 
   return {
