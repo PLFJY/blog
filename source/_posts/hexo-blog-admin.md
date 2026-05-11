@@ -111,11 +111,11 @@ Git 操作利用 GitHub API完成
 
 其中，GitHub 的 Token (GITHUB_TOKEN)设置跟着下面的步骤走：
 
-1. ![clipboard-20260506-204450.png](hexo-blog-admin/github1.webp)
+1. ![github1](hexo-blog-admin/github1.webp)
 
-2. ![clipboard-20260506-204525.png](hexo-blog-admin/github2.webp)
+2. ![github2](hexo-blog-admin/github2.webp)
 
-3. ![clipboard-20260506-204703.png](hexo-blog-admin/github3.webp)
+3. ![github3](hexo-blog-admin/github3.webp)
 
 然后得到的 Token 以密钥的形式放入 Workers 中的环境变量即可
 
