@@ -7,7 +7,7 @@ title: 零风PLFJYの小站
 subtitle: ''
 description: ''
 keywords:
-author: Zero_PLFJY
+author: Zero PLFJY
 language: en
 timezone: 'Asia/Shanghai'
 all_minifier: true
@@ -29,8 +29,8 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
-# Writing
+skip_render: # Writing
+
 new_post_name: :title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
@@ -111,9 +111,9 @@ deploy:
   type: git
 
 mathjax:
-    tags: none # or 'ams' or 'all'
-    single_dollars: true # enable single dollar signs as in-line math delimiters
-    cjk_width: 0.9 # relative CJK char width
-    normal_width: 0.6 # relative normal (monospace) width
-    append_css: true # add CSS to every page
-    every_page: false # if true, every page will be rendered by mathjax regardless the `mathjax` setting in Front-matter of each article
+  tags: none # or 'ams' or 'all'
+  single_dollars: true # enable single dollar signs as in-line math delimiters
+  cjk_width: 0.9 # relative CJK char width
+  normal_width: 0.6 # relative normal (monospace) width
+  append_css: true # add CSS to every page
+  every_page: false # if true, every page will be rendered by mathjax regardless the `mathjax` setting in Front-matter of each article
