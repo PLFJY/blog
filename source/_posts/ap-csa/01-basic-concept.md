@@ -147,7 +147,7 @@ public static void main(String[] args) {
 |双引号 double quotes|`“` `”`|`"` `"`|
 |单引号 single quote|`‘` `’`|`'` `'`|
 
-## 输出 (有叫打印 Print)
+## 输出 (又叫打印 Print)
 
 计算机是用来计算的，它算完了总得告诉我们算了啥，所以就有了输出，刚才你在底下那块区域看到的 `Hello World` 就是输出的内容，那个地方叫做控制台，我们的输出就会出现在那里
 
