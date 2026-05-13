@@ -107,3 +107,192 @@ div.search-pop-overlay.active div.search-header {
     font-size: 1.5rem!important;
 }
 
+/* =========================================================
+ * Redefine navbar logo legacy fallback
+ * Fix huge logo on old browser engines.
+ * Do not rely on Tailwind utilities here.
+ * ========================================================= */
+
+.navbar-container .navbar-content .left .logo-image {
+    display: inline-block !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    margin-right: 12px !important;
+    overflow: hidden !important;
+    line-height: 0 !important;
+    vertical-align: middle !important;
+    flex: 0 0 32px !important;
+}
+
+.navbar-container .navbar-content .left .logo-image img {
+    display: block !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    object-fit: cover;
+    border-radius: 4px !important;
+}
+
+@media (min-width: 640px) {
+    .navbar-container .navbar-content .left .logo-image {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
+        flex-basis: 40px !important;
+    }
+
+    .navbar-container .navbar-content .left .logo-image img {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
+    }
+}
+
+
+/* =========================================================
+ * Home banner social buttons
+ * WebGL Liquid Glass target only.
+ * Icon shadow is always enabled.
+ * ========================================================= */
+
+.home-banner-container .social-contacts {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    /* fallback first: old-ish syntax */
+    background: rgba(255, 255, 255, 0.28) !important;
+    border: 1px solid rgba(255, 255, 255, 0.42) !important;
+
+    -webkit-backdrop-filter: blur(14px) saturate(145%);
+    backdrop-filter: blur(14px) saturate(145%);
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.22),
+        inset 0 1px 1px rgba(255, 255, 255, 0.72),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.12) !important;
+}
+
+/* WebGL 可用时，把底色压轻一点，把主视觉交给 canvas */
+html.liquid-glass-webgl-enabled .home-banner-container .social-contacts {
+    background: rgba(255, 255, 255, 0.12) !important;
+
+    -webkit-backdrop-filter: blur(8px) saturate(130%);
+    backdrop-filter: blur(8px) saturate(130%);
+}
+
+/* 深色模式 fallback */
+.dark .home-banner-container .social-contacts {
+    background: rgba(30, 30, 38, 0.28) !important;
+    border-color: rgba(255, 255, 255, 0.24) !important;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.34),
+        inset 0 1px 1px rgba(255, 255, 255, 0.32),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+/* WebGL canvas layer */
+.home-banner-container .social-contacts canvas.liquid-glass-webgl-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    display: block;
+}
+
+html.liquid-glass-webgl-disabled .home-banner-container .social-contacts canvas.liquid-glass-webgl-canvas {
+    display: none !important;
+}
+
+/* social 内容压到 canvas 上方 */
+.home-banner-container .social-contacts > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================================================
+ * Icon readability enhancement
+ * Always enabled, independent from WebGL gate.
+ * ========================================================= */
+
+.home-banner-container .social-contacts a,
+.home-banner-container .social-contacts i {
+    color: rgba(35, 38, 42, 0.96) !important;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.82),
+        0 2px 6px rgba(0, 0, 0, 0.42),
+        0 0 10px rgba(255, 255, 255, 0.34);
+
+    transition:
+        color 180ms ease,
+        text-shadow 180ms ease,
+        transform 180ms ease;
+}
+
+.dark .home-banner-container .social-contacts a,
+.dark .home-banner-container .social-contacts i {
+    color: rgba(255, 255, 255, 0.96) !important;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 10px rgba(255, 255, 255, 0.18),
+        0 0 14px rgba(202, 139, 255, 0.26);
+}
+
+.home-banner-container .social-contacts img {
+    filter:
+        drop-shadow(0 1px 0 rgba(255, 255, 255, 0.70))
+        drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.dark .home-banner-container .social-contacts img {
+    filter:
+        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.72))
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.16));
+}
+
+.home-banner-container .social-contacts .social-contact-item:hover i,
+.home-banner-container .social-contacts .social-contact-item-qr:hover i {
+    transform: translateY(-1px) scale(1.08);
+    color: var(--primary-color) !important;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.48),
+        0 0 10px rgba(202, 139, 255, 0.58),
+        0 0 18px rgba(255, 255, 255, 0.46);
+}
+
+.home-banner-container .social-contacts .social-links-divider {
+    background: rgba(40, 42, 48, 0.38) !important;
+
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.50),
+        0 0 4px rgba(0, 0, 0, 0.18);
+}
+
+.dark .home-banner-container .social-contacts .social-links-divider {
+    background: rgba(255, 255, 255, 0.38) !important;
+
+    box-shadow:
+        0 0 6px rgba(255, 255, 255, 0.14),
+        0 1px 2px rgba(0, 0, 0, 0.45);
+}
