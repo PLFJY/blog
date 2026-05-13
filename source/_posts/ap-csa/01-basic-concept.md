@@ -238,6 +238,8 @@ AP Computer Science A
 Glad to 
 See you
 
+---
+
 正确答案是 B，解析：
 
 第1行 `System.out.println("My Name is PLFJY");` 带`ln`，所以下一行换行输出，所以此时输出内容如下
