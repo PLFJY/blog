@@ -20,11 +20,8 @@ tags:
 
 ![4f940637c3d3de2dd6c7f77951bb30c2](oosq-no-winX/4f940637c3d3de2dd6c7f77951bb30c2.webp)
 
-
-
 ![78e08dfded342584bfb048668fd6fc9a](oosq-no-winX/78e08dfded342584bfb048668fd6fc9a.webp)
 
 作者也做出了懒人工具发在了官网，可以在更新日志里找到然后下载使用，[OSSQ版本转换官网](https://ossq.cn/switching.html) 这是软件的官网
 
 ![958547831a40eb0148df10e6e2333006](oosq-no-winX/958547831a40eb0148df10e6e2333006.webp)
-
