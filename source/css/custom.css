@@ -18,7 +18,8 @@
 .block { display: block; }
 .inline-block { display: inline-block; }
 .hidden { display: none; }
-.flex { display: flex; }
+.flex { display: flex !important; }
+.hidden { display: none !important; }
 .inline-flex { display: inline-flex; }
 
 /* position */
@@ -127,8 +128,8 @@
 .translate-y-0\.5 { transform: translateY(2px); }
 
 /* dark visibility helpers */
-.dark .dark\:hidden { display: none !important; }
 .dark .dark\:block { display: block !important; }
+.dark .dark\:hidden { display: none !important; }
 
 @media (min-width: 640px) {
     .sm\:w-10 { width: 40px; }
