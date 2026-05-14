@@ -570,66 +570,176 @@ html.dark .home-banner-container .social-contacts .social-links-divider {
 }
 
 /* =========================================================
- * 5. Search popup: glass + theme-safe text
+ * 5. Search popup: Liquid Glass + theme-safe text
+ *    WebGL canvas uses the same liquid-glass pipeline as social buttons.
  * ========================================================= */
 
 .search-pop-overlay.active {
-    background: rgba(0, 0, 0, 0.35) !important;
+    background: rgba(0, 0, 0, 0.28) !important;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
 }
 
-.search-pop-overlay.active .search-popup {
-    border-radius: 14px !important;
-    overflow: hidden;
-    background: rgba(28, 30, 36, 0.28) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    -webkit-backdrop-filter: blur(34px) saturate(145%);
-    backdrop-filter: blur(34px) saturate(145%);
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.34), inset 0 1px 1px rgba(255, 255, 255, 0.30);
+.search-pop-overlay .search-popup {
+    position: relative !important;
+    isolation: isolate;
+    overflow: hidden !important;
+    background: rgba(255, 255, 255, 0.24) !important;
+    border: 1px solid rgba(255, 255, 255, 0.42) !important;
+    border-radius: 18px !important;
+    -webkit-backdrop-filter: blur(18px) saturate(145%);
+    backdrop-filter: blur(18px) saturate(145%);
+    box-shadow:
+        0 18px 60px rgba(0, 0, 0, 0.28),
+        inset 0 1px 1px rgba(255, 255, 255, 0.72),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.14) !important;
 }
 
-.search-pop-overlay.active #result,
-.search-pop-overlay.active .search-header,
-.search-pop-overlay.active div {
-    border-radius: 8px;
+html.liquid-glass-webgl-enabled .search-pop-overlay .search-popup {
+    background: rgba(255, 255, 255, 0.12) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    backdrop-filter: blur(10px) saturate(130%);
 }
 
-.search-pop-overlay.active .search-popup .search-header,
+.dark .search-pop-overlay .search-popup,
+html.dark .search-pop-overlay .search-popup {
+    background: rgba(24, 24, 32, 0.42) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+    box-shadow:
+        0 18px 60px rgba(0, 0, 0, 0.42),
+        inset 0 1px 1px rgba(255, 255, 255, 0.30),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+.search-pop-overlay .search-popup canvas.liquid-glass-webgl-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    display: block;
+}
+
+html.liquid-glass-webgl-disabled .search-pop-overlay .search-popup canvas.liquid-glass-webgl-canvas {
+    display: none !important;
+}
+
+.search-pop-overlay .search-popup > * {
+    position: relative;
+    z-index: 1;
+}
+
+.search-pop-overlay .search-popup .search-header,
 div.search-pop-overlay.active div.search-header {
-    background: rgba(32, 33, 36, 0.30) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-    -webkit-backdrop-filter: blur(30px) saturate(145%);
-    backdrop-filter: blur(30px) saturate(145%);
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    border-top-left-radius: 18px !important;
+    border-top-right-radius: 18px !important;
+    -webkit-backdrop-filter: blur(16px) saturate(135%);
+    backdrop-filter: blur(16px) saturate(135%);
 }
 
-.search-pop-overlay .search-popup .search-header .search-input-container .search-input,
-.search-pop-overlay .search-popup .search-header .search-input-field-pre,
-.search-pop-overlay .search-popup .search-header .popup-btn-close,
-.search-pop-overlay .search-popup .search-header i {
-    color: #fff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.72), 0 0 10px rgba(0, 0, 0, 0.40);
+.dark .search-pop-overlay .search-popup .search-header,
+html.dark .search-pop-overlay .search-popup .search-header {
+    background: rgba(20, 20, 28, 0.28) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
-.search-pop-overlay .search-popup .search-header .search-input-container .search-input::placeholder {
+.search-pop-overlay .search-popup .search-header,
+.search-pop-overlay .search-popup .search-header i,
+.search-pop-overlay .search-popup .search-input,
+.search-pop-overlay .search-popup .popup-btn-close,
+.search-pop-overlay .search-popup .search-input-field-pre {
+    color: var(--default-text-color) !important;
+    text-shadow:
+        0 1px 2px rgba(255, 255, 255, 0.50),
+        0 2px 8px rgba(0, 0, 0, 0.28);
+}
+
+.dark .search-pop-overlay .search-popup .search-header,
+.dark .search-pop-overlay .search-popup .search-header i,
+.dark .search-pop-overlay .search-popup .search-input,
+.dark .search-pop-overlay .search-popup .popup-btn-close,
+.dark .search-pop-overlay .search-popup .search-input-field-pre,
+html.dark .search-pop-overlay .search-popup .search-header,
+html.dark .search-pop-overlay .search-popup .search-header i,
+html.dark .search-pop-overlay .search-popup .search-input,
+html.dark .search-pop-overlay .search-popup .popup-btn-close,
+html.dark .search-pop-overlay .search-popup .search-input-field-pre {
+    color: rgba(255, 255, 255, 0.96) !important;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.78),
+        0 0 12px rgba(255, 255, 255, 0.18);
+}
+
+.search-pop-overlay .search-popup .search-input::placeholder {
+    color: rgba(80, 84, 88, 0.72) !important;
+}
+
+.dark .search-pop-overlay .search-popup .search-input::placeholder,
+html.dark .search-pop-overlay .search-popup .search-input::placeholder {
     color: rgba(255, 255, 255, 0.72) !important;
 }
 
-#search-result .search-result-list .search-result,
-#search-result .search-result-title,
-#search-result .search-result-title a,
-#search-result #no-result {
-    color: #fff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.72), 0 0 12px rgba(0, 0, 0, 0.40);
+.search-pop-overlay .search-popup #search-result {
+    background: transparent !important;
 }
 
-#search-result .search-result-title:after {
-    background: #fff !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.72), 0 0 12px rgba(255, 255, 255, 0.40);
+.search-pop-overlay .search-popup #search-result,
+.search-pop-overlay .search-popup #search-result a,
+.search-pop-overlay .search-popup #search-result span,
+.search-pop-overlay .search-popup .search-result-title,
+.search-pop-overlay .search-popup .search-result {
+    color: var(--default-text-color) !important;
 }
 
-#search-result .search-keyword {
+.search-pop-overlay .search-popup .search-result-title {
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.55),
+        0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.search-pop-overlay .search-popup .search-result {
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.35),
+        0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.dark .search-pop-overlay .search-popup .search-result-title,
+.dark .search-pop-overlay .search-popup .search-result,
+html.dark .search-pop-overlay .search-popup .search-result-title,
+html.dark .search-pop-overlay .search-popup .search-result {
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 10px rgba(255, 255, 255, 0.12);
+}
+
+.search-pop-overlay .search-popup .search-result-title::after {
+    background: var(--primary-color) !important;
+    box-shadow:
+        0 0 8px rgba(202, 139, 255, 0.58),
+        0 1px 2px rgba(0, 0, 0, 0.32);
+}
+
+.search-pop-overlay .search-popup .search-keyword {
     color: var(--primary-color) !important;
     border-bottom-color: var(--primary-color) !important;
-    text-shadow: none;
+    text-shadow: 0 0 8px rgba(202, 139, 255, 0.45);
+}
+
+@media (max-width: 640px) {
+    .search-pop-overlay .search-popup {
+        width: 92% !important;
+        height: 78% !important;
+        border-radius: 16px !important;
+    }
+
+    .search-pop-overlay .search-popup .search-header {
+        border-top-left-radius: 16px !important;
+        border-top-right-radius: 16px !important;
+    }
 }
 
 /* =========================================================
@@ -930,4 +1040,167 @@ div.search-pop-overlay.active div.search-header {
         width: calc(100% - 32px) !important;
         max-width: calc(100% - 32px) !important;
     }
+}
+
+/* =========================================================
+ * Force all search popup text/icons to white with shadow
+ * ========================================================= */
+
+.search-pop-overlay .search-popup,
+.search-pop-overlay .search-popup *,
+.search-pop-overlay .search-popup a,
+.search-pop-overlay .search-popup i,
+.search-pop-overlay .search-popup span,
+.search-pop-overlay .search-popup p,
+.search-pop-overlay .search-popup li,
+.search-pop-overlay .search-popup div,
+.search-pop-overlay .search-popup input,
+.search-pop-overlay .search-popup button,
+.search-pop-overlay .search-popup .search-result,
+.search-pop-overlay .search-popup .search-result-title,
+.search-pop-overlay .search-popup #no-result,
+.search-pop-overlay .search-popup .popup-btn-close,
+.search-pop-overlay .search-popup .search-input-field-pre {
+    color: #fff !important;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.78),
+        0 0 10px rgba(0, 0, 0, 0.48),
+        0 0 18px rgba(255, 255, 255, 0.18) !important;
+}
+
+.search-pop-overlay .search-popup .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.72) !important;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.78),
+        0 0 10px rgba(0, 0, 0, 0.42) !important;
+}
+
+/* 搜索关键词仍然保留主题强调色，但也加阴影 */
+.search-pop-overlay .search-popup .search-keyword {
+    color: var(--primary-color) !important;
+    border-bottom-color: var(--primary-color) !important;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 10px rgba(202, 139, 255, 0.55) !important;
+}
+
+/* 搜索结果标题前的小圆点也强制可见 */
+.search-pop-overlay .search-popup .search-result-title::after {
+    background: #fff !important;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 12px rgba(255, 255, 255, 0.45) !important;
+}
+
+/* =========================================================
+ * Search popup hard override v2:
+ * white text globally, but keep keyword highlight in theme color.
+ * Put this at the very end of custom.css.
+ * ========================================================= */
+
+.search-pop-overlay.active .search-popup,
+.search-pop-overlay.active .search-popup *,
+.search-pop-overlay.active .search-popup *::before,
+.search-pop-overlay.active .search-popup *::after {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.82),
+        0 0 10px rgba(0, 0, 0, 0.56),
+        0 0 18px rgba(255, 255, 255, 0.20) !important;
+}
+
+/* input / textarea */
+.search-pop-overlay.active .search-popup input,
+.search-pop-overlay.active .search-popup textarea,
+.search-pop-overlay.active .search-popup input[type="text"],
+.search-pop-overlay.active .search-popup input[type="search"] {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    caret-color: #fff !important;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.82),
+        0 0 10px rgba(0, 0, 0, 0.56) !important;
+}
+
+.search-pop-overlay.active .search-popup input::placeholder,
+.search-pop-overlay.active .search-popup textarea::placeholder {
+    color: rgba(255, 255, 255, 0.72) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.72) !important;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.82),
+        0 0 10px rgba(0, 0, 0, 0.50) !important;
+}
+
+/* Keep search keyword highlight */
+.search-pop-overlay.active .search-popup .search-keyword,
+.search-pop-overlay.active .search-popup #search-result .search-keyword {
+    color: var(--primary-color) !important;
+    -webkit-text-fill-color: var(--primary-color) !important;
+    border-bottom-color: var(--primary-color) !important;
+    background: transparent !important;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.86),
+        0 0 8px rgba(0, 0, 0, 0.65),
+        0 0 12px rgba(202, 139, 255, 0.70) !important;
+}
+
+/* Optional: bold/strong should stay white unless it is also .search-keyword */
+.search-pop-overlay.active .search-popup strong:not(.search-keyword),
+.search-pop-overlay.active .search-popup b:not(.search-keyword),
+.search-pop-overlay.active .search-popup em:not(.search-keyword),
+.search-pop-overlay.active .search-popup mark:not(.search-keyword) {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    background: transparent !important;
+}
+
+/* Result title dot */
+.search-pop-overlay.active .search-popup .search-result-title::after,
+.search-pop-overlay.active .search-popup #search-result .search-result-title::after {
+    background: rgba(255, 255, 255, 0.92) !important;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 12px rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Links in every state */
+.search-pop-overlay.active .search-popup a,
+.search-pop-overlay.active .search-popup a:link,
+.search-pop-overlay.active .search-popup a:visited,
+.search-pop-overlay.active .search-popup a:hover,
+.search-pop-overlay.active .search-popup a:active {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    text-decoration-color: rgba(255, 255, 255, 0.72) !important;
+}
+
+/* But keyword inside links still uses highlight */
+.search-pop-overlay.active .search-popup a .search-keyword,
+.search-pop-overlay.active .search-popup a:link .search-keyword,
+.search-pop-overlay.active .search-popup a:visited .search-keyword,
+.search-pop-overlay.active .search-popup a:hover .search-keyword,
+.search-pop-overlay.active .search-popup a:active .search-keyword {
+    color: var(--primary-color) !important;
+    -webkit-text-fill-color: var(--primary-color) !important;
+}
+
+/* FontAwesome / icon fallback */
+.search-pop-overlay.active .search-popup i,
+.search-pop-overlay.active .search-popup svg,
+.search-pop-overlay.active .search-popup .fa,
+.search-pop-overlay.active .search-popup .fa-solid,
+.search-pop-overlay.active .search-popup .fa-regular,
+.search-pop-overlay.active .search-popup .fa-brands {
+    color: #fff !important;
+    fill: #fff !important;
+    stroke: #fff !important;
+
+    filter:
+        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.82))
+        drop-shadow(0 0 8px rgba(0, 0, 0, 0.42));
 }

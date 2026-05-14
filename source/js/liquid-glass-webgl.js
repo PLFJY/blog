@@ -1,6 +1,22 @@
 (() => {
   const IMAGE_URL = "https://t.alcy.cc/moez";
-  const TARGET_SELECTOR = ".home-banner-container .social-contacts";
+
+  const TARGETS = [
+    {
+      selector: ".home-banner-container .social-contacts",
+      name: "home-social",
+      pauseWhenInactive: false,
+    },
+    {
+      selector: ".search-pop-overlay .search-popup",
+      name: "search-popup",
+      pauseWhenInactive: true,
+      isActive(target) {
+        const overlay = target.closest(".search-pop-overlay");
+        return !!overlay && overlay.classList.contains("active");
+      },
+    },
+  ];
 
   const MINIMUM_ENGINE_VERSIONS = {
     blink: 96,
@@ -10,7 +26,6 @@
 
   function getBrowserEngineInfo() {
     const ua = navigator.userAgent || "";
-
     const isIOS = /iPad|iPhone|iPod/.test(ua);
 
     if (isIOS) {
@@ -159,6 +174,7 @@
     precision mediump float;
 
     uniform vec3 iResolution;
+    uniform float iTime;
     uniform vec4 iMouse;
     uniform sampler2D iChannel0;
     uniform vec2 iImageResolution;
@@ -393,12 +409,25 @@
     });
   }
 
-  function bindLiquidGlass(target, img) {
+  function isTargetActive(target, config) {
+    if (!config.pauseWhenInactive) {
+      return true;
+    }
+
+    if (typeof config.isActive === "function") {
+      return config.isActive(target);
+    }
+
+    return true;
+  }
+
+  function bindLiquidGlass(target, img, config) {
     if (!target || target.dataset.liquidGlassWebglBound === "true") {
       return;
     }
 
     target.dataset.liquidGlassWebglBound = "true";
+    target.dataset.liquidGlassTarget = config.name;
 
     const canvas = document.createElement("canvas");
     canvas.className = "liquid-glass-webgl-canvas";
@@ -429,6 +458,7 @@
 
     const uniforms = {
       resolution: gl.getUniformLocation(program, "iResolution"),
+      time: gl.getUniformLocation(program, "iTime"),
       mouse: gl.getUniformLocation(program, "iMouse"),
       texture: gl.getUniformLocation(program, "iChannel0"),
       imageResolution: gl.getUniformLocation(program, "iImageResolution"),
@@ -439,6 +469,7 @@
     resizeCanvas(target, canvas);
 
     let mouse = [canvas.width / 2, canvas.height / 2];
+    const startTime = performance.now();
 
     const updateMouseToCenter = () => {
       mouse = [canvas.width / 2, canvas.height / 2];
@@ -461,6 +492,8 @@
       updateMouseToCenter();
     };
 
+    target.__liquidGlassResize = handleResize;
+
     window.addEventListener("resize", handleResize);
 
     let resizeObserver = null;
@@ -480,6 +513,11 @@
         return;
       }
 
+      if (!isTargetActive(target, config)) {
+        requestAnimationFrame(render);
+        return;
+      }
+
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
@@ -487,6 +525,7 @@
       gl.useProgram(program);
 
       gl.uniform3f(uniforms.resolution, canvas.width, canvas.height, 1.0);
+      gl.uniform1f(uniforms.time, (performance.now() - startTime) / 1000);
       gl.uniform4f(uniforms.mouse, mouse[0], mouse[1], 0.0, 0.0);
       gl.uniform2f(uniforms.imageResolution, img.naturalWidth, img.naturalHeight);
 
@@ -520,8 +559,10 @@
 
     imagePromise
       .then((img) => {
-        document.querySelectorAll(TARGET_SELECTOR).forEach((target) => {
-          bindLiquidGlass(target, img);
+        TARGETS.forEach((config) => {
+          document.querySelectorAll(config.selector).forEach((target) => {
+            bindLiquidGlass(target, img, config);
+          });
         });
       })
       .catch((error) => {
@@ -531,11 +572,56 @@
       });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initLiquidGlass, { once: true });
-  } else {
-    initLiquidGlass();
+  function resizeLiquidGlassTargets() {
+    TARGETS.forEach((config) => {
+      document.querySelectorAll(config.selector).forEach((target) => {
+        if (typeof target.__liquidGlassResize === "function") {
+          target.__liquidGlassResize();
+        }
+      });
+    });
   }
 
-  document.addEventListener("swup:contentReplaced", initLiquidGlass);
+  function observeSearchPopup() {
+    const overlay = document.querySelector(".search-pop-overlay");
+
+    if (!overlay || overlay.dataset.liquidGlassObserverBound === "true") {
+      return;
+    }
+
+    overlay.dataset.liquidGlassObserverBound = "true";
+
+    if (!("MutationObserver" in window)) {
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      if (!overlay.classList.contains("active")) {
+        return;
+      }
+
+      window.setTimeout(() => {
+        initLiquidGlass();
+        resizeLiquidGlassTargets();
+      }, 80);
+    });
+
+    observer.observe(overlay, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+
+  function bootLiquidGlass() {
+    initLiquidGlass();
+    observeSearchPopup();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootLiquidGlass, { once: true });
+  } else {
+    bootLiquidGlass();
+  }
+
+  document.addEventListener("swup:contentReplaced", bootLiquidGlass);
 })();
