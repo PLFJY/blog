@@ -6,11 +6,15 @@
       selector: ".home-banner-container .social-contacts",
       name: "home-social",
       pauseWhenInactive: false,
+      baseAlpha: 0.62,
+      effectAlpha: 1.0,
     },
     {
       selector: ".search-pop-overlay .search-popup",
       name: "search-popup",
       pauseWhenInactive: true,
+      baseAlpha: 0.62,
+      effectAlpha: 1.0,
       isActive(target) {
         const overlay = target.closest(".search-pop-overlay");
         return !!overlay && overlay.classList.contains("active");
@@ -178,23 +182,8 @@
     uniform vec4 iMouse;
     uniform sampler2D iChannel0;
     uniform vec2 iImageResolution;
-
-    vec2 coverUv(vec2 uv, vec2 screenSize, vec2 imageSize) {
-      float screenRatio = screenSize.x / screenSize.y;
-      float imageRatio = imageSize.x / imageSize.y;
-
-      vec2 newUv = uv;
-
-      if (imageRatio > screenRatio) {
-        float scale = screenRatio / imageRatio;
-        newUv.x = uv.x * scale + (1.0 - scale) * 0.5;
-      } else {
-        float scale = imageRatio / screenRatio;
-        newUv.y = uv.y * scale + (1.0 - scale) * 0.5;
-      }
-
-      return newUv;
-    }
+    uniform float iBaseAlpha;
+    uniform float iEffectAlpha;
 
     void mainImage(out vec4 fragColor, in vec2 fragCoord)
     {
@@ -247,7 +236,6 @@
       fragColor = vec4(NUM_ZERO);
 
       float transition = smoothstep(NUM_ZERO, NUM_ONE, rb1 + rb2);
-      vec2 baseUv = coverUv(uv, iResolution.xy, iImageResolution);
 
       if (transition > NUM_ZERO) {
         vec2 lens =
@@ -258,8 +246,7 @@
         for (float x = -SAMPLE_RANGE; x <= SAMPLE_RANGE; x++) {
           for (float y = -SAMPLE_RANGE; y <= SAMPLE_RANGE; y++) {
             vec2 offset = vec2(x, y) * SAMPLE_OFFSET / iResolution.xy;
-            vec2 sampleUv = coverUv(offset + lens, iResolution.xy, iImageResolution);
-            fragColor += texture2D(iChannel0, sampleUv);
+            fragColor += texture2D(iChannel0, offset + lens);
             total += NUM_ONE;
           }
         }
@@ -276,12 +263,12 @@
           NUM_ONE
         );
 
-        fragColor = mix(texture2D(iChannel0, baseUv), lighting, transition);
+        fragColor = mix(texture2D(iChannel0, uv), lighting, transition);
       } else {
-        fragColor = texture2D(iChannel0, baseUv);
+        fragColor = texture2D(iChannel0, uv);
       }
 
-      fragColor.a = transition;
+      fragColor.a = mix(iBaseAlpha, iEffectAlpha, transition);
     }
 
     void main() {
@@ -462,6 +449,8 @@
       mouse: gl.getUniformLocation(program, "iMouse"),
       texture: gl.getUniformLocation(program, "iChannel0"),
       imageResolution: gl.getUniformLocation(program, "iImageResolution"),
+      baseAlpha: gl.getUniformLocation(program, "iBaseAlpha"),
+      effectAlpha: gl.getUniformLocation(program, "iEffectAlpha"),
     };
 
     const texture = setupTexture(gl, img);
@@ -528,6 +517,8 @@
       gl.uniform1f(uniforms.time, (performance.now() - startTime) / 1000);
       gl.uniform4f(uniforms.mouse, mouse[0], mouse[1], 0.0, 0.0);
       gl.uniform2f(uniforms.imageResolution, img.naturalWidth, img.naturalHeight);
+      gl.uniform1f(uniforms.baseAlpha, typeof config.baseAlpha === "number" ? config.baseAlpha : 0.0);
+      gl.uniform1f(uniforms.effectAlpha, typeof config.effectAlpha === "number" ? config.effectAlpha : 1.0);
 
       gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, texture);

@@ -60,6 +60,7 @@
     position: relative !important;
     box-sizing: border-box !important;
     flex: 0 1 auto !important;
+    width: 90vw !important;
     width: min(90vw, 1000px) !important;
     max-width: 1000px !important;
     margin-left: auto !important;
@@ -495,9 +496,14 @@ html.dark .navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.
 }
 
 html.liquid-glass-webgl-enabled .home-banner-container .social-contacts {
-    background: rgba(255, 255, 255, 0.12) !important;
-    -webkit-backdrop-filter: blur(8px) saturate(130%);
-    backdrop-filter: blur(8px) saturate(130%);
+    background: rgba(255, 255, 255, 0.10) !important;
+    -webkit-backdrop-filter: blur(5px) saturate(115%);
+    backdrop-filter: blur(5px) saturate(115%);
+}
+
+html.dark.liquid-glass-webgl-enabled .home-banner-container .social-contacts,
+html.liquid-glass-webgl-enabled.dark .home-banner-container .social-contacts {
+    background: rgba(24, 24, 32, 0.16) !important;
 }
 
 .dark .home-banner-container .social-contacts,
@@ -575,9 +581,10 @@ html.dark .home-banner-container .social-contacts .social-links-divider {
  * ========================================================= */
 
 .search-pop-overlay.active {
-    background: rgba(0, 0, 0, 0.28) !important;
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    /* Only dim the page behind the popup. Do not blur the outside area. */
+    background: rgba(0, 0, 0, 0.42) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
 }
 
 .search-pop-overlay .search-popup {
@@ -895,52 +902,6 @@ html.dark .search-pop-overlay .search-popup .search-result {
     }
 
 
-    /* ---------- Article page: hide desktop TOC earlier ---------- */
-
-    .post-page-container,
-    .post-page-container.show-toc {
-        gap: 0 !important;
-    }
-
-    .post-page-container .toc-content-container,
-    .post-page-container.show-toc .toc-content-container {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        width: 0 !important;
-        max-width: 0 !important;
-        min-width: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        overflow: hidden !important;
-    }
-
-    .post-page-container .article-content-container,
-    .post-page-container.show-toc .article-content-container {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-
-    /* ---------- Main content: keep readable margins ---------- */
-
-    .page-container .main-content-container .main-content-body {
-        display: flex !important;
-        justify-content: center !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .page-container .main-content-container .main-content-body .main-content,
-    .page-container .main-content-container .main-content-body .main-content.has-toc {
-        width: calc(100% - 48px) !important;
-        max-width: 1000px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        box-sizing: border-box !important;
-    }
-
-
     /* ---------- Home page: avoid sidebar squeezing article cards ---------- */
 
     .home-sidebar-container {
@@ -963,12 +924,6 @@ html.dark .search-pop-overlay .search-popup .search-result {
 }
 
 @media (max-width: 640px) {
-    .page-container .main-content-container .main-content-body .main-content,
-    .page-container .main-content-container .main-content-body .main-content.has-toc {
-        width: calc(100% - 32px) !important;
-        max-width: calc(100% - 32px) !important;
-    }
-
     .navbar-container .navbar-content .left .logo-title,
     .navbar-container .navbar-content .left .logo-title h1 {
         max-width: calc(100vw - 160px) !important;
@@ -1040,56 +995,6 @@ html.dark .search-pop-overlay .search-popup .search-result {
         width: calc(100% - 32px) !important;
         max-width: calc(100% - 32px) !important;
     }
-}
-
-/* =========================================================
- * Force all search popup text/icons to white with shadow
- * ========================================================= */
-
-.search-pop-overlay .search-popup,
-.search-pop-overlay .search-popup *,
-.search-pop-overlay .search-popup a,
-.search-pop-overlay .search-popup i,
-.search-pop-overlay .search-popup span,
-.search-pop-overlay .search-popup p,
-.search-pop-overlay .search-popup li,
-.search-pop-overlay .search-popup div,
-.search-pop-overlay .search-popup input,
-.search-pop-overlay .search-popup button,
-.search-pop-overlay .search-popup .search-result,
-.search-pop-overlay .search-popup .search-result-title,
-.search-pop-overlay .search-popup #no-result,
-.search-pop-overlay .search-popup .popup-btn-close,
-.search-pop-overlay .search-popup .search-input-field-pre {
-    color: #fff !important;
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.78),
-        0 0 10px rgba(0, 0, 0, 0.48),
-        0 0 18px rgba(255, 255, 255, 0.18) !important;
-}
-
-.search-pop-overlay .search-popup .search-input::placeholder {
-    color: rgba(255, 255, 255, 0.72) !important;
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.78),
-        0 0 10px rgba(0, 0, 0, 0.42) !important;
-}
-
-/* 搜索关键词仍然保留主题强调色，但也加阴影 */
-.search-pop-overlay .search-popup .search-keyword {
-    color: var(--primary-color) !important;
-    border-bottom-color: var(--primary-color) !important;
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.72),
-        0 0 10px rgba(202, 139, 255, 0.55) !important;
-}
-
-/* 搜索结果标题前的小圆点也强制可见 */
-.search-pop-overlay .search-popup .search-result-title::after {
-    background: #fff !important;
-    box-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.72),
-        0 0 12px rgba(255, 255, 255, 0.45) !important;
 }
 
 /* =========================================================
@@ -1203,4 +1108,155 @@ html.dark .search-pop-overlay .search-popup .search-result {
     filter:
         drop-shadow(0 1px 2px rgba(0, 0, 0, 0.82))
         drop-shadow(0 0 8px rgba(0, 0, 0, 0.42));
+}
+
+/* =========================================================
+ * Navbar hover behavior:
+ * keep top-level text color unchanged;
+ * only underline turns primary color.
+ * ========================================================= */
+
+/* Normal page navbar: hover text should stay default */
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item:hover > a,
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item:hover > a i,
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item.search:hover i {
+    color: var(--default-text-color) !important;
+    text-shadow: none !important;
+}
+
+/* Active item text also stays default; underline indicates active state */
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item > a.active,
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item > a.active i,
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item .active {
+    color: var(--default-text-color) !important;
+}
+
+/* Keep underline primary-colored */
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item > a::after,
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item > a.active::after,
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item .active::after {
+    background: var(--primary-color) !important;
+}
+
+/* Submenu hover can still turn primary, because it needs feedback */
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item
+.sub-menu
+li a:hover,
+.navbar-container
+.navbar-content.transition-navbar:not(.has-home-banner)
+.right
+.desktop
+.navbar-list
+.navbar-item
+.sub-menu
+li a:hover i {
+    color: var(--primary-color) !important;
+}
+
+/* =========================================================
+ * Search popup: original liquid-glass tuning
+ * Keep the demo-like WebGL texture visible; use only a small CSS blur.
+ * This block intentionally overrides the earlier "Liquid Glass only" block.
+ * ========================================================= */
+
+.search-pop-overlay.active {
+    /* Outside area: dim only, no blur. */
+    background: rgba(0, 0, 0, 0.42) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+.search-pop-overlay .search-popup,
+html.liquid-glass-webgl-enabled .search-pop-overlay .search-popup,
+.dark .search-pop-overlay .search-popup,
+html.dark .search-pop-overlay .search-popup {
+    -webkit-backdrop-filter: blur(5px) saturate(115%) !important;
+    backdrop-filter: blur(5px) saturate(115%) !important;
+}
+
+.search-pop-overlay .search-popup {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.40) !important;
+}
+
+html.liquid-glass-webgl-enabled .search-pop-overlay .search-popup {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .search-pop-overlay .search-popup,
+html.dark .search-pop-overlay .search-popup {
+    background: rgba(24, 24, 32, 0.24) !important;
+}
+
+.search-pop-overlay .search-popup .search-header,
+div.search-pop-overlay.active div.search-header,
+.dark .search-pop-overlay .search-popup .search-header,
+html.dark .search-pop-overlay .search-popup .search-header {
+    -webkit-backdrop-filter: blur(3px) saturate(110%) !important;
+    backdrop-filter: blur(3px) saturate(110%) !important;
+}
+
+.search-pop-overlay .search-popup .search-header,
+div.search-pop-overlay.active div.search-header {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+.dark .search-pop-overlay .search-popup .search-header,
+html.dark .search-pop-overlay .search-popup .search-header {
+    background: rgba(20, 20, 28, 0.18) !important;
+}
+
+.search-pop-overlay .search-popup canvas.liquid-glass-webgl-canvas {
+    opacity: 1 !important;
 }
