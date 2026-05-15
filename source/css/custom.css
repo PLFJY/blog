@@ -1,11 +1,10 @@
 /* =========================================================
  * PLFJY Blog custom.css
  * Target: Hexo Theme Redefine
- * Goals:
- * - Keep existing visual style: text/icon shadows, glass search, social glass
- * - Avoid fragile global Tailwind utility overrides
- * - Add legacy fallbacks for old browser engines so articles remain readable
- * - Keep text colors synced with theme class changes
+ *
+ * Scope:
+ * - Do NOT reimplement Redefine layout, width, TOC, post-tools, or breakpoints.
+ * - Only add visual polish and legacy fallbacks for fragile CSS/Tailwind cases.
  * ========================================================= */
 
 /* =========================================================
@@ -15,98 +14,37 @@
 :root {
     --plfjy-light-icon-color: rgba(35, 38, 42, 0.96);
     --plfjy-dark-icon-color: rgba(255, 255, 255, 0.96);
-    --plfjy-banner-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.72), 0 0 10px rgba(0, 0, 0, 0.36), 0 0 18px rgba(255, 255, 255, 0.22);
-    --plfjy-dark-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.72), 0 0 10px rgba(255, 255, 255, 0.18), 0 0 14px rgba(202, 139, 255, 0.26);
-    --plfjy-light-icon-shadow: 0 1px 0 rgba(255, 255, 255, 0.82), 0 2px 6px rgba(0, 0, 0, 0.42), 0 0 10px rgba(255, 255, 255, 0.34);
-    --plfjy-glass-border-light: rgba(255, 255, 255, 0.42);
-    --plfjy-glass-border-dark: rgba(255, 255, 255, 0.24);
+
+    --plfjy-banner-text-shadow:
+        0 1px 10px rgba(0, 0, 0, 0.72),
+        0 0 10px rgba(0, 0, 0, 0.55),
+        0 0 18px rgba(255, 255, 255, 0.22);
+
+    --plfjy-light-icon-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.82),
+        0 2px 6px rgba(0, 0, 0, 0.42),
+        0 0 10px rgba(255, 255, 255, 0.34);
+
+    --plfjy-dark-text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 10px rgba(255, 255, 255, 0.18),
+        0 0 14px rgba(202, 139, 255, 0.26);
+
     --plfjy-glass-bg-light: rgba(255, 255, 255, 0.28);
     --plfjy-glass-bg-dark: rgba(30, 30, 38, 0.28);
+    --plfjy-glass-border-light: rgba(255, 255, 255, 0.42);
+    --plfjy-glass-border-dark: rgba(255, 255, 255, 0.24);
 }
 
 /* =========================================================
- * 1. Legacy-safe critical layout fallbacks
- *    Scope these to Redefine structures only.
- *    Do NOT globally override .flex / .hidden / .relative / .absolute.
+ * 1. Legacy-safe guards
+ *    These do not override Redefine's layout rails or breakpoints.
  * ========================================================= */
-
-.page-container {
-    width: 100%;
-    min-height: 100vh;
-    box-sizing: border-box;
-}
-
-.page-container .main-content-container {
-    position: relative;
-    min-height: 100vh;
-    box-sizing: border-box;
-}
-
-.page-container .main-content-container .main-content-header {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.page-container .main-content-container .main-content-body {
-    box-sizing: border-box !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-.page-container .main-content-container .main-content-body .main-content {
-    position: relative !important;
-    box-sizing: border-box !important;
-    flex: 0 1 auto !important;
-    width: 90vw !important;
-    width: min(90vw, 1000px) !important;
-    max-width: 1000px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    min-width: 0;
-}
-
-@media (max-width: 768px) {
-    .page-container .main-content-container .main-content-body {
-        padding-top: 0 !important;
-    }
-
-    .page-container .main-content-container .main-content-body .main-content {
-        width: calc(100% - 40px) !important;
-        max-width: calc(100% - 40px) !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-}
-
-@media (max-width: 420px) {
-    .page-container .main-content-container .main-content-body .main-content {
-        width: calc(100% - 32px) !important;
-        max-width: calc(100% - 32px) !important;
-    }
-}
-
-/* Article readability guard: prevent media/table/code from breaking width. */
-.article-content-container,
-.article-content,
-.post-content,
-.main-content {
-    overflow-wrap: break-word;
-    word-break: normal;
-}
 
 .article-content-container img,
 .article-content img,
 .post-content img,
 .main-content img {
-    max-width: 100%;
-}
-
-.article-content-container table,
-.article-content table,
-.post-content table {
     max-width: 100%;
 }
 
@@ -120,45 +58,8 @@
 }
 
 /* =========================================================
- * 2. Navbar legacy fallback + readable home-banner navbar
+ * 2. Navbar / logo visual fallback
  * ========================================================= */
-
-.navbar-container {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.navbar-container .navbar-content {
-    position: relative !important;
-    width: 100% !important;
-    max-width: 1000px;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    box-sizing: border-box !important;
-}
-
-.navbar-container .navbar-content.has-home-banner {
-    max-width: 1200px;
-}
-
-.navbar-container .navbar-content .left,
-.navbar-container .navbar-content .right {
-    display: flex !important;
-    align-items: center !important;
-}
-
-.navbar-container .navbar-content .left {
-    min-width: 0;
-}
-
-.navbar-container .navbar-content .right {
-    flex-shrink: 0;
-}
 
 /* Fix huge logo on old browser engines. Do not rely on Tailwind utilities. */
 .navbar-container .navbar-content .left .logo-image {
@@ -209,72 +110,7 @@
     }
 }
 
-.navbar-container .logo-title,
-.navbar-container .logo-title h1 {
-    display: inline-block !important;
-    margin: 0 !important;
-    line-height: 1 !important;
-    font-size: 1.5rem !important;
-    font-weight: 520;
-    white-space: nowrap;
-}
-
-@media (max-width: 640px) {
-    .navbar-container .logo-title,
-    .navbar-container .logo-title h1 {
-        font-size: 1.25rem !important;
-    }
-}
-
-.navbar-container .navbar-content .right .desktop .navbar-list {
-    display: flex !important;
-    align-items: center !important;
-    gap: 24px;
-}
-
-.navbar-container .navbar-content .right .desktop .navbar-list .navbar-item {
-    position: relative;
-    float: none !important;
-    display: block;
-}
-
-.navbar-container .navbar-content .right .desktop .navbar-list .navbar-item a {
-    display: block;
-    padding: 5px;
-}
-
-.navbar-container .navbar-content .right .mobile {
-    display: none;
-    align-items: center;
-}
-
-.navbar-container .navbar-content .right .mobile .icon-item {
-    position: relative;
-    cursor: pointer;
-    font-size: 18px;
-    margin-left: 12px;
-    width: 20px;
-    height: 20px;
-}
-
-@media (max-width: 768px) {
-    .navbar-container .navbar-content .right .desktop {
-        display: none !important;
-    }
-
-    .navbar-container .navbar-content .right .mobile {
-        display: flex !important;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .navbar-container .navbar-content .right .mobile .icon-item {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-    }
-}
-
+/* Home banner navbar readability only. Layout stays owned by Redefine. */
 .navbar-content.transition-navbar.has-home-banner .left .logo-title,
 .navbar-content.transition-navbar.has-home-banner .left .logo-title h1,
 .navbar-content.transition-navbar.has-home-banner .right .desktop .navbar-item.search.search-popup-trigger i,
@@ -290,11 +126,9 @@
 .navbar-content.transition-navbar.has-home-banner .right .desktop a:hover,
 .navbar-content.transition-navbar.has-home-banner .right .desktop a:hover i {
     color: var(--primary-color) !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.72), 0 0 15px rgba(0, 0, 0, 0.6);
-}
-
-.navbar-content.transition-navbar .right .desktop ul li a {
-    color: var(--default-text-color);
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 15px rgba(0, 0, 0, 0.60);
 }
 
 .navbar-content.transition-navbar.has-home-banner .right .desktop ul li a {
@@ -310,96 +144,52 @@
     background: transparent !important;
 }
 
-/* Hamburger fallback and shadow. */
-.navbar-content .icon-item.navbar-bar .navbar-bar-middle,
-.navbar-content .icon-item.navbar-bar .navbar-bar-middle:after,
-.navbar-content .icon-item.navbar-bar .navbar-bar-middle:before {
-    background: var(--default-text-color);
+/* Normal page navbar hover:
+ * keep top-level text/icon color unchanged; only Redefine underline turns primary.
+ * No persistent shadow on non-banner pages.
+ */
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item:hover > a,
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item:hover > a i,
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item.search:hover i,
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item > a.active,
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item > a.active i,
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item .active {
+    color: var(--default-text-color) !important;
+    text-shadow: none !important;
 }
 
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item > a::after,
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item > a.active::after,
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item .active::after {
+    background: var(--primary-color) !important;
+}
+
+/* Sub-menu hover still needs color feedback. */
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item .sub-menu li a:hover,
+.navbar-content.transition-navbar:not(.has-home-banner) .right .desktop .navbar-list .navbar-item .sub-menu li a:hover i {
+    color: var(--primary-color) !important;
+}
+
+/* Hamburger color readability on banner; size/position stays owned by Redefine. */
 .navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle,
-.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:after,
-.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle:before {
+.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle::before,
+.navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle::after {
     background: #fff !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.72), 0 0 10px rgba(0, 0, 0, 0.36);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 10px rgba(0, 0, 0, 0.36);
 }
 
-.navbar-container .navbar-bar .navbar-bar-middle {
-    width: 18px !important;
-    height: 2.5px !important;
-    position: relative !important;
-}
-
-.navbar-container .navbar-bar .navbar-bar-middle:before,
-.navbar-container .navbar-bar .navbar-bar-middle:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 18px !important;
-    height: 2.5px !important;
-}
-
-.navbar-container .navbar-bar .navbar-bar-middle:before {
-    top: -6px;
-}
-
-.navbar-container .navbar-bar .navbar-bar-middle:after {
-    bottom: -6px;
-}
-
-.navbar-drawer-show .navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle,
-.navbar-drawer-show .navbar-container .navbar-bar .navbar-bar-middle {
+.navbar-drawer-show .navbar-content.transition-navbar.has-home-banner .right .mobile .icon-item.navbar-bar .navbar-bar-middle {
     background: transparent !important;
     box-shadow: none !important;
 }
 
-.navbar-drawer-show .navbar-container .navbar-bar .navbar-bar-middle:before {
-    transform: translateY(6px) rotate(45deg);
-}
-
-.navbar-drawer-show .navbar-container .navbar-bar .navbar-bar-middle:after {
-    transform: translateY(-6px) rotate(-45deg);
-}
-
-/* Mobile drawer fallback. */
-.navbar-container .navbar-drawer {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
-    box-sizing: border-box !important;
-    overflow-y: auto !important;
-    transform: translateX(100%);
-    z-index: 1002;
-}
-
-.navbar-drawer-show .navbar-container .navbar-drawer {
-    transform: translateX(0) !important;
-}
-
-.navbar-container .window-mask {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100vh !important;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1001;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.navbar-drawer-show .navbar-container .window-mask {
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
+/* Drawer background fallback for old engines and relative color syntax. */
 .navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex.flex-col.justify-between {
     background: rgba(255, 255, 255, 0.75) !important;
-    backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(50px);
 }
 
 .dark .navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.flex.flex-col.justify-between,
@@ -412,72 +202,14 @@ html.dark .navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.
 }
 
 /* =========================================================
- * 3. Home banner fallback and text shadow
+ * 3. Home banner text readability
  * ========================================================= */
-
-.home-banner-container {
-    position: relative !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    overflow: hidden;
-}
-
-.home-banner-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-.home-banner-background img {
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    max-width: none !important;
-    object-fit: cover;
-}
-
-.home-banner-container .content {
-    position: relative;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    z-index: 1;
-}
 
 .description.flex.flex-col.justify-center.items-center.w-screen.font-medium.text-center,
 .home-banner-container .description {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100vw !important;
-    text-align: center !important;
-    font-weight: 500;
-    text-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.85);
-}
-
-.home-banner-container .content > .absolute,
-.home-banner-container .content > div.absolute {
-    position: absolute !important;
-    bottom: 2px !important;
-    left: 0;
-    right: 0;
-    display: flex !important;
-    align-items: center !important;
-    width: 100% !important;
-    box-sizing: border-box;
-}
-
-/* Redefine center social style should hide scroll-down button. */
-.home-banner-container .content > .absolute > div.hidden,
-.home-banner-container .content > .absolute > div.hidden[onclick="scrollToMain()"] {
-    display: none !important;
+    text-shadow:
+        0 2.5px 10px rgba(0, 0, 0, 0.85),
+        0 0 18px rgba(0, 0, 0, 0.55);
 }
 
 /* =========================================================
@@ -488,11 +220,17 @@ html.dark .navbar-drawer.h-dvh.w-full.absolute.top-0.left-0.bg-background-color.
     position: relative;
     isolation: isolate;
     overflow: hidden;
+
     background: var(--plfjy-glass-bg-light) !important;
     border: 1px solid var(--plfjy-glass-border-light) !important;
+
     -webkit-backdrop-filter: blur(14px) saturate(145%);
     backdrop-filter: blur(14px) saturate(145%);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.72), inset 0 -1px 1px rgba(255, 255, 255, 0.12) !important;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.22),
+        inset 0 1px 1px rgba(255, 255, 255, 0.72),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.12) !important;
 }
 
 html.liquid-glass-webgl-enabled .home-banner-container .social-contacts {
@@ -501,16 +239,20 @@ html.liquid-glass-webgl-enabled .home-banner-container .social-contacts {
     backdrop-filter: blur(5px) saturate(115%);
 }
 
-html.dark.liquid-glass-webgl-enabled .home-banner-container .social-contacts,
-html.liquid-glass-webgl-enabled.dark .home-banner-container .social-contacts {
-    background: rgba(24, 24, 32, 0.16) !important;
-}
-
 .dark .home-banner-container .social-contacts,
 html.dark .home-banner-container .social-contacts {
     background: var(--plfjy-glass-bg-dark) !important;
     border-color: var(--plfjy-glass-border-dark) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.34), inset 0 1px 1px rgba(255, 255, 255, 0.32), inset 0 -1px 1px rgba(255, 255, 255, 0.08) !important;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.34),
+        inset 0 1px 1px rgba(255, 255, 255, 0.32),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark.liquid-glass-webgl-enabled .home-banner-container .social-contacts,
+html.liquid-glass-webgl-enabled.dark .home-banner-container .social-contacts {
+    background: rgba(24, 24, 32, 0.16) !important;
 }
 
 .home-banner-container .social-contacts canvas.liquid-glass-webgl-canvas {
@@ -533,11 +275,16 @@ html.liquid-glass-webgl-disabled .home-banner-container .social-contacts canvas.
     z-index: 1;
 }
 
+/* Icon readability is always enabled, independent from WebGL. */
 .home-banner-container .social-contacts a,
 .home-banner-container .social-contacts i {
     color: var(--plfjy-light-icon-color) !important;
     text-shadow: var(--plfjy-light-icon-shadow);
-    transition: color 180ms ease, text-shadow 180ms ease, transform 180ms ease;
+
+    transition:
+        color 180ms ease,
+        text-shadow 180ms ease,
+        transform 180ms ease;
 }
 
 .dark .home-banner-container .social-contacts a,
@@ -549,39 +296,51 @@ html.dark .home-banner-container .social-contacts i {
 }
 
 .home-banner-container .social-contacts img {
-    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.70)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    filter:
+        drop-shadow(0 1px 0 rgba(255, 255, 255, 0.70))
+        drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
 
 .dark .home-banner-container .social-contacts img,
 html.dark .home-banner-container .social-contacts img {
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.72)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.16));
+    filter:
+        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.72))
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.16));
 }
 
 .home-banner-container .social-contacts .social-contact-item:hover i,
 .home-banner-container .social-contacts .social-contact-item-qr:hover i {
     transform: translateY(-1px) scale(1.08);
     color: var(--primary-color) !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.48), 0 0 10px rgba(202, 139, 255, 0.58), 0 0 18px rgba(255, 255, 255, 0.46);
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.48),
+        0 0 10px rgba(202, 139, 255, 0.58),
+        0 0 18px rgba(255, 255, 255, 0.46);
 }
 
 .home-banner-container .social-contacts .social-links-divider {
     background: rgba(40, 42, 48, 0.38) !important;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.50), 0 0 4px rgba(0, 0, 0, 0.18);
+
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.50),
+        0 0 4px rgba(0, 0, 0, 0.18);
 }
 
 .dark .home-banner-container .social-contacts .social-links-divider,
 html.dark .home-banner-container .social-contacts .social-links-divider {
     background: rgba(255, 255, 255, 0.38) !important;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.14), 0 1px 2px rgba(0, 0, 0, 0.45);
+
+    box-shadow:
+        0 0 6px rgba(255, 255, 255, 0.14),
+        0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
 /* =========================================================
- * 5. Search popup: Liquid Glass + theme-safe text
- *    WebGL canvas uses the same liquid-glass pipeline as social buttons.
+ * 5. Search popup: scoped glass + readable text
  * ========================================================= */
 
 .search-pop-overlay.active {
-    /* Only dim the page behind the popup. Do not blur the outside area. */
     background: rgba(0, 0, 0, 0.42) !important;
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
@@ -591,11 +350,14 @@ html.dark .home-banner-container .social-contacts .social-links-divider {
     position: relative !important;
     isolation: isolate;
     overflow: hidden !important;
+
     background: rgba(255, 255, 255, 0.12) !important;
     border: 1px solid rgba(255, 255, 255, 0.40) !important;
     border-radius: 18px !important;
+
     -webkit-backdrop-filter: blur(5px) saturate(115%) !important;
     backdrop-filter: blur(5px) saturate(115%) !important;
+
     box-shadow:
         0 18px 60px rgba(0, 0, 0, 0.28),
         inset 0 1px 1px rgba(255, 255, 255, 0.72),
@@ -603,19 +365,26 @@ html.dark .home-banner-container .social-contacts .social-links-divider {
 }
 
 html.liquid-glass-webgl-enabled .search-pop-overlay .search-popup {
-    background: rgba(255, 255, 255, 0.08) !important;
-    -webkit-backdrop-filter: blur(5px) saturate(115%) !important;
-    backdrop-filter: blur(5px) saturate(115%) !important;
+    /* Let the WebGL canvas show through; the popup background should only tint it. */
+    background: rgba(255, 255, 255, 0.035) !important;
+    -webkit-backdrop-filter: blur(3px) saturate(108%) !important;
+    backdrop-filter: blur(3px) saturate(108%) !important;
 }
 
 .dark .search-pop-overlay .search-popup,
 html.dark .search-pop-overlay .search-popup {
     background: rgba(24, 24, 32, 0.24) !important;
     border-color: rgba(255, 255, 255, 0.22) !important;
+
     box-shadow:
         0 18px 60px rgba(0, 0, 0, 0.42),
         inset 0 1px 1px rgba(255, 255, 255, 0.30),
         inset 0 -1px 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark.liquid-glass-webgl-enabled .search-pop-overlay .search-popup,
+html.liquid-glass-webgl-enabled.dark .search-pop-overlay .search-popup {
+    background: rgba(24, 24, 32, 0.10) !important;
 }
 
 .search-pop-overlay .search-popup canvas.liquid-glass-webgl-canvas {
@@ -642,9 +411,10 @@ html.liquid-glass-webgl-disabled .search-pop-overlay .search-popup canvas.liquid
 .search-pop-overlay .search-popup .search-header,
 div.search-pop-overlay.active div.search-header {
     background: rgba(255, 255, 255, 0.12) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+    border-bottom-color: rgba(255, 255, 255, 0.20) !important;
     border-top-left-radius: 18px !important;
     border-top-right-radius: 18px !important;
+
     -webkit-backdrop-filter: blur(3px) saturate(110%) !important;
     backdrop-filter: blur(3px) saturate(110%) !important;
 }
@@ -652,89 +422,96 @@ div.search-pop-overlay.active div.search-header {
 .dark .search-pop-overlay .search-popup .search-header,
 html.dark .search-pop-overlay .search-popup .search-header {
     background: rgba(20, 20, 28, 0.18) !important;
-    border-bottom-color: rgba(255, 255, 255, 0.12);
+    border-bottom-color: rgba(255, 255, 255, 0.12) !important;
 }
 
-.search-pop-overlay .search-popup .search-header,
-.search-pop-overlay .search-popup .search-header i,
-.search-pop-overlay .search-popup .search-input,
-.search-pop-overlay .search-popup .popup-btn-close,
-.search-pop-overlay .search-popup .search-input-field-pre {
-    color: var(--default-text-color) !important;
-    text-shadow:
-        0 1px 2px rgba(255, 255, 255, 0.50),
-        0 2px 8px rgba(0, 0, 0, 0.28);
+html.liquid-glass-webgl-enabled .search-pop-overlay .search-popup .search-header,
+html.liquid-glass-webgl-enabled div.search-pop-overlay.active div.search-header {
+    background: rgba(255, 255, 255, 0.055) !important;
+    -webkit-backdrop-filter: blur(2px) saturate(105%) !important;
+    backdrop-filter: blur(2px) saturate(105%) !important;
 }
 
-.dark .search-pop-overlay .search-popup .search-header,
-.dark .search-pop-overlay .search-popup .search-header i,
-.dark .search-pop-overlay .search-popup .search-input,
-.dark .search-pop-overlay .search-popup .popup-btn-close,
-.dark .search-pop-overlay .search-popup .search-input-field-pre,
-html.dark .search-pop-overlay .search-popup .search-header,
-html.dark .search-pop-overlay .search-popup .search-header i,
-html.dark .search-pop-overlay .search-popup .search-input,
-html.dark .search-pop-overlay .search-popup .popup-btn-close,
-html.dark .search-pop-overlay .search-popup .search-input-field-pre {
-    color: rgba(255, 255, 255, 0.96) !important;
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.78),
-        0 0 12px rgba(255, 255, 255, 0.18);
-}
-
-.search-pop-overlay .search-popup .search-input::placeholder {
-    color: rgba(80, 84, 88, 0.72) !important;
-}
-
-.dark .search-pop-overlay .search-popup .search-input::placeholder,
-html.dark .search-pop-overlay .search-popup .search-input::placeholder {
-    color: rgba(255, 255, 255, 0.72) !important;
-}
-
-.search-pop-overlay .search-popup #search-result {
-    background: transparent !important;
+html.dark.liquid-glass-webgl-enabled .search-pop-overlay .search-popup .search-header,
+html.dark.liquid-glass-webgl-enabled div.search-pop-overlay.active div.search-header,
+html.liquid-glass-webgl-enabled.dark .search-pop-overlay .search-popup .search-header,
+html.liquid-glass-webgl-enabled.dark div.search-pop-overlay.active div.search-header {
+    background: rgba(20, 20, 28, 0.08) !important;
 }
 
 .search-pop-overlay .search-popup #search-result,
-.search-pop-overlay .search-popup #search-result a,
-.search-pop-overlay .search-popup #search-result span,
-.search-pop-overlay .search-popup .search-result-title,
+.search-pop-overlay .search-popup .search-result-list,
 .search-pop-overlay .search-popup .search-result {
-    color: var(--default-text-color) !important;
+    background: transparent !important;
 }
 
-.search-pop-overlay .search-popup .search-result-title {
+/* Force search popup text/icons readable on Liquid Glass. */
+.search-pop-overlay.active .search-popup,
+.search-pop-overlay.active .search-popup *,
+.search-pop-overlay.active .search-popup *::before,
+.search-pop-overlay.active .search-popup *::after {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+
     text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.55),
-        0 2px 8px rgba(0, 0, 0, 0.25);
+        0 1px 2px rgba(0, 0, 0, 0.82),
+        0 0 10px rgba(0, 0, 0, 0.56),
+        0 0 18px rgba(255, 255, 255, 0.20) !important;
 }
 
-.search-pop-overlay .search-popup .search-result {
-    text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.35),
-        0 2px 8px rgba(0, 0, 0, 0.18);
+.search-pop-overlay.active .search-popup input,
+.search-pop-overlay.active .search-popup textarea,
+.search-pop-overlay.active .search-popup input[type="text"],
+.search-pop-overlay.active .search-popup input[type="search"] {
+    caret-color: #fff !important;
 }
 
-.dark .search-pop-overlay .search-popup .search-result-title,
-.dark .search-pop-overlay .search-popup .search-result,
-html.dark .search-pop-overlay .search-popup .search-result-title,
-html.dark .search-pop-overlay .search-popup .search-result {
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.72),
-        0 0 10px rgba(255, 255, 255, 0.12);
+.search-pop-overlay.active .search-popup input::placeholder,
+.search-pop-overlay.active .search-popup textarea::placeholder {
+    color: rgba(255, 255, 255, 0.72) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.72) !important;
 }
 
-.search-pop-overlay .search-popup .search-result-title::after {
-    background: var(--primary-color) !important;
-    box-shadow:
-        0 0 8px rgba(202, 139, 255, 0.58),
-        0 1px 2px rgba(0, 0, 0, 0.32);
-}
-
-.search-pop-overlay .search-popup .search-keyword {
+.search-pop-overlay.active .search-popup .search-keyword,
+.search-pop-overlay.active .search-popup #search-result .search-keyword,
+.search-pop-overlay.active .search-popup a .search-keyword,
+.search-pop-overlay.active .search-popup a:link .search-keyword,
+.search-pop-overlay.active .search-popup a:visited .search-keyword,
+.search-pop-overlay.active .search-popup a:hover .search-keyword,
+.search-pop-overlay.active .search-popup a:active .search-keyword {
     color: var(--primary-color) !important;
+    -webkit-text-fill-color: var(--primary-color) !important;
     border-bottom-color: var(--primary-color) !important;
-    text-shadow: 0 0 8px rgba(202, 139, 255, 0.45);
+    background: transparent !important;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.86),
+        0 0 8px rgba(0, 0, 0, 0.65),
+        0 0 12px rgba(202, 139, 255, 0.70) !important;
+}
+
+.search-pop-overlay.active .search-popup .search-result-title::after,
+.search-pop-overlay.active .search-popup #search-result .search-result-title::after {
+    background: rgba(255, 255, 255, 0.92) !important;
+
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.72),
+        0 0 12px rgba(255, 255, 255, 0.45) !important;
+}
+
+.search-pop-overlay.active .search-popup i,
+.search-pop-overlay.active .search-popup svg,
+.search-pop-overlay.active .search-popup .fa,
+.search-pop-overlay.active .search-popup .fa-solid,
+.search-pop-overlay.active .search-popup .fa-regular,
+.search-pop-overlay.active .search-popup .fa-brands {
+    color: #fff !important;
+    fill: #fff !important;
+    stroke: #fff !important;
+
+    filter:
+        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.82))
+        drop-shadow(0 0 8px rgba(0, 0, 0, 0.42));
 }
 
 @media (max-width: 640px) {
@@ -751,18 +528,8 @@ html.dark .search-pop-overlay .search-popup .search-result {
 }
 
 /* =========================================================
- * 6. Theme-following text colors
+ * 6. Theme-following text color patches
  * ========================================================= */
-
-.page-container,
-.main-content,
-.home-article-item,
-.article-content-container,
-.home-sidebar-container,
-.navbar-drawer,
-.footer {
-    color: var(--default-text-color);
-}
 
 .home-sidebar-container .sidebar-content .statistics.flex.justify-around.my-2\.5 a .number.text-2xl.sm\:text-xl.text-second-text-color.font-semibold,
 .article-content-container .article-title.relative.w-full h1,
@@ -776,79 +543,9 @@ html.dark .search-pop-overlay .search-popup .search-result {
     color: var(--third-text-color) !important;
 }
 
-.author.flex.items-center .name.text-default-text-color.text-lg.font-semibold {
-    color: var(--default-text-color) !important;
-}
-
-.article-content-container,
-.article-content-container p,
-.article-content-container li,
-.article-content-container td,
-.article-content-container th,
-.article-content-container blockquote,
-.article-content-container span,
-.article-content-container div {
+.author.flex.items-center .name.text-default-text-color.text-lg.font-semibold,
+.navbar-content.transition-navbar .right .desktop ul li a {
     color: var(--default-text-color);
-}
-
-.article-content-container h1,
-.article-content-container h2,
-.article-content-container h3,
-.article-content-container h4,
-.article-content-container h5,
-.article-content-container h6 {
-    color: var(--second-text-color);
-}
-
-.home-article-item,
-.home-article-item p,
-.home-article-item span,
-.home-article-item div {
-    color: var(--default-text-color);
-}
-
-.home-article-item h1,
-.home-article-item h2,
-.home-article-item h3,
-.home-article-item .title {
-    color: var(--second-text-color);
-}
-
-.home-article-item a,
-.article-content-container a,
-.footer a {
-    color: var(--default-text-color);
-}
-
-.home-article-item a:hover,
-.article-content-container a:hover,
-.footer a:hover {
-    color: var(--primary-color);
-}
-
-/* Keep footer stable. Do not override Tailwind responsive utilities globally. */
-.footer {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.footer .info-container {
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.footer .post-count {
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
-
-/* =========================================================
- * 7. Small polish
- * ========================================================= */
-
-.main-content-container.flex.flex-col.justify-between.min-h-dvh .main-content-header header .navbar-content.transition-navbar .left .logo-title {
-    font-size: 1.5rem !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -857,408 +554,3 @@ html.dark .search-pop-overlay .search-popup .search-result {
         transition: none;
     }
 }
-
-/* =========================================================
- * Wide mobile breakpoint override
- * Treat <= 1150px as mobile/tablet layout.
- * Fix navbar overlap and article TOC squeeze.
- * ========================================================= */
-
-@media (max-width: 1150px) {
-    /* ---------- Navbar: force mobile mode ---------- */
-
-    .navbar-container .navbar-content {
-        max-width: none !important;
-        width: 100% !important;
-    }
-
-    .navbar-container .navbar-content .right .desktop {
-        display: none !important;
-    }
-
-    .navbar-container .navbar-content .right .mobile {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        flex-shrink: 0 !important;
-    }
-
-    .navbar-container .navbar-content .right .mobile .icon-item {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-    }
-
-    .navbar-container .navbar-content .left {
-        min-width: 0 !important;
-        max-width: calc(100% - 96px) !important;
-    }
-
-    .navbar-container .navbar-content .left .logo-title,
-    .navbar-container .navbar-content .left .logo-title h1 {
-        max-width: calc(100vw - 190px) !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
-    }
-
-
-    /* ---------- Home page: avoid sidebar squeezing article cards ---------- */
-
-    .home-sidebar-container {
-        display: none !important;
-    }
-
-    .home-content-container,
-    .home-article-container {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-
-    /* ---------- Search popup: tablet/mobile width ---------- */
-
-    .search-pop-overlay .search-popup {
-        width: 90% !important;
-        max-width: 720px !important;
-    }
-}
-
-@media (max-width: 640px) {
-    .navbar-container .navbar-content .left .logo-title,
-    .navbar-container .navbar-content .left .logo-title h1 {
-        max-width: calc(100vw - 160px) !important;
-    }
-}
-
-/* =========================================================
- * Breakpoint correction for 640px - 1150px post pages
- * Hide Redefine post tools and TOC toggle in wide-mobile layout.
- * Redefine JS may set inline display:flex on .page-aside-toggle,
- * so these rules must be strong and scoped.
- * ========================================================= */
-
-@media (max-width: 1150px) {
-    .page-container .post-tools,
-    .page-container .post-tools .post-tools-container,
-    .page-container .post-tools .article-tools-list,
-    .page-container .post-tools .article-tools-list li,
-    .page-container .post-tools .page-aside-toggle,
-    .page-container .post-tools .go-comment {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-    }
-
-    .page-container .post-page-container,
-    .page-container .post-page-container.show-toc {
-        display: block !important;
-        gap: 0 !important;
-    }
-
-    .page-container .post-page-container .toc-content-container,
-    .page-container .post-page-container.show-toc .toc-content-container {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        width: 0 !important;
-        min-width: 0 !important;
-        max-width: 0 !important;
-        height: 0 !important;
-        max-height: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        overflow: hidden !important;
-    }
-
-    .page-container .post-page-container .article-content-container,
-    .page-container .post-page-container.show-toc .article-content-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    .page-container .main-content-container .main-content-body .main-content,
-    .page-container .main-content-container .main-content-body .main-content.has-toc {
-        width: calc(100% - 48px) !important;
-        max-width: 1000px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        box-sizing: border-box !important;
-    }
-}
-
-@media (max-width: 640px) {
-    .page-container .main-content-container .main-content-body .main-content,
-    .page-container .main-content-container .main-content-body .main-content.has-toc {
-        width: calc(100% - 32px) !important;
-        max-width: calc(100% - 32px) !important;
-    }
-}
-
-/* =========================================================
- * Search popup hard override v2:
- * white text globally, but keep keyword highlight in theme color.
- * Put this at the very end of custom.css.
- * ========================================================= */
-
-.search-pop-overlay.active .search-popup,
-.search-pop-overlay.active .search-popup *,
-.search-pop-overlay.active .search-popup *::before,
-.search-pop-overlay.active .search-popup *::after {
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.82),
-        0 0 10px rgba(0, 0, 0, 0.56),
-        0 0 18px rgba(255, 255, 255, 0.20) !important;
-}
-
-/* input / textarea */
-.search-pop-overlay.active .search-popup input,
-.search-pop-overlay.active .search-popup textarea,
-.search-pop-overlay.active .search-popup input[type="text"],
-.search-pop-overlay.active .search-popup input[type="search"] {
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-    caret-color: #fff !important;
-
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.82),
-        0 0 10px rgba(0, 0, 0, 0.56) !important;
-}
-
-.search-pop-overlay.active .search-popup input::placeholder,
-.search-pop-overlay.active .search-popup textarea::placeholder {
-    color: rgba(255, 255, 255, 0.72) !important;
-    -webkit-text-fill-color: rgba(255, 255, 255, 0.72) !important;
-
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.82),
-        0 0 10px rgba(0, 0, 0, 0.50) !important;
-}
-
-/* Keep search keyword highlight */
-.search-pop-overlay.active .search-popup .search-keyword,
-.search-pop-overlay.active .search-popup #search-result .search-keyword {
-    color: var(--primary-color) !important;
-    -webkit-text-fill-color: var(--primary-color) !important;
-    border-bottom-color: var(--primary-color) !important;
-    background: transparent !important;
-
-    text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.86),
-        0 0 8px rgba(0, 0, 0, 0.65),
-        0 0 12px rgba(202, 139, 255, 0.70) !important;
-}
-
-/* Optional: bold/strong should stay white unless it is also .search-keyword */
-.search-pop-overlay.active .search-popup strong:not(.search-keyword),
-.search-pop-overlay.active .search-popup b:not(.search-keyword),
-.search-pop-overlay.active .search-popup em:not(.search-keyword),
-.search-pop-overlay.active .search-popup mark:not(.search-keyword) {
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-    background: transparent !important;
-}
-
-/* Result title dot */
-.search-pop-overlay.active .search-popup .search-result-title::after,
-.search-pop-overlay.active .search-popup #search-result .search-result-title::after {
-    background: rgba(255, 255, 255, 0.92) !important;
-    box-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.72),
-        0 0 12px rgba(255, 255, 255, 0.45) !important;
-}
-
-/* Links in every state */
-.search-pop-overlay.active .search-popup a,
-.search-pop-overlay.active .search-popup a:link,
-.search-pop-overlay.active .search-popup a:visited,
-.search-pop-overlay.active .search-popup a:hover,
-.search-pop-overlay.active .search-popup a:active {
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-    text-decoration-color: rgba(255, 255, 255, 0.72) !important;
-}
-
-/* But keyword inside links still uses highlight */
-.search-pop-overlay.active .search-popup a .search-keyword,
-.search-pop-overlay.active .search-popup a:link .search-keyword,
-.search-pop-overlay.active .search-popup a:visited .search-keyword,
-.search-pop-overlay.active .search-popup a:hover .search-keyword,
-.search-pop-overlay.active .search-popup a:active .search-keyword {
-    color: var(--primary-color) !important;
-    -webkit-text-fill-color: var(--primary-color) !important;
-}
-
-/* FontAwesome / icon fallback */
-.search-pop-overlay.active .search-popup i,
-.search-pop-overlay.active .search-popup svg,
-.search-pop-overlay.active .search-popup .fa,
-.search-pop-overlay.active .search-popup .fa-solid,
-.search-pop-overlay.active .search-popup .fa-regular,
-.search-pop-overlay.active .search-popup .fa-brands {
-    color: #fff !important;
-    fill: #fff !important;
-    stroke: #fff !important;
-
-    filter:
-        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.82))
-        drop-shadow(0 0 8px rgba(0, 0, 0, 0.42));
-}
-
-/* =========================================================
- * Navbar hover behavior:
- * keep top-level text color unchanged;
- * only underline turns primary color.
- * ========================================================= */
-
-/* Normal page navbar: hover text should stay default */
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item:hover > a,
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item:hover > a i,
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item.search:hover i {
-    color: var(--default-text-color) !important;
-    text-shadow: none !important;
-}
-
-/* Active item text also stays default; underline indicates active state */
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item > a.active,
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item > a.active i,
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item .active {
-    color: var(--default-text-color) !important;
-}
-
-/* Keep underline primary-colored */
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item > a::after,
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item > a.active::after,
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item .active::after {
-    background: var(--primary-color) !important;
-}
-
-/* Submenu hover can still turn primary, because it needs feedback */
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item
-.sub-menu
-li a:hover,
-.navbar-container
-.navbar-content.transition-navbar:not(.has-home-banner)
-.right
-.desktop
-.navbar-list
-.navbar-item
-.sub-menu
-li a:hover i {
-    color: var(--primary-color) !important;
-}
-
-/* =========================================================
- * Desktop home alignment restore
- * Fix home sidebar/social rail expanding outward after Liquid Glass tuning.
- * Keep <=1150px mobile/tablet behavior unchanged.
- * ========================================================= */
-
-@media (min-width: 1151px) {
-    /*
-     * Redefine home layout is:
-     *   .main-content-body > .home-sidebar-container + .main-content
-     * The legacy fallback above gave .main-content auto margins, which makes
-     * the article column center itself while the sidebar is pushed outward.
-     * On desktop home pages, keep the whole sidebar + article group centered.
-     */
-    .page-container .main-content-container .main-content-body {
-        max-width: 1340px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    .page-container .main-content-container .main-content-body > .home-sidebar-container {
-        flex: 0 0 240px !important;
-    }
-
-    .page-container .main-content-container .main-content-body > .home-sidebar-container + .main-content {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    /*
-     * Right-sidebar home layout fallback for completeness.
-     * Modern engines support :has(); old engines simply ignore this rule and
-     * still keep the common left-sidebar case fixed.
-     */
-    .page-container .main-content-container .main-content-body > .main-content:has(+ .home-sidebar-container) {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    /*
-     * The social capsule parent in Redefine is an absolute flex rail with
-     * max-w-[1340px]. Center the rail itself instead of stretching it from
-     * the viewport edges.
-     */
-    .home-banner-container .content {
-        width: 100% !important;
-    }
-
-    .home-banner-container .content > .absolute,
-    .home-banner-container .content > div.absolute {
-        left: 50% !important;
-        right: auto !important;
-        width: 100% !important;
-        max-width: 1340px !important;
-        transform: translateX(-50%) !important;
-    }
-}
-
