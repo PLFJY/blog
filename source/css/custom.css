@@ -591,11 +591,11 @@ html.dark .home-banner-container .social-contacts .social-links-divider {
     position: relative !important;
     isolation: isolate;
     overflow: hidden !important;
-    background: rgba(255, 255, 255, 0.24) !important;
-    border: 1px solid rgba(255, 255, 255, 0.42) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.40) !important;
     border-radius: 18px !important;
-    -webkit-backdrop-filter: blur(18px) saturate(145%);
-    backdrop-filter: blur(18px) saturate(145%);
+    -webkit-backdrop-filter: blur(5px) saturate(115%) !important;
+    backdrop-filter: blur(5px) saturate(115%) !important;
     box-shadow:
         0 18px 60px rgba(0, 0, 0, 0.28),
         inset 0 1px 1px rgba(255, 255, 255, 0.72),
@@ -603,14 +603,14 @@ html.dark .home-banner-container .social-contacts .social-links-divider {
 }
 
 html.liquid-glass-webgl-enabled .search-pop-overlay .search-popup {
-    background: rgba(255, 255, 255, 0.12) !important;
-    -webkit-backdrop-filter: blur(10px) saturate(130%);
-    backdrop-filter: blur(10px) saturate(130%);
+    background: rgba(255, 255, 255, 0.08) !important;
+    -webkit-backdrop-filter: blur(5px) saturate(115%) !important;
+    backdrop-filter: blur(5px) saturate(115%) !important;
 }
 
 .dark .search-pop-overlay .search-popup,
 html.dark .search-pop-overlay .search-popup {
-    background: rgba(24, 24, 32, 0.42) !important;
+    background: rgba(24, 24, 32, 0.24) !important;
     border-color: rgba(255, 255, 255, 0.22) !important;
     box-shadow:
         0 18px 60px rgba(0, 0, 0, 0.42),
@@ -627,6 +627,7 @@ html.dark .search-pop-overlay .search-popup {
     pointer-events: none;
     border-radius: inherit;
     display: block;
+    opacity: 1 !important;
 }
 
 html.liquid-glass-webgl-disabled .search-pop-overlay .search-popup canvas.liquid-glass-webgl-canvas {
@@ -640,17 +641,17 @@ html.liquid-glass-webgl-disabled .search-pop-overlay .search-popup canvas.liquid
 
 .search-pop-overlay .search-popup .search-header,
 div.search-pop-overlay.active div.search-header {
-    background: rgba(255, 255, 255, 0.18) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
     border-top-left-radius: 18px !important;
     border-top-right-radius: 18px !important;
-    -webkit-backdrop-filter: blur(16px) saturate(135%);
-    backdrop-filter: blur(16px) saturate(135%);
+    -webkit-backdrop-filter: blur(3px) saturate(110%) !important;
+    backdrop-filter: blur(3px) saturate(110%) !important;
 }
 
 .dark .search-pop-overlay .search-popup .search-header,
 html.dark .search-pop-overlay .search-popup .search-header {
-    background: rgba(20, 20, 28, 0.28) !important;
+    background: rgba(20, 20, 28, 0.18) !important;
     border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -1204,59 +1205,60 @@ li a:hover i {
 }
 
 /* =========================================================
- * Search popup: original liquid-glass tuning
- * Keep the demo-like WebGL texture visible; use only a small CSS blur.
- * This block intentionally overrides the earlier "Liquid Glass only" block.
+ * Desktop home alignment restore
+ * Fix home sidebar/social rail expanding outward after Liquid Glass tuning.
+ * Keep <=1150px mobile/tablet behavior unchanged.
  * ========================================================= */
 
-.search-pop-overlay.active {
-    /* Outside area: dim only, no blur. */
-    background: rgba(0, 0, 0, 0.42) !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
+@media (min-width: 1151px) {
+    /*
+     * Redefine home layout is:
+     *   .main-content-body > .home-sidebar-container + .main-content
+     * The legacy fallback above gave .main-content auto margins, which makes
+     * the article column center itself while the sidebar is pushed outward.
+     * On desktop home pages, keep the whole sidebar + article group centered.
+     */
+    .page-container .main-content-container .main-content-body {
+        max-width: 1340px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .page-container .main-content-container .main-content-body > .home-sidebar-container {
+        flex: 0 0 240px !important;
+    }
+
+    .page-container .main-content-container .main-content-body > .home-sidebar-container + .main-content {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /*
+     * Right-sidebar home layout fallback for completeness.
+     * Modern engines support :has(); old engines simply ignore this rule and
+     * still keep the common left-sidebar case fixed.
+     */
+    .page-container .main-content-container .main-content-body > .main-content:has(+ .home-sidebar-container) {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /*
+     * The social capsule parent in Redefine is an absolute flex rail with
+     * max-w-[1340px]. Center the rail itself instead of stretching it from
+     * the viewport edges.
+     */
+    .home-banner-container .content {
+        width: 100% !important;
+    }
+
+    .home-banner-container .content > .absolute,
+    .home-banner-container .content > div.absolute {
+        left: 50% !important;
+        right: auto !important;
+        width: 100% !important;
+        max-width: 1340px !important;
+        transform: translateX(-50%) !important;
+    }
 }
 
-.search-pop-overlay .search-popup,
-html.liquid-glass-webgl-enabled .search-pop-overlay .search-popup,
-.dark .search-pop-overlay .search-popup,
-html.dark .search-pop-overlay .search-popup {
-    -webkit-backdrop-filter: blur(5px) saturate(115%) !important;
-    backdrop-filter: blur(5px) saturate(115%) !important;
-}
-
-.search-pop-overlay .search-popup {
-    background: rgba(255, 255, 255, 0.12) !important;
-    border-color: rgba(255, 255, 255, 0.40) !important;
-}
-
-html.liquid-glass-webgl-enabled .search-pop-overlay .search-popup {
-    background: rgba(255, 255, 255, 0.08) !important;
-}
-
-.dark .search-pop-overlay .search-popup,
-html.dark .search-pop-overlay .search-popup {
-    background: rgba(24, 24, 32, 0.24) !important;
-}
-
-.search-pop-overlay .search-popup .search-header,
-div.search-pop-overlay.active div.search-header,
-.dark .search-pop-overlay .search-popup .search-header,
-html.dark .search-pop-overlay .search-popup .search-header {
-    -webkit-backdrop-filter: blur(3px) saturate(110%) !important;
-    backdrop-filter: blur(3px) saturate(110%) !important;
-}
-
-.search-pop-overlay .search-popup .search-header,
-div.search-pop-overlay.active div.search-header {
-    background: rgba(255, 255, 255, 0.12) !important;
-    border-bottom-color: rgba(255, 255, 255, 0.20) !important;
-}
-
-.dark .search-pop-overlay .search-popup .search-header,
-html.dark .search-pop-overlay .search-popup .search-header {
-    background: rgba(20, 20, 28, 0.18) !important;
-}
-
-.search-pop-overlay .search-popup canvas.liquid-glass-webgl-canvas {
-    opacity: 1 !important;
-}
