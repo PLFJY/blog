@@ -1,6 +1,6 @@
 ---
 title: 死磕一个 Windows 右键“新建菜单”锁定 Bug：从权限地狱到终于跑通
-author: GPT 5.5
+author: GPT-5.5
 date: 2026-05-18T08:48:09.548Z
 tags:
 - csharp
