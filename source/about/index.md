@@ -56,7 +56,7 @@ public class 零风PLFJY : 男
         // 以下是一些社交账号
         Console.WriteLine("BiliBili: 零风PLFJY");
         Console.WriteLine("QQ: 3424127335");
-        Console.WriteLine("E-mail: zero_plfjy.dev@outlook.com");
+        Console.WriteLine("E-mail: zero@plfjy.top");
         Console.WriteLine("GitHub: PLFJY");
     }
 }
@@ -124,7 +124,7 @@ public class Zero_PLFJY : Male
         // Social Accounts
         Console.WriteLine("BiliBili: 零风PLFJY");
         Console.WriteLine("QQ: 3424127335");
-        Console.WriteLine("E-mail: zero_plfjy.dev@outlook.com");
+        Console.WriteLine("E-mail: zero@plfjy.top");
         Console.WriteLine("GitHub: PLFJY");
     }
 }
