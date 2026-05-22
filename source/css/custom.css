@@ -293,6 +293,46 @@ html.liquid-glass-webgl-disabled .home-banner-container .social-contacts canvas.
     z-index: 20;
 }
 
+/* Restore Redefine's original QR popup size.
+ * Tailwind w-64 may be unavailable/overridden in old engines, so pin it here.
+ */
+.home-banner-container .social-contacts .social-qr-container,
+.home-banner-container .social-contacts .qr-popup {
+    width: 16rem !important;
+    min-width: 16rem !important;
+    max-width: calc(100vw - 32px) !important;
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.home-banner-container .social-contacts .social-qr-container img.social-contacts-qr,
+.home-banner-container .social-contacts .qr-popup img.social-contacts-qr,
+.home-banner-container .social-contacts img.social-contacts-qr {
+    display: block !important;
+    width: 16rem !important;
+    min-width: 16rem !important;
+    max-width: none !important;
+    height: auto !important;
+}
+
+@media (max-width: 640px) {
+    .home-banner-container .social-contacts .social-qr-container,
+    .home-banner-container .social-contacts .qr-popup {
+        width: calc(100vw - 32px) !important;
+        min-width: 0 !important;
+        max-width: 16rem !important;
+    }
+
+    .home-banner-container .social-contacts .social-qr-container img.social-contacts-qr,
+    .home-banner-container .social-contacts .qr-popup img.social-contacts-qr,
+    .home-banner-container .social-contacts img.social-contacts-qr {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+}
+
+
 
 /* Icon readability is always enabled, independent from WebGL. */
 .home-banner-container .social-contacts a,
