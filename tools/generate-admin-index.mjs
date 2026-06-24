@@ -3,7 +3,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
-import yaml from 'js-yaml'
+import { load } from 'js-yaml'
 
 const rootDir = process.cwd()
 const postsDir = 'source/_posts'
@@ -67,7 +67,7 @@ function parseFrontMatter(markdown) {
   if (end === -1) return {}
 
   const raw = markdown.slice(3, end).trim()
-  const parsed = yaml.load(raw)
+  const parsed = load(raw)
   return parsed && typeof parsed === 'object' ? parsed : {}
 }
 
@@ -127,7 +127,7 @@ function getString(value) {
 async function readYamlFile(repoPath) {
   try {
     const raw = await fs.readFile(path.join(rootDir, repoPath), 'utf8')
-    const parsed = yaml.load(raw)
+    const parsed = load(raw)
     return getRecord(parsed)
   } catch (error) {
     if (error?.code === 'ENOENT') return {}
