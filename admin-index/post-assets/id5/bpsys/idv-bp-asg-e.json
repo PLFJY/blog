@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-25T11:40:37.114Z",
+  "sourceCommitSha": "1d27b32dcb5d221aefd35779c0cefc6b2346bd50",
+  "relativeId": "id5/bpsys/idv-bp-asg-e",
+  "postPath": "source/_posts/id5/bpsys/idv-bp-asg-e.md",
+  "folderPath": "id5/bpsys",
+  "postSlug": "idv-bp-asg-e",
+  "assetDir": "source/_posts/id5/bpsys/idv-bp-asg-e/",
+  "markdownAssetPrefix": "idv-bp-asg-e",
+  "assetCount": 11,
+  "assetTotalSize": 177028,
+  "assets": [
+    {
+      "filename": "1.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/1.webp",
+      "markdownPath": "idv-bp-asg-e/1.webp",
+      "size": 34912
+    },
+    {
+      "filename": "10.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/10.webp",
+      "markdownPath": "idv-bp-asg-e/10.webp",
+      "size": 9108
+    },
+    {
+      "filename": "11.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/11.webp",
+      "markdownPath": "idv-bp-asg-e/11.webp",
+      "size": 9132
+    },
+    {
+      "filename": "2.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/2.webp",
+      "markdownPath": "idv-bp-asg-e/2.webp",
+      "size": 33364
+    },
+    {
+      "filename": "3.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/3.webp",
+      "markdownPath": "idv-bp-asg-e/3.webp",
+      "size": 10148
+    },
+    {
+      "filename": "4.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/4.webp",
+      "markdownPath": "idv-bp-asg-e/4.webp",
+      "size": 6744
+    },
+    {
+      "filename": "5.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/5.webp",
+      "markdownPath": "idv-bp-asg-e/5.webp",
+      "size": 4312
+    },
+    {
+      "filename": "6.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/6.webp",
+      "markdownPath": "idv-bp-asg-e/6.webp",
+      "size": 44048
+    },
+    {
+      "filename": "7.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/7.webp",
+      "markdownPath": "idv-bp-asg-e/7.webp",
+      "size": 6054
+    },
+    {
+      "filename": "8.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/8.webp",
+      "markdownPath": "idv-bp-asg-e/8.webp",
+      "size": 8240
+    },
+    {
+      "filename": "9.webp",
+      "repoPath": "source/_posts/id5/bpsys/idv-bp-asg-e/9.webp",
+      "markdownPath": "idv-bp-asg-e/9.webp",
+      "size": 10966
+    }
+  ]
+}

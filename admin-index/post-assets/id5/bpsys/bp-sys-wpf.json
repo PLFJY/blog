@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-25T11:40:37.114Z",
+  "sourceCommitSha": "1d27b32dcb5d221aefd35779c0cefc6b2346bd50",
+  "relativeId": "id5/bpsys/bp-sys-wpf",
+  "postPath": "source/_posts/id5/bpsys/bp-sys-wpf.md",
+  "folderPath": "id5/bpsys",
+  "postSlug": "bp-sys-wpf",
+  "assetDir": "source/_posts/id5/bpsys/bp-sys-wpf/",
+  "markdownAssetPrefix": "bp-sys-wpf",
+  "assetCount": 12,
+  "assetTotalSize": 435114,
+  "assets": [
+    {
+      "filename": "1.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/1.jpg",
+      "markdownPath": "bp-sys-wpf/1.jpg",
+      "size": 120708
+    },
+    {
+      "filename": "10.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/10.jpg",
+      "markdownPath": "bp-sys-wpf/10.jpg",
+      "size": 23947
+    },
+    {
+      "filename": "11.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/11.jpg",
+      "markdownPath": "bp-sys-wpf/11.jpg",
+      "size": 51235
+    },
+    {
+      "filename": "12.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/12.jpg",
+      "markdownPath": "bp-sys-wpf/12.jpg",
+      "size": 18880
+    },
+    {
+      "filename": "2.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/2.jpg",
+      "markdownPath": "bp-sys-wpf/2.jpg",
+      "size": 39302
+    },
+    {
+      "filename": "3.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/3.jpg",
+      "markdownPath": "bp-sys-wpf/3.jpg",
+      "size": 31333
+    },
+    {
+      "filename": "4.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/4.jpg",
+      "markdownPath": "bp-sys-wpf/4.jpg",
+      "size": 24982
+    },
+    {
+      "filename": "5.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/5.jpg",
+      "markdownPath": "bp-sys-wpf/5.jpg",
+      "size": 11356
+    },
+    {
+      "filename": "6.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/6.jpg",
+      "markdownPath": "bp-sys-wpf/6.jpg",
+      "size": 24074
+    },
+    {
+      "filename": "7.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/7.jpg",
+      "markdownPath": "bp-sys-wpf/7.jpg",
+      "size": 29201
+    },
+    {
+      "filename": "8.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/8.jpg",
+      "markdownPath": "bp-sys-wpf/8.jpg",
+      "size": 32877
+    },
+    {
+      "filename": "9.jpg",
+      "repoPath": "source/_posts/id5/bpsys/bp-sys-wpf/9.jpg",
+      "markdownPath": "bp-sys-wpf/9.jpg",
+      "size": 27219
+    }
+  ]
+}

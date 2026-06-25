@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-25T11:40:37.114Z",
+  "sourceCommitSha": "1d27b32dcb5d221aefd35779c0cefc6b2346bd50",
+  "relativeId": "hexo-blog-admin",
+  "postPath": "source/_posts/hexo-blog-admin.md",
+  "folderPath": "",
+  "postSlug": "hexo-blog-admin",
+  "assetDir": "source/_posts/hexo-blog-admin/",
+  "markdownAssetPrefix": "hexo-blog-admin",
+  "assetCount": 16,
+  "assetTotalSize": 2839283,
+  "assets": [
+    {
+      "filename": "cf_workers_config.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/cf_workers_config.webp",
+      "markdownPath": "hexo-blog-admin/cf_workers_config.webp",
+      "size": 115504
+    },
+    {
+      "filename": "compress.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/compress.webp",
+      "markdownPath": "hexo-blog-admin/compress.webp",
+      "size": 145204
+    },
+    {
+      "filename": "conflict.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/conflict.webp",
+      "markdownPath": "hexo-blog-admin/conflict.webp",
+      "size": 127736
+    },
+    {
+      "filename": "dashboard.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/dashboard.webp",
+      "markdownPath": "hexo-blog-admin/dashboard.webp",
+      "size": 123348
+    },
+    {
+      "filename": "edit.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/edit.webp",
+      "markdownPath": "hexo-blog-admin/edit.webp",
+      "size": 159694
+    },
+    {
+      "filename": "github1.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/github1.webp",
+      "markdownPath": "hexo-blog-admin/github1.webp",
+      "size": 479822
+    },
+    {
+      "filename": "github2.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/github2.webp",
+      "markdownPath": "hexo-blog-admin/github2.webp",
+      "size": 426299
+    },
+    {
+      "filename": "github3.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/github3.webp",
+      "markdownPath": "hexo-blog-admin/github3.webp",
+      "size": 432809
+    },
+    {
+      "filename": "login.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/login.webp",
+      "markdownPath": "hexo-blog-admin/login.webp",
+      "size": 132800
+    },
+    {
+      "filename": "merge_tool.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/merge_tool.webp",
+      "markdownPath": "hexo-blog-admin/merge_tool.webp",
+      "size": 141146
+    },
+    {
+      "filename": "posts.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/posts.webp",
+      "markdownPath": "hexo-blog-admin/posts.webp",
+      "size": 124270
+    },
+    {
+      "filename": "settings.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/settings.webp",
+      "markdownPath": "hexo-blog-admin/settings.webp",
+      "size": 80880
+    },
+    {
+      "filename": "setup_dark.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/setup_dark.webp",
+      "markdownPath": "hexo-blog-admin/setup_dark.webp",
+      "size": 106512
+    },
+    {
+      "filename": "setup.webp",
+      "repoPath": "source/_posts/hexo-blog-admin/setup.webp",
+      "markdownPath": "hexo-blog-admin/setup.webp",
+      "size": 125364
+    },
+    {
+      "filename": "source-site.png",
+      "repoPath": "source/_posts/hexo-blog-admin/source-site.png",
+      "markdownPath": "hexo-blog-admin/source-site.png",
+      "size": 57288
+    },
+    {
+      "filename": "temp.png",
+      "repoPath": "source/_posts/hexo-blog-admin/temp.png",
+      "markdownPath": "hexo-blog-admin/temp.png",
+      "size": 60607
+    }
+  ]
+}
