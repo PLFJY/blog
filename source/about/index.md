@@ -8,7 +8,7 @@ public class 零风PLFJY : 男
 {
     public string 国籍 { get; } = "中国";
 
-    public string 生日 { get; } = "2008/10/05";
+    public string 生日 { get; } = "10/05";
 
     public Sign 星座 { get; } = Sign.天秤座;
 
@@ -68,7 +68,7 @@ public class Zero_PLFJY : Male
 {
     public string Nationality { get; } = "Chinese";
 
-    public string Birthday { get; } = "2008/10/05";
+    public string Birthday { get; } = "10/05";
 
     public Sign My_Sign { get; } = Sign.Libra;
 
