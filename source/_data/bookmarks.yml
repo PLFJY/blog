@@ -21,10 +21,10 @@
       link: https://github.com/yiyungent/hexo-asset-img
       description: 帮助我正常使用和预览博客图片的插件
       image: https://static-production.npmjs.com/f1786e9b7cba9753ca7b9c40e8b98f67.png
-    - name: live2d-widget
-      link: https://github.com/stevenjoezhang/live2d-widget
-      description: 左下角的不一定看得见的看板娘
-      image: https://github.githubassets.com/favicons/favicon.svg
+#    - name: live2d-widget
+#      link: https://github.com/stevenjoezhang/live2d-widget
+#      description: 左下角的不一定看得见的看板娘
+#      image: https://github.githubassets.com/favicons/favicon.svg
     - name: 栗次元API
       link: https://t.alcy.cc/
       description: 本站所有的随机图片来源
