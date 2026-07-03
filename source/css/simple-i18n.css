@@ -217,3 +217,74 @@ body.dark .plfjy-i18n-switcher {
     max-width: 152px;
   }
 }
+
+.plfjy-i18n-attribution {
+  position: fixed;
+  left: calc(14px + env(safe-area-inset-left, 0px));
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: 1002;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  max-width: min(260px, calc(100vw - 28px));
+  padding: 6px 10px;
+
+  border: 1px solid color-mix(in srgb, var(--primary-color, #ca8bff) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--background-color, #ffffff) 76%, transparent);
+
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  backdrop-filter: blur(12px) saturate(1.15);
+
+  box-shadow: 0 8px 24px rgba(92, 55, 140, 0.12);
+  color: var(--third-text-color, var(--default-text-color, #555555));
+
+  font-size: 12px;
+  line-height: 1.2;
+
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.plfjy-i18n-attribution-active {
+  opacity: 0.78;
+  transform: translateY(0);
+  pointer-events: none;
+}
+
+.plfjy-i18n-attribution-icon {
+  color: var(--primary-color, #ca8bff);
+  font-size: 12px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+html[data-theme='dark'] .plfjy-i18n-attribution,
+body.dark .plfjy-i18n-attribution {
+  background: color-mix(in srgb, var(--background-color, #1b1b20) 68%, transparent);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  .plfjy-i18n-attribution {
+    background: color-mix(in srgb, var(--background-color, #1b1b20) 68%, transparent);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.22);
+  }
+}
+
+@media (max-width: 768px) {
+  .plfjy-i18n-attribution {
+    left: calc(10px + env(safe-area-inset-left, 0px));
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    max-width: min(220px, calc(100vw - 20px));
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+}

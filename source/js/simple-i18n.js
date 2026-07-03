@@ -16,12 +16,24 @@
   const PAGE_LANGUAGE = 'zh-CN';
   const STORAGE_KEY = 'plfjy-i18n-lang';
   const SWITCHER_ID = 'plfjy-i18n-switcher';
+  const ATTRIBUTION_ID = 'plfjy-i18n-attribution';
   const SELECT_ID = 'plfjy-i18n-select';
   const GOOGLE_ELEMENT_ID = 'google_translate_element';
   const GOOGLE_SCRIPT_ID = 'plfjy-google-translate-element-script';
   const BRAND_TRANSLATIONS = {
     default: 'Zero PLFJY',
     ja: 'ゼロ風PLFJY',
+  };
+  const ATTRIBUTION_LABELS = {
+    default: '由 Google 翻译',
+    en: 'Translated by Google',
+    ja: 'Google 翻訳',
+    'zh-TW': '由 Google 翻譯',
+    ko: 'Google 번역',
+    fr: 'Traduit par Google',
+    de: 'Übersetzt von Google',
+    es: 'Traducido por Google',
+    ru: 'Переведено Google',
   };
   const ORIGINAL_SITE_TITLE = '零风PLFJYのBlog';
   const INCLUDED_LANGUAGES = LANGUAGES.map((lang) => lang.code)
@@ -121,6 +133,52 @@
     }
 
     element.classList.add('notranslate', 'plfjy-i18n-no-translate');
+  }
+
+  function createAttribution() {
+    const element = document.createElement('div');
+    element.id = ATTRIBUTION_ID;
+    element.className = 'plfjy-i18n-attribution';
+    element.setAttribute('translate', 'no');
+    element.classList.add('notranslate', 'plfjy-i18n-no-translate');
+
+    const icon = document.createElement('i');
+    icon.className = 'fa-brands fa-google plfjy-i18n-attribution-icon';
+    icon.setAttribute('aria-hidden', 'true');
+
+    const text = document.createElement('span');
+    text.className = 'plfjy-i18n-attribution-text';
+    text.textContent = '由 Google 翻译';
+
+    element.appendChild(icon);
+    element.appendChild(text);
+
+    return element;
+  }
+
+  function getAttribution() {
+    return document.getElementById(ATTRIBUTION_ID) || createAttribution();
+  }
+
+  function getAttributionLabel() {
+    return ATTRIBUTION_LABELS[getSavedLanguage()] || ATTRIBUTION_LABELS.default;
+  }
+
+  function syncAttribution() {
+    if (!document.body) return;
+
+    const element = getAttribution();
+    const text = element.querySelector('.plfjy-i18n-attribution-text');
+
+    if (element.parentElement !== document.body) {
+      document.body.appendChild(element);
+    }
+
+    if (text && text.textContent !== getAttributionLabel()) {
+      text.textContent = getAttributionLabel();
+    }
+
+    element.classList.toggle('plfjy-i18n-attribution-active', isTranslationActive());
   }
 
   function syncLockedBrandTitles() {
@@ -393,6 +451,7 @@
     window.requestAnimationFrame(function () {
       updateOptionLabels(switcher.querySelector('select'), switcher.classList.contains('plfjy-i18n-compact'));
     });
+    syncAttribution();
   }
 
   function scheduleMount() {
