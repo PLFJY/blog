@@ -27,20 +27,15 @@ iframe.skiptranslate {
 
 [class^='VIpgJd-ZVi9od-aZ2wEe'],
 [class*=' VIpgJd-ZVi9od-aZ2wEe'] {
-  top: calc(72px + env(safe-area-inset-top, 0px)) !important;
-  z-index: 1004 !important;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 [class^='VIpgJd-ZVi9od-aZ2wEe-wOHMyf'],
 [class*=' VIpgJd-ZVi9od-aZ2wEe-wOHMyf'] {
-  position: fixed !important;
-}
-
-@media (max-width: 768px) {
-  [class^='VIpgJd-ZVi9od-aZ2wEe'],
-  [class*=' VIpgJd-ZVi9od-aZ2wEe'] {
-    top: calc(64px + env(safe-area-inset-top, 0px)) !important;
-  }
+  display: none !important;
 }
 
 html,

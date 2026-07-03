@@ -19,6 +19,14 @@
   const SELECT_ID = 'plfjy-i18n-select';
   const GOOGLE_ELEMENT_ID = 'google_translate_element';
   const GOOGLE_SCRIPT_ID = 'plfjy-google-translate-element-script';
+  const TRANSLATED_TEXT_REPLACEMENTS = [
+    { from: /Zero\s+PLFJY\s*の\s*(?:小站|Blog)/g, to: 'Zero PLFJY Blog' },
+    { from: /零风\s*PLFJY\s*の\s*(?:小站|Blog)/g, to: 'Zero PLFJY Blog' },
+    { from: /零风\s*PLFJY/g, to: 'Zero PLFJY' },
+    { from: /の\s*小站/g, to: ' Blog' },
+    { from: /の\s*Blog/g, to: ' Blog' },
+    { from: /小站/g, to: 'Blog' },
+  ];
   const INCLUDED_LANGUAGES = LANGUAGES.map((lang) => lang.code)
     .filter(Boolean)
     .join(',');
@@ -66,6 +74,66 @@
     }
 
     return element;
+  }
+
+  function isTranslationActive() {
+    return Boolean(getSavedLanguage());
+  }
+
+  function fixTranslatedText(root) {
+    if (!isTranslationActive()) return;
+
+    const scope = root || document.body;
+
+    if (!scope) return;
+
+    const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        const parent = node.parentElement;
+
+        if (
+          !parent ||
+          parent.closest('script, style, textarea, input, select, option, code, pre, #' + SWITCHER_ID)
+        ) {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        return TRANSLATED_TEXT_REPLACEMENTS.some((term) => {
+          term.from.lastIndex = 0;
+          return term.from.test(node.nodeValue);
+        })
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT;
+      },
+    });
+    const nodes = [];
+
+    while (walker.nextNode()) {
+      nodes.push(walker.currentNode);
+    }
+
+    nodes.forEach(function (node) {
+      let text = node.nodeValue;
+
+      TRANSLATED_TEXT_REPLACEMENTS.forEach(function (term) {
+        term.from.lastIndex = 0;
+        text = text.replace(term.from, term.to);
+      });
+
+      if (text !== node.nodeValue) {
+        node.nodeValue = text;
+      }
+    });
+  }
+
+  function scheduleTranslatedTextFix() {
+    if (!isTranslationActive()) return;
+
+    [200, 800, 1800, 3500, 6000].forEach(function (delay) {
+      window.setTimeout(function () {
+        fixTranslatedText();
+      }, delay);
+    });
   }
 
   function createSwitcher() {
@@ -225,15 +293,18 @@
       .forEach(function (element) {
         element.style.display = 'none';
         element.style.visibility = 'hidden';
+        element.style.opacity = '0';
+        element.style.pointerEvents = 'none';
       });
   }
 
   function scheduleGoogleSpinnerCleanup() {
     window.clearTimeout(spinnerTimer);
     window.clearInterval(spinnerCleanupInterval);
+    hideGoogleSpinner();
 
     spinnerTimer = window.setTimeout(function () {
-      const stopAt = Date.now() + 10000;
+      const stopAt = Date.now() + 30000;
 
       hideGoogleSpinner();
       spinnerCleanupInterval = window.setInterval(function () {
@@ -326,6 +397,7 @@
       if (combo.value === lang) {
         scheduleGoogleChromeCleanup();
         scheduleGoogleSpinnerCleanup();
+        scheduleTranslatedTextFix();
         return;
       }
 
@@ -333,6 +405,7 @@
       combo.dispatchEvent(new Event('change'));
       scheduleGoogleChromeCleanup();
       scheduleGoogleSpinnerCleanup();
+      scheduleTranslatedTextFix();
     });
   }
 
@@ -404,7 +477,10 @@
   function observeDom() {
     if (observer || !document.body) return;
 
-    observer = new MutationObserver(scheduleMount);
+    observer = new MutationObserver(function () {
+      hideGoogleSpinner();
+      scheduleMount();
+    });
     observer.observe(document.body, {
       childList: true,
       subtree: true,
