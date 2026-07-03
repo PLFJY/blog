@@ -12,7 +12,7 @@ info:
   # Site title
   title: 零风PLFJYの小站
   # Site subtitle
-  subtitle: 'My Blog'
+  subtitle: 'My blog'
   # Author name
   author: 零风PLFJY
   # Site URL
@@ -138,7 +138,7 @@ home_banner:
     light: https://t.alcy.cc/fj # light mode
     dark: https://t.alcy.cc/fj # dark mode
   # Home banner title
-  title: "零风PLFJYのBlog"
+  title: "零风PLFJYのblog"
   # Home banner subtitle
   subtitle:
     text:

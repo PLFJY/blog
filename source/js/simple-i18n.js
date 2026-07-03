@@ -15,11 +15,13 @@
 
   const PAGE_LANGUAGE = 'zh-CN';
   const STORAGE_KEY = 'plfjy-i18n-lang';
+  const LANGUAGE_PROMPT_KEY = 'plfjy-i18n-language-prompt-dismissed';
   const SWITCHER_ID = 'plfjy-i18n-switcher';
   const ATTRIBUTION_ID = 'plfjy-i18n-attribution';
   const SELECT_ID = 'plfjy-i18n-select';
   const GOOGLE_ELEMENT_ID = 'google_translate_element';
   const GOOGLE_SCRIPT_ID = 'plfjy-google-translate-element-script';
+  const LANGUAGE_PROMPT_ID = 'plfjy-i18n-language-prompt';
   const BRAND_TRANSLATIONS = {
     default: 'Zero PLFJY',
     ja: 'ゼロ風PLFJY',
@@ -50,6 +52,7 @@
   let spinnerTimer = null;
   let spinnerCleanupInterval = null;
   let textFixTimer = null;
+  let languagePromptTimer = null;
 
   function getSavedLanguage() {
     try {
@@ -71,6 +74,69 @@
 
   function isSupportedLanguage(lang) {
     return LANGUAGES.some((item) => item.code === lang);
+  }
+
+  function getLanguage(lang) {
+    return LANGUAGES.find((item) => item.code === lang) || null;
+  }
+
+  function getPrimaryLocale() {
+    const languages = window.navigator && window.navigator.languages;
+
+    if (languages && languages.length) {
+      return languages[0] || '';
+    }
+
+    return (window.navigator && window.navigator.language) || '';
+  }
+
+  function isChineseLocale(locale) {
+    if (!locale) return false;
+
+    const normalized = locale.toLowerCase();
+    return normalized === 'zh' || normalized.startsWith('zh-');
+  }
+
+  function mapLocaleToLanguageCode(locale) {
+    if (!locale) return '';
+
+    const normalized = locale.toLowerCase();
+
+    if (isChineseLocale(normalized)) return '';
+
+    if (normalized.startsWith('en')) return 'en';
+    if (normalized.startsWith('ja')) return 'ja';
+    if (normalized.startsWith('ko')) return 'ko';
+    if (normalized.startsWith('fr')) return 'fr';
+    if (normalized.startsWith('de')) return 'de';
+    if (normalized.startsWith('es')) return 'es';
+    if (normalized.startsWith('ru')) return 'ru';
+
+    return '';
+  }
+
+  function getPreferredLanguageCode(locale) {
+    if (!locale) return null;
+
+    if (isChineseLocale(locale)) return '';
+
+    return mapLocaleToLanguageCode(locale) || null;
+  }
+
+  function hasDismissedLanguagePrompt() {
+    try {
+      return Boolean(window.localStorage.getItem(LANGUAGE_PROMPT_KEY));
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function dismissLanguagePrompt(remember) {
+    if (!remember) return;
+
+    try {
+      window.localStorage.setItem(LANGUAGE_PROMPT_KEY, '1');
+    } catch (_) {}
   }
 
   function ensureGoogleElement() {
@@ -119,10 +185,10 @@
     if (!isTranslationActive()) return ORIGINAL_SITE_TITLE;
 
     if (getSavedLanguage() === 'ja') {
-      return getBrandTranslation() + 'のBlog';
+      return getBrandTranslation() + 'のblog';
     }
 
-    return getBrandTranslation() + "'s Blog";
+    return getBrandTranslation() + "'s blog";
   }
 
   function markNoTranslate(element) {
@@ -182,6 +248,7 @@
   }
 
   function syncLockedBrandTitles() {
+    const translationActive = isTranslationActive();
     const title = getLocalizedSiteTitle();
 
     document.querySelectorAll('.logo-title').forEach(function (logoTitle) {
@@ -189,12 +256,18 @@
 
       markNoTranslate(element);
 
+      if (!translationActive) return;
+
       if (element.textContent !== title) {
         element.textContent = title;
       }
     });
 
     document.querySelectorAll('.home-banner-container .description').forEach(function (element) {
+      markNoTranslate(element);
+
+      if (!translationActive) return;
+
       const subtitleWrapper = element.querySelector(':scope > p') || element.querySelector('p');
       const titleNodes = Array.from(element.childNodes).filter(function (node) {
         return node !== subtitleWrapper;
@@ -204,8 +277,6 @@
         titleNodes[0].nodeType === Node.TEXT_NODE &&
         titleNodes[0].nodeValue === title &&
         (!subtitleWrapper || titleNodes[0].nextSibling === subtitleWrapper);
-
-      markNoTranslate(element);
 
       if (isStable) return;
 
@@ -226,7 +297,7 @@
   function getTranslatedTextReplacements() {
     const savedLanguage = getSavedLanguage();
     const brand = getBrandTranslation();
-    const blog = 'Blog';
+    const blog = 'blog';
     const siteTitle = getLocalizedSiteTitle();
     const replacements = [
       { from: /Zero\s+PLFJY's\s+Blog/g, to: siteTitle },
@@ -635,6 +706,148 @@
     applyGoogleLanguage(lang);
   }
 
+  function isPageTranslatedByGoogle() {
+    if (
+      document.documentElement.classList.contains('translated-ltr') ||
+      document.documentElement.classList.contains('translated-rtl')
+    ) {
+      return true;
+    }
+
+    return /(?:^|;\s*)googtrans=\/[^/]+\/(?!zh-CN(?:;|$))[^;]+/.test(document.cookie || '');
+  }
+
+  function shouldShowLanguagePrompt() {
+    const locale = getPrimaryLocale();
+    const targetLang = getPreferredLanguageCode(locale);
+    const currentLang = getSavedLanguage() || '';
+
+    if (!document.body) return false;
+    if (document.getElementById(LANGUAGE_PROMPT_ID)) return false;
+    if (hasDismissedLanguagePrompt()) return false;
+    if (targetLang === null || !isSupportedLanguage(targetLang)) return false;
+    if (targetLang === currentLang) return false;
+
+    return true;
+  }
+
+  function closeLanguagePrompt(prompt) {
+    if (!prompt) return;
+
+    prompt.classList.remove('plfjy-i18n-language-prompt-active');
+    window.setTimeout(function () {
+      if (prompt.parentElement) {
+        prompt.parentElement.removeChild(prompt);
+      }
+    }, 220);
+  }
+
+  function createLanguagePrompt(targetLang, locale) {
+    const language = getLanguage(targetLang);
+
+    if (!language || document.getElementById(LANGUAGE_PROMPT_ID)) return null;
+
+    const prompt = document.createElement('div');
+    const backdrop = document.createElement('div');
+    const card = document.createElement('div');
+    const title = document.createElement('p');
+    const subtitle = document.createElement('p');
+    const rememberLabel = document.createElement('label');
+    const rememberInput = document.createElement('input');
+    const rememberText = document.createElement('span');
+    const confirmButton = document.createElement('button');
+    const cancelButton = document.createElement('button');
+    const provider = document.createElement('p');
+
+    prompt.id = LANGUAGE_PROMPT_ID;
+    prompt.className = 'plfjy-i18n-language-prompt';
+    prompt.setAttribute('translate', 'no');
+    prompt.classList.add('notranslate', 'plfjy-i18n-no-translate');
+
+    backdrop.className = 'plfjy-i18n-language-prompt-backdrop';
+
+    card.className = 'plfjy-i18n-language-prompt-card';
+    card.setAttribute('role', 'dialog');
+    card.setAttribute('aria-modal', 'true');
+    card.setAttribute('aria-labelledby', 'plfjy-i18n-language-prompt-title');
+    card.setAttribute('translate', 'no');
+    card.classList.add('notranslate', 'plfjy-i18n-no-translate');
+
+    title.id = 'plfjy-i18n-language-prompt-title';
+    title.className = 'plfjy-i18n-language-prompt-title';
+    title.textContent = 'Your primary language is ' + locale + ', do you want to switch to it?';
+
+    subtitle.className = 'plfjy-i18n-language-prompt-subtitle';
+    subtitle.textContent = '你的首选语言是 ' + locale + '，是否切换到该语言？';
+
+    rememberLabel.className = 'plfjy-i18n-language-prompt-remember';
+    rememberInput.type = 'checkbox';
+    rememberText.textContent = 'Remember my choice / 记住我的选择';
+
+    confirmButton.type = 'button';
+    confirmButton.className = 'plfjy-i18n-language-prompt-confirm';
+    confirmButton.textContent = 'Switch to ' + language.label + ' / 切换到 ' + language.label;
+
+    cancelButton.type = 'button';
+    cancelButton.className = 'plfjy-i18n-language-prompt-cancel';
+    cancelButton.textContent = 'Cancel / 取消';
+
+    provider.className = 'plfjy-i18n-language-prompt-provider';
+    provider.textContent = 'Translation provided by Google / 翻译由 Google 提供';
+
+    function cancel() {
+      dismissLanguagePrompt(rememberInput.checked);
+      closeLanguagePrompt(prompt);
+    }
+
+    rememberLabel.appendChild(rememberInput);
+    rememberLabel.appendChild(rememberText);
+
+    card.appendChild(title);
+    card.appendChild(subtitle);
+    card.appendChild(rememberLabel);
+    card.appendChild(confirmButton);
+    card.appendChild(cancelButton);
+    card.appendChild(provider);
+    prompt.appendChild(backdrop);
+    prompt.appendChild(card);
+
+    confirmButton.addEventListener('click', function () {
+      dismissLanguagePrompt(rememberInput.checked);
+      closeLanguagePrompt(prompt);
+      changeLanguage(targetLang);
+    });
+    cancelButton.addEventListener('click', cancel);
+    backdrop.addEventListener('click', cancel);
+    prompt.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        cancel();
+      }
+    });
+
+    return prompt;
+  }
+
+  function showLanguagePromptIfNeeded() {
+    if (!shouldShowLanguagePrompt()) return;
+
+    const locale = getPrimaryLocale();
+    const targetLang = getPreferredLanguageCode(locale);
+    const prompt = createLanguagePrompt(targetLang, locale);
+
+    if (!prompt) return;
+
+    document.body.appendChild(prompt);
+    window.requestAnimationFrame(function () {
+      prompt.classList.add('plfjy-i18n-language-prompt-active');
+      const confirmButton = prompt.querySelector('.plfjy-i18n-language-prompt-confirm');
+
+      if (confirmButton) {
+        confirmButton.focus({ preventScroll: true });
+      }
+    });
+  }
+
   function restoreSavedLanguage() {
     const savedLanguage = getSavedLanguage();
     const select = document.getElementById(SELECT_ID);
@@ -717,6 +930,9 @@
 
     window.addEventListener('resize', scheduleMount);
     document.addEventListener('click', scheduleMount, true);
+
+    window.clearTimeout(languagePromptTimer);
+    languagePromptTimer = window.setTimeout(showLanguagePromptIfNeeded, 600);
   }
 
   if (document.readyState === 'loading') {
