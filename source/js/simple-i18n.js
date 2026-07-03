@@ -23,6 +23,7 @@
     default: 'Zero PLFJY',
     ja: 'ゼロ風PLFJY',
   };
+  const ORIGINAL_SITE_TITLE = '零风PLFJYのBlog';
   const INCLUDED_LANGUAGES = LANGUAGES.map((lang) => lang.code)
     .filter(Boolean)
     .join(',');
@@ -36,6 +37,7 @@
   let cleanupTimer = null;
   let spinnerTimer = null;
   let spinnerCleanupInterval = null;
+  let textFixTimer = null;
 
   function getSavedLanguage() {
     try {
@@ -72,6 +74,27 @@
     return element;
   }
 
+  function markTypewriterAsNoTranslate() {
+    document.querySelectorAll('#subtitle, #subtitle + .typed-cursor').forEach(function (element) {
+      markNoTranslate(element);
+    });
+
+    const subtitle = document.getElementById('subtitle');
+    const subtitleWrapper = subtitle && subtitle.closest('p');
+
+    if (subtitleWrapper) {
+      markNoTranslate(subtitleWrapper);
+    }
+  }
+
+  function markCodeBlocksAsNoTranslate() {
+    document
+      .querySelectorAll(
+        'pre, code, kbd, samp, figure.highlight, .highlight, .code, .gutter, .code-area, .markdown-body .highlight',
+      )
+      .forEach(markNoTranslate);
+  }
+
   function isTranslationActive() {
     return Boolean(getSavedLanguage());
   }
@@ -80,23 +103,104 @@
     return BRAND_TRANSLATIONS[getSavedLanguage()] || BRAND_TRANSLATIONS.default;
   }
 
-  function getTranslatedTextReplacements() {
-    const brand = getBrandTranslation();
+  function getLocalizedSiteTitle() {
+    if (!isTranslationActive()) return ORIGINAL_SITE_TITLE;
 
-    return [
-      { from: /Zero\s+PLFJY\s*の\s*(?:小站|Blog)/g, to: brand + ' Blog' },
-      { from: /ゼロ風\s*PLFJY\s*の\s*(?:小站|Blog)/g, to: brand + ' Blog' },
-      { from: /零风\s*PLFJY\s*の\s*(?:小站|Blog)/g, to: brand + ' Blog' },
+    if (getSavedLanguage() === 'ja') {
+      return getBrandTranslation() + 'のBlog';
+    }
+
+    return getBrandTranslation() + ' Blog';
+  }
+
+  function markNoTranslate(element) {
+    if (!element) return;
+
+    if (element.getAttribute('translate') !== 'no') {
+      element.setAttribute('translate', 'no');
+    }
+
+    element.classList.add('notranslate', 'plfjy-i18n-no-translate');
+  }
+
+  function syncLockedBrandTitles() {
+    const title = getLocalizedSiteTitle();
+
+    document.querySelectorAll('.logo-title').forEach(function (logoTitle) {
+      const element = logoTitle.querySelector('h1') || logoTitle;
+
+      markNoTranslate(element);
+
+      if (element.textContent !== title) {
+        element.textContent = title;
+      }
+    });
+
+    document.querySelectorAll('.home-banner-container .description').forEach(function (element) {
+      const subtitleWrapper = element.querySelector(':scope > p') || element.querySelector('p');
+      const titleNodes = Array.from(element.childNodes).filter(function (node) {
+        return node !== subtitleWrapper;
+      });
+      const isStable =
+        titleNodes.length === 1 &&
+        titleNodes[0].nodeType === Node.TEXT_NODE &&
+        titleNodes[0].nodeValue === title &&
+        (!subtitleWrapper || titleNodes[0].nextSibling === subtitleWrapper);
+
+      markNoTranslate(element);
+
+      if (isStable) return;
+
+      Array.from(element.childNodes).forEach(function (node) {
+        if (node !== subtitleWrapper) {
+          node.parentNode.removeChild(node);
+        }
+      });
+
+      if (!element.firstChild || element.firstChild !== subtitleWrapper) {
+        element.insertBefore(document.createTextNode(title), subtitleWrapper || null);
+      } else {
+        element.insertBefore(document.createTextNode(title), subtitleWrapper);
+      }
+    });
+  }
+
+  function getTranslatedTextReplacements() {
+    const savedLanguage = getSavedLanguage();
+    const brand = getBrandTranslation();
+    const blog = 'Blog';
+    const siteTitle = getLocalizedSiteTitle();
+    const replacements = [
+      { from: /Zero\s+PLFJY\s*の\s*(?:小站|Blog|ブログ)/g, to: siteTitle },
+      { from: /ゼロ風\s*PLFJY\s*の\s*(?:小站|Blog|ブログ)/g, to: siteTitle },
+      { from: /零风\s*PLFJY\s*の\s*(?:小站|Blog|ブログ)/g, to: siteTitle },
       { from: /Zero\s+PLFJY/g, to: brand },
       { from: /ゼロ風\s*PLFJY/g, to: brand },
       { from: /零风\s*PLFJY/g, to: brand },
-      { from: /の\s*小站/g, to: ' Blog' },
-      { from: /の\s*Blog/g, to: ' Blog' },
-      { from: /小站/g, to: 'Blog' },
+      { from: /の\s*小站/g, to: ' ' + blog },
+      { from: /の\s*Blog/g, to: ' ' + blog },
+      { from: /小站/g, to: blog },
     ];
+
+    if (savedLanguage === 'ja') {
+      replacements.unshift(
+        { from: /ゼロ\s*[風风]\s*PLFJY\s*の\s*(?:小站|Blog|ブログ)/g, to: siteTitle },
+        { from: /ゼロ\s*[風风]\s*PLFJY\s*(?:Blog|ブログ|小站)/g, to: siteTitle },
+        { from: /ゼロ\s*[風风]\s*PLFJY/g, to: brand },
+        { from: /ゼロ\s*PLFJY\s*の\s*(?:小站|Blog|ブログ)/g, to: siteTitle },
+        { from: /ゼロ\s*PLFJY\s*(?:ブログ|Blog|小站)/g, to: siteTitle },
+        { from: /ゼロ\s*PLFJY/g, to: brand },
+      );
+      replacements.push({ from: /ゼロ風PLFJYBlog/g, to: siteTitle });
+      replacements.push({ from: /ブログ/g, to: blog });
+    }
+
+    return replacements;
   }
 
   function fixTranslatedText(root) {
+    syncLockedBrandTitles();
+
     if (!isTranslationActive()) return;
 
     const scope = root || document.body;
@@ -110,7 +214,10 @@
 
         if (
           !parent ||
-          parent.closest('script, style, textarea, input, select, option, code, pre, #' + SWITCHER_ID)
+          parent.closest(
+            'script, style, textarea, input, select, option, code, pre, .notranslate, .plfjy-i18n-no-translate, #' +
+              SWITCHER_ID,
+          )
         ) {
           return NodeFilter.FILTER_REJECT;
         }
@@ -151,6 +258,13 @@
         fixTranslatedText();
       }, delay);
     });
+  }
+
+  function debounceTranslatedTextFix() {
+    if (!isTranslationActive()) return;
+
+    window.clearTimeout(textFixTimer);
+    textFixTimer = window.setTimeout(fixTranslatedText, 120);
   }
 
   function createSwitcher() {
@@ -240,6 +354,9 @@
   function mountSwitcher() {
     if (!document.body) return;
 
+    markTypewriterAsNoTranslate();
+    markCodeBlocksAsNoTranslate();
+    syncLockedBrandTitles();
     ensureGoogleElement();
 
     const switcher = getSwitcher();
@@ -477,6 +594,9 @@
 
   function bindSwupEvents() {
     document.addEventListener('swup:contentReplaced', function () {
+      markTypewriterAsNoTranslate();
+      markCodeBlocksAsNoTranslate();
+      syncLockedBrandTitles();
       scheduleMount();
       restoreSavedLanguage();
     });
@@ -484,6 +604,9 @@
     if (window.swup && typeof window.swup.on === 'function') {
       try {
         window.swup.on('contentReplaced', function () {
+          markTypewriterAsNoTranslate();
+          markCodeBlocksAsNoTranslate();
+          syncLockedBrandTitles();
           scheduleMount();
           restoreSavedLanguage();
         });
@@ -496,6 +619,10 @@
 
     observer = new MutationObserver(function () {
       hideGoogleSpinner();
+      markTypewriterAsNoTranslate();
+      markCodeBlocksAsNoTranslate();
+      syncLockedBrandTitles();
+      debounceTranslatedTextFix();
       scheduleMount();
     });
     observer.observe(document.body, {
@@ -513,6 +640,9 @@
   }
 
   function init() {
+    markTypewriterAsNoTranslate();
+    markCodeBlocksAsNoTranslate();
+    syncLockedBrandTitles();
     mountSwitcher();
 
     if (getSavedLanguage()) {

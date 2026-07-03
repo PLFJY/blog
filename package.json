@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "prepare:nodejieba": "node tools/ensure-nodejieba.mjs",
-    "prebuild": "pnpm run prepare:nodejieba",
+    "prebuild": "node tools/ensure-nodejieba.mjs",
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "generate:admin-index": "node tools/generate-admin-index.mjs",
-    "preserver": "pnpm run prepare:nodejieba",
+    "preserver": "node tools/ensure-nodejieba.mjs",
     "server": "hexo server"
   },
   "hexo": {
