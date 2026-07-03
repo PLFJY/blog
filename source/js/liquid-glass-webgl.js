@@ -30,6 +30,17 @@
         return target.classList.contains("plfjy-i18n-attribution-active");
       },
     },
+    {
+      selector: ".plfjy-i18n-language-prompt-card",
+      name: "i18n-language-prompt",
+      pauseWhenInactive: true,
+      baseAlpha: 0.62,
+      effectAlpha: 1.0,
+      isActive(target) {
+        const prompt = target.closest(".plfjy-i18n-language-prompt");
+        return !!prompt && prompt.classList.contains("plfjy-i18n-language-prompt-active");
+      },
+    },
   ];
 
   const MINIMUM_ENGINE_VERSIONS = {
@@ -625,4 +636,8 @@
   }
 
   document.addEventListener("swup:contentReplaced", bootLiquidGlass);
+  document.addEventListener("plfjy:i18n-language-prompt-mounted", () => {
+    initLiquidGlass();
+    window.setTimeout(resizeLiquidGlassTargets, 80);
+  });
 })();

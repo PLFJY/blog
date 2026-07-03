@@ -838,6 +838,7 @@
     if (!prompt) return;
 
     document.body.appendChild(prompt);
+    document.dispatchEvent(new CustomEvent('plfjy:i18n-language-prompt-mounted'));
     window.requestAnimationFrame(function () {
       prompt.classList.add('plfjy-i18n-language-prompt-active');
       const confirmButton = prompt.querySelector('.plfjy-i18n-language-prompt-confirm');

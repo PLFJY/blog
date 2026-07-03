@@ -372,22 +372,51 @@ html.liquid-glass-webgl-enabled body.dark-mode .plfjy-i18n-attribution {
 .plfjy-i18n-language-prompt-card {
   position: relative;
   z-index: 1;
+  isolation: isolate;
+  overflow: hidden;
   box-sizing: border-box;
   width: min(440px, calc(100vw - 32px));
   padding: 22px;
-  border: 1px solid color-mix(in srgb, var(--default-text-color, #333333) 12%, transparent);
+  border: 1px solid var(--plfjy-glass-border-light, rgba(255, 255, 255, 0.44));
   border-radius: 16px;
-  background: color-mix(in srgb, var(--background-color, #ffffff) 88%, transparent);
+  background: var(--plfjy-glass-bg-light, rgba(255, 255, 255, 0.28));
   color: var(--default-text-color, #333333);
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.24),
-    inset 0 1px 1px rgba(255, 255, 255, 0.16);
-  -webkit-backdrop-filter: blur(18px) saturate(1.16);
-  backdrop-filter: blur(18px) saturate(1.16);
+    0 20px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.72),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+  backdrop-filter: blur(18px) saturate(145%);
   transform: translateY(10px) scale(0.98);
   transition:
     transform 180ms ease,
     opacity 180ms ease;
+}
+
+html.liquid-glass-webgl-enabled .plfjy-i18n-language-prompt-card {
+  background: rgba(255, 255, 255, 0.10);
+  -webkit-backdrop-filter: blur(9px) saturate(115%);
+  backdrop-filter: blur(9px) saturate(115%);
+}
+
+.plfjy-i18n-language-prompt-card > *:not(.liquid-glass-webgl-canvas) {
+  position: relative;
+  z-index: 1;
+}
+
+.plfjy-i18n-language-prompt-card canvas.liquid-glass-webgl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  display: block;
+}
+
+html.liquid-glass-webgl-disabled .plfjy-i18n-language-prompt-card canvas.liquid-glass-webgl-canvas {
+  display: none !important;
 }
 
 .plfjy-i18n-language-prompt-active .plfjy-i18n-language-prompt-card {
@@ -472,13 +501,23 @@ html.liquid-glass-webgl-enabled body.dark-mode .plfjy-i18n-attribution {
 }
 
 html[data-theme='dark'] .plfjy-i18n-language-prompt-card,
-body.dark .plfjy-i18n-language-prompt-card {
-  border-color: color-mix(in srgb, var(--default-text-color, #ffffff) 14%, transparent);
-  background: color-mix(in srgb, var(--background-color, #1b1b20) 88%, transparent);
+body.dark .plfjy-i18n-language-prompt-card,
+body.dark-mode .plfjy-i18n-language-prompt-card {
+  border-color: var(--plfjy-glass-border-dark, rgba(255, 255, 255, 0.24));
+  background: var(--plfjy-glass-bg-dark, rgba(24, 24, 32, 0.34));
   color: var(--default-text-color, #f4f4f5);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.36),
-    inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    inset 0 1px 1px rgba(255, 255, 255, 0.32),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.08);
+}
+
+html.dark.liquid-glass-webgl-enabled .plfjy-i18n-language-prompt-card,
+html.liquid-glass-webgl-enabled.dark .plfjy-i18n-language-prompt-card,
+html[data-theme='dark'].liquid-glass-webgl-enabled .plfjy-i18n-language-prompt-card,
+html.liquid-glass-webgl-enabled body.dark .plfjy-i18n-language-prompt-card,
+html.liquid-glass-webgl-enabled body.dark-mode .plfjy-i18n-language-prompt-card {
+  background: rgba(24, 24, 32, 0.16);
 }
 
 html[data-theme='dark'] .plfjy-i18n-language-prompt-remember,
@@ -497,12 +536,17 @@ body.dark .plfjy-i18n-language-prompt-cancel {
 
 @media (prefers-color-scheme: dark) {
   .plfjy-i18n-language-prompt-card {
-    border-color: color-mix(in srgb, var(--default-text-color, #ffffff) 14%, transparent);
-    background: color-mix(in srgb, var(--background-color, #1b1b20) 88%, transparent);
+    border-color: var(--plfjy-glass-border-dark, rgba(255, 255, 255, 0.24));
+    background: var(--plfjy-glass-bg-dark, rgba(24, 24, 32, 0.34));
     color: var(--default-text-color, #f4f4f5);
     box-shadow:
       0 20px 60px rgba(0, 0, 0, 0.36),
-      inset 0 1px 1px rgba(255, 255, 255, 0.08);
+      inset 0 1px 1px rgba(255, 255, 255, 0.32),
+      inset 0 -1px 1px rgba(255, 255, 255, 0.08);
+  }
+
+  html.liquid-glass-webgl-enabled .plfjy-i18n-language-prompt-card {
+    background: rgba(24, 24, 32, 0.16);
   }
 
   .plfjy-i18n-language-prompt-remember,
