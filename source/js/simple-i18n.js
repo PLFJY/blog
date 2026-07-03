@@ -110,7 +110,7 @@
       return getBrandTranslation() + 'のBlog';
     }
 
-    return getBrandTranslation() + ' Blog';
+    return getBrandTranslation() + "'s Blog";
   }
 
   function markNoTranslate(element) {
@@ -171,6 +171,8 @@
     const blog = 'Blog';
     const siteTitle = getLocalizedSiteTitle();
     const replacements = [
+      { from: /Zero\s+PLFJY's\s+Blog/g, to: siteTitle },
+      { from: /Zero\s+PLFJY\s+Blog/g, to: siteTitle },
       { from: /Zero\s+PLFJY\s*の\s*(?:小站|Blog|ブログ)/g, to: siteTitle },
       { from: /ゼロ風\s*PLFJY\s*の\s*(?:小站|Blog|ブログ)/g, to: siteTitle },
       { from: /零风\s*PLFJY\s*の\s*(?:小站|Blog|ブログ)/g, to: siteTitle },
