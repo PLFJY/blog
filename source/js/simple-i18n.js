@@ -2,15 +2,15 @@
   'use strict';
 
   const LANGUAGES = [
-    { code: '', label: '简体中文 / Original', shortLabel: '简' },
-    { code: 'en', label: 'English', shortLabel: 'EN' },
-    { code: 'ja', label: '日本語', shortLabel: 'JA' },
-    { code: 'zh-TW', label: '繁體中文', shortLabel: '繁' },
-    { code: 'ko', label: '한국어', shortLabel: 'KO' },
-    { code: 'fr', label: 'Français', shortLabel: 'FR' },
-    { code: 'de', label: 'Deutsch', shortLabel: 'DE' },
-    { code: 'es', label: 'Español', shortLabel: 'ES' },
-    { code: 'ru', label: 'Русский', shortLabel: 'RU' },
+    { code: '', label: '简体中文 / Original' },
+    { code: 'en', label: 'English' },
+    { code: 'ja', label: '日本語' },
+    { code: 'zh-TW', label: '繁體中文' },
+    { code: 'ko', label: '한국어' },
+    { code: 'fr', label: 'Français' },
+    { code: 'de', label: 'Deutsch' },
+    { code: 'es', label: 'Español' },
+    { code: 'ru', label: 'Русский' },
   ];
 
   const PAGE_LANGUAGE = 'zh-CN';
@@ -422,16 +422,15 @@
       option.value = lang.code;
       option.textContent = lang.label;
       option.dataset.label = lang.label;
-      option.dataset.shortLabel = lang.shortLabel || '简';
       select.appendChild(option);
     });
 
     select.value = isSupportedLanguage(savedLanguage) ? savedLanguage : '';
     select.addEventListener('pointerdown', function () {
-      updateOptionLabels(select, false);
+      updateOptionLabels(select);
     });
     select.addEventListener('focus', function () {
-      updateOptionLabels(select, false);
+      updateOptionLabels(select);
     });
     select.addEventListener('blur', function () {
       window.setTimeout(mountSwitcher, 100);
@@ -474,11 +473,11 @@
     );
   }
 
-  function updateOptionLabels(select, compact) {
+  function updateOptionLabels(select) {
     if (!select) return;
 
     Array.from(select.options).forEach(function (option) {
-      option.textContent = compact ? option.dataset.shortLabel || option.dataset.label : option.dataset.label;
+      option.textContent = option.dataset.label;
     });
   }
 
@@ -518,9 +517,9 @@
       }
     }
 
-    updateOptionLabels(switcher.querySelector('select'), isCompact);
+    updateOptionLabels(switcher.querySelector('select'));
     window.requestAnimationFrame(function () {
-      updateOptionLabels(switcher.querySelector('select'), switcher.classList.contains('plfjy-i18n-compact'));
+      updateOptionLabels(switcher.querySelector('select'));
     });
     syncAttribution();
   }
