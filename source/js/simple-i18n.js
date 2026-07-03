@@ -19,14 +19,10 @@
   const SELECT_ID = 'plfjy-i18n-select';
   const GOOGLE_ELEMENT_ID = 'google_translate_element';
   const GOOGLE_SCRIPT_ID = 'plfjy-google-translate-element-script';
-  const TRANSLATED_TEXT_REPLACEMENTS = [
-    { from: /Zero\s+PLFJY\s*の\s*(?:小站|Blog)/g, to: 'Zero PLFJY Blog' },
-    { from: /零风\s*PLFJY\s*の\s*(?:小站|Blog)/g, to: 'Zero PLFJY Blog' },
-    { from: /零风\s*PLFJY/g, to: 'Zero PLFJY' },
-    { from: /の\s*小站/g, to: ' Blog' },
-    { from: /の\s*Blog/g, to: ' Blog' },
-    { from: /小站/g, to: 'Blog' },
-  ];
+  const BRAND_TRANSLATIONS = {
+    default: 'Zero PLFJY',
+    ja: 'ゼロ風PLFJY',
+  };
   const INCLUDED_LANGUAGES = LANGUAGES.map((lang) => lang.code)
     .filter(Boolean)
     .join(',');
@@ -80,10 +76,31 @@
     return Boolean(getSavedLanguage());
   }
 
+  function getBrandTranslation() {
+    return BRAND_TRANSLATIONS[getSavedLanguage()] || BRAND_TRANSLATIONS.default;
+  }
+
+  function getTranslatedTextReplacements() {
+    const brand = getBrandTranslation();
+
+    return [
+      { from: /Zero\s+PLFJY\s*の\s*(?:小站|Blog)/g, to: brand + ' Blog' },
+      { from: /ゼロ風\s*PLFJY\s*の\s*(?:小站|Blog)/g, to: brand + ' Blog' },
+      { from: /零风\s*PLFJY\s*の\s*(?:小站|Blog)/g, to: brand + ' Blog' },
+      { from: /Zero\s+PLFJY/g, to: brand },
+      { from: /ゼロ風\s*PLFJY/g, to: brand },
+      { from: /零风\s*PLFJY/g, to: brand },
+      { from: /の\s*小站/g, to: ' Blog' },
+      { from: /の\s*Blog/g, to: ' Blog' },
+      { from: /小站/g, to: 'Blog' },
+    ];
+  }
+
   function fixTranslatedText(root) {
     if (!isTranslationActive()) return;
 
     const scope = root || document.body;
+    const replacements = getTranslatedTextReplacements();
 
     if (!scope) return;
 
@@ -98,7 +115,7 @@
           return NodeFilter.FILTER_REJECT;
         }
 
-        return TRANSLATED_TEXT_REPLACEMENTS.some((term) => {
+        return replacements.some((term) => {
           term.from.lastIndex = 0;
           return term.from.test(node.nodeValue);
         })
@@ -115,7 +132,7 @@
     nodes.forEach(function (node) {
       let text = node.nodeValue;
 
-      TRANSLATED_TEXT_REPLACEMENTS.forEach(function (term) {
+      replacements.forEach(function (term) {
         term.from.lastIndex = 0;
         text = text.replace(term.from, term.to);
       });
