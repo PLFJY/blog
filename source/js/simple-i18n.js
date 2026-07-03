@@ -1,0 +1,448 @@
+(function () {
+  'use strict';
+
+  const LANGUAGES = [
+    { code: '', label: '简体中文 / Original', shortLabel: '简' },
+    { code: 'en', label: 'English', shortLabel: 'EN' },
+    { code: 'ja', label: '日本語', shortLabel: 'JA' },
+    { code: 'zh-TW', label: '繁體中文', shortLabel: '繁' },
+    { code: 'ko', label: '한국어', shortLabel: 'KO' },
+    { code: 'fr', label: 'Français', shortLabel: 'FR' },
+    { code: 'de', label: 'Deutsch', shortLabel: 'DE' },
+    { code: 'es', label: 'Español', shortLabel: 'ES' },
+    { code: 'ru', label: 'Русский', shortLabel: 'RU' },
+  ];
+
+  const PAGE_LANGUAGE = 'zh-CN';
+  const STORAGE_KEY = 'plfjy-i18n-lang';
+  const SWITCHER_ID = 'plfjy-i18n-switcher';
+  const SELECT_ID = 'plfjy-i18n-select';
+  const GOOGLE_ELEMENT_ID = 'google_translate_element';
+  const GOOGLE_SCRIPT_ID = 'plfjy-google-translate-element-script';
+  const INCLUDED_LANGUAGES = LANGUAGES.map((lang) => lang.code)
+    .filter(Boolean)
+    .join(',');
+
+  let googleScriptLoading = false;
+  let googleElementInitialized = false;
+  let observer = null;
+  let bodyClassObserver = null;
+  let mountTimer = null;
+  let restoreTimer = null;
+  let cleanupTimer = null;
+  let spinnerTimer = null;
+  let spinnerCleanupInterval = null;
+
+  function getSavedLanguage() {
+    try {
+      return window.localStorage.getItem(STORAGE_KEY) || '';
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function saveLanguage(lang) {
+    try {
+      if (lang) {
+        window.localStorage.setItem(STORAGE_KEY, lang);
+      } else {
+        window.localStorage.removeItem(STORAGE_KEY);
+      }
+    } catch (_) {}
+  }
+
+  function isSupportedLanguage(lang) {
+    return LANGUAGES.some((item) => item.code === lang);
+  }
+
+  function ensureGoogleElement() {
+    let element = document.getElementById(GOOGLE_ELEMENT_ID);
+
+    if (!element) {
+      element = document.createElement('div');
+      element.id = GOOGLE_ELEMENT_ID;
+      element.setAttribute('translate', 'no');
+      document.body.appendChild(element);
+    }
+
+    return element;
+  }
+
+  function createSwitcher() {
+    const switcher = document.createElement('div');
+    const label = document.createElement('label');
+    const select = document.createElement('select');
+    const savedLanguage = getSavedLanguage();
+
+    switcher.id = SWITCHER_ID;
+    switcher.className = 'plfjy-i18n-switcher';
+    switcher.setAttribute('translate', 'no');
+
+    label.className = 'plfjy-i18n-label';
+    label.setAttribute('for', SELECT_ID);
+    label.innerHTML = '<i class="fa-solid fa-language"></i>';
+
+    select.id = SELECT_ID;
+    select.className = 'plfjy-i18n-select';
+    select.setAttribute('aria-label', 'Select language');
+    select.setAttribute('translate', 'no');
+
+    LANGUAGES.forEach((lang) => {
+      const option = document.createElement('option');
+      option.value = lang.code;
+      option.textContent = lang.label;
+      option.dataset.label = lang.label;
+      option.dataset.shortLabel = lang.shortLabel || '简';
+      select.appendChild(option);
+    });
+
+    select.value = isSupportedLanguage(savedLanguage) ? savedLanguage : '';
+    select.addEventListener('pointerdown', function () {
+      updateOptionLabels(select, false);
+    });
+    select.addEventListener('focus', function () {
+      updateOptionLabels(select, false);
+    });
+    select.addEventListener('blur', function () {
+      window.setTimeout(mountSwitcher, 100);
+    });
+    select.addEventListener('change', function () {
+      changeLanguage(select.value);
+      window.setTimeout(mountSwitcher, 0);
+    });
+
+    switcher.appendChild(label);
+    switcher.appendChild(select);
+
+    return switcher;
+  }
+
+  function getSwitcher() {
+    const existing = document.getElementById(SWITCHER_ID);
+    return existing || createSwitcher();
+  }
+
+  function getDesktopTarget() {
+    return (
+      document.querySelector('.navbar-container .navbar-content .right .desktop') ||
+      document.querySelector('.navbar-content .right .desktop')
+    );
+  }
+
+  function getDrawerTarget() {
+    return document.querySelector('.navbar-drawer .drawer-navbar-list') || document.querySelector('.navbar-drawer');
+  }
+
+  function getSideToolsTarget() {
+    return document.querySelector('.right-side-tools-container .visible-tools-list');
+  }
+
+  function shouldUseDrawer() {
+    return (
+      document.body.classList.contains('navbar-drawer-show') ||
+      (window.matchMedia && window.matchMedia('(max-width: 768px)').matches)
+    );
+  }
+
+  function updateOptionLabels(select, compact) {
+    if (!select) return;
+
+    Array.from(select.options).forEach(function (option) {
+      option.textContent = compact ? option.dataset.shortLabel || option.dataset.label : option.dataset.label;
+    });
+  }
+
+  function mountSwitcher() {
+    if (!document.body) return;
+
+    ensureGoogleElement();
+
+    const switcher = getSwitcher();
+    const drawerTarget = getDrawerTarget();
+    const sideToolsTarget = getSideToolsTarget();
+    const useDrawer = shouldUseDrawer() && drawerTarget;
+    const target = useDrawer ? drawerTarget : sideToolsTarget || document.body;
+    const finalTarget = target || document.body;
+    const isFloating = finalTarget === document.body;
+    const isSideTool = finalTarget === sideToolsTarget;
+    const isCompact = isSideTool || isFloating;
+
+    switcher.classList.toggle('plfjy-i18n-floating', isFloating);
+    switcher.classList.toggle('plfjy-i18n-drawer', finalTarget === drawerTarget);
+    switcher.classList.toggle('plfjy-i18n-side-tool', isSideTool);
+    switcher.classList.toggle('plfjy-i18n-compact', isCompact);
+    switcher.classList.toggle('right-bottom-tools', isSideTool);
+    switcher.classList.toggle('flex', isSideTool);
+    switcher.classList.toggle('justify-center', isSideTool);
+    switcher.classList.toggle('items-center', isSideTool);
+
+    if (switcher.parentElement !== finalTarget) {
+      if (isSideTool) {
+        const scrollTopTool = finalTarget.querySelector('.tool-scroll-to-top');
+        finalTarget.insertBefore(switcher, scrollTopTool || null);
+      } else {
+        finalTarget.appendChild(switcher);
+      }
+    }
+
+    updateOptionLabels(switcher.querySelector('select'), isCompact);
+    window.requestAnimationFrame(function () {
+      updateOptionLabels(switcher.querySelector('select'), switcher.classList.contains('plfjy-i18n-compact'));
+    });
+  }
+
+  function scheduleMount() {
+    window.clearTimeout(mountTimer);
+    mountTimer = window.setTimeout(mountSwitcher, 250);
+  }
+
+  function hideGoogleChrome() {
+    if (!document.body) return;
+
+    document.body.style.top = '0px';
+    document.documentElement.style.marginTop = '0px';
+
+    document
+      .querySelectorAll(
+        'body > .skiptranslate, iframe.skiptranslate, .goog-te-banner-frame',
+      )
+      .forEach(function (element) {
+        element.style.display = 'none';
+        element.style.visibility = 'hidden';
+        element.style.height = '0';
+      });
+  }
+
+  function scheduleGoogleChromeCleanup() {
+    hideGoogleChrome();
+    window.clearTimeout(cleanupTimer);
+    cleanupTimer = window.setTimeout(hideGoogleChrome, 350);
+  }
+
+  function hideGoogleSpinner() {
+    document
+      .querySelectorAll("[class^='VIpgJd-ZVi9od-aZ2wEe'], [class*=' VIpgJd-ZVi9od-aZ2wEe']")
+      .forEach(function (element) {
+        element.style.display = 'none';
+        element.style.visibility = 'hidden';
+      });
+  }
+
+  function scheduleGoogleSpinnerCleanup() {
+    window.clearTimeout(spinnerTimer);
+    window.clearInterval(spinnerCleanupInterval);
+
+    spinnerTimer = window.setTimeout(function () {
+      const stopAt = Date.now() + 10000;
+
+      hideGoogleSpinner();
+      spinnerCleanupInterval = window.setInterval(function () {
+        hideGoogleSpinner();
+
+        if (Date.now() >= stopAt) {
+          window.clearInterval(spinnerCleanupInterval);
+          spinnerCleanupInterval = null;
+        }
+      }, 500);
+    }, 4500);
+  }
+
+  function initGoogleTranslateElement() {
+    ensureGoogleElement();
+
+    if (googleElementInitialized) {
+      restoreSavedLanguage();
+      return;
+    }
+
+    if (!window.google || !window.google.translate || !window.google.translate.TranslateElement) {
+      return;
+    }
+
+    try {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: PAGE_LANGUAGE,
+          includedLanguages: INCLUDED_LANGUAGES,
+          autoDisplay: false,
+        },
+        GOOGLE_ELEMENT_ID,
+      );
+      googleElementInitialized = true;
+      scheduleGoogleChromeCleanup();
+      scheduleGoogleSpinnerCleanup();
+      restoreSavedLanguage();
+    } catch (_) {}
+  }
+
+  window.googleTranslateElementInit = initGoogleTranslateElement;
+
+  function loadGoogleTranslate() {
+    if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+      initGoogleTranslateElement();
+      return;
+    }
+
+    if (document.getElementById(GOOGLE_SCRIPT_ID) || googleScriptLoading) {
+      return;
+    }
+
+    googleScriptLoading = true;
+
+    const script = document.createElement('script');
+    script.id = GOOGLE_SCRIPT_ID;
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    script.onerror = function () {
+      googleScriptLoading = false;
+    };
+
+    document.head.appendChild(script);
+  }
+
+  function findGoogleComboWithRetry(callback, attempt) {
+    const combo = document.querySelector('.goog-te-combo');
+    const currentAttempt = attempt || 0;
+
+    if (combo) {
+      callback(combo);
+      return;
+    }
+
+    if (currentAttempt >= 30) {
+      return;
+    }
+
+    window.setTimeout(function () {
+      findGoogleComboWithRetry(callback, currentAttempt + 1);
+    }, 150);
+  }
+
+  function applyGoogleLanguage(lang) {
+    if (!lang) return;
+
+    loadGoogleTranslate();
+    findGoogleComboWithRetry(function (combo) {
+      if (combo.value === lang) {
+        scheduleGoogleChromeCleanup();
+        scheduleGoogleSpinnerCleanup();
+        return;
+      }
+
+      combo.value = lang;
+      combo.dispatchEvent(new Event('change'));
+      scheduleGoogleChromeCleanup();
+      scheduleGoogleSpinnerCleanup();
+    });
+  }
+
+  function clearGoogleTranslateCookies() {
+    const expires = 'expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
+    document.cookie = 'googtrans=; ' + expires + '; path=/';
+    document.cookie = 'googtrans=; ' + expires + '; path=/; domain=.plfjy.top';
+    document.cookie = 'googtrans=; ' + expires + '; path=/; domain=blog.plfjy.top';
+  }
+
+  function setGoogleTranslateCookie(lang) {
+    const value = '/zh-CN/' + lang;
+
+    document.cookie = 'googtrans=' + value + '; path=/';
+    document.cookie = 'googtrans=' + value + '; path=/; domain=.plfjy.top';
+    document.cookie = 'googtrans=' + value + '; path=/; domain=blog.plfjy.top';
+  }
+
+  function changeLanguage(lang) {
+    if (!isSupportedLanguage(lang)) return;
+
+    if (!lang) {
+      saveLanguage('');
+      clearGoogleTranslateCookies();
+      window.location.reload();
+      return;
+    }
+
+    saveLanguage(lang);
+    setGoogleTranslateCookie(lang);
+    applyGoogleLanguage(lang);
+  }
+
+  function restoreSavedLanguage() {
+    const savedLanguage = getSavedLanguage();
+    const select = document.getElementById(SELECT_ID);
+
+    if (!savedLanguage || !isSupportedLanguage(savedLanguage)) {
+      return;
+    }
+
+    if (select) {
+      select.value = savedLanguage;
+    }
+
+    window.clearTimeout(restoreTimer);
+    restoreTimer = window.setTimeout(function () {
+      applyGoogleLanguage(savedLanguage);
+    }, 100);
+  }
+
+  function bindSwupEvents() {
+    document.addEventListener('swup:contentReplaced', function () {
+      scheduleMount();
+      restoreSavedLanguage();
+    });
+
+    if (window.swup && typeof window.swup.on === 'function') {
+      try {
+        window.swup.on('contentReplaced', function () {
+          scheduleMount();
+          restoreSavedLanguage();
+        });
+      } catch (_) {}
+    }
+  }
+
+  function observeDom() {
+    if (observer || !document.body) return;
+
+    observer = new MutationObserver(scheduleMount);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    bodyClassObserver = new MutationObserver(function () {
+      mountSwitcher();
+    });
+    bodyClassObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+  }
+
+  function init() {
+    mountSwitcher();
+
+    if (getSavedLanguage()) {
+      loadGoogleTranslate();
+    }
+
+    restoreSavedLanguage();
+    bindSwupEvents();
+    observeDom();
+    hideGoogleChrome();
+
+    window.addEventListener('resize', scheduleMount);
+    document.addEventListener('click', scheduleMount, true);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+
+  window.PLFJYSimpleI18n = {
+    mountSwitcher: mountSwitcher,
+    applyLanguage: changeLanguage,
+  };
+})();

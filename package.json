@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prepare:nodejieba": "node tools/ensure-nodejieba.mjs",
+    "prebuild": "pnpm run prepare:nodejieba",
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "generate:admin-index": "node tools/generate-admin-index.mjs",
+    "preserver": "pnpm run prepare:nodejieba",
     "server": "hexo server"
   },
   "hexo": {
@@ -16,7 +19,7 @@
     "hexo": "^8.1.2",
     "hexo-all-minifier": "^0.5.7",
     "hexo-asset-img": "^1.2.0",
-    "hexo-filter-mathjax": "^0.11.0",
+    "hexo-filter-mathjax": "0.10.0",
     "hexo-filter-mermaid-diagrams": "^1.0.5",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",

@@ -426,11 +426,13 @@ inject:
     - <meta name="color-scheme" content="light dark">
     - <script src="/js/redefine-theme-mode-head.js"></script>
     - <link rel="stylesheet" href="/css/custom.css">
+    - <link rel="stylesheet" href="/css/simple-i18n.css">
     - <script src="/js/text-highlight.js"></script>
     - <script src="/js/liquid-glass-webgl.js"></script>
   # Inject custom footer html code
   footer:
     - <script src="/js/redefine-theme-mode-toggle.js"></script>
+    - <script src="/js/simple-i18n.js"></script>
 #    - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/autoload.js"></script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 

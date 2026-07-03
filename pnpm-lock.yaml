@@ -18,8 +18,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       hexo-filter-mathjax:
-        specifier: ^0.11.0
-        version: 0.11.0
+        specifier: 0.10.0
+        version: 0.10.0
       hexo-filter-mermaid-diagrams:
         specifier: ^1.0.5
         version: 1.0.5
@@ -919,8 +919,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  hexo-filter-mathjax@0.11.0:
-    resolution: {integrity: sha512-t/+uxNzHJuNUKUvUsNk/sDtTnakCpbm6VbO2Bfowokjoo147yG8sOjRPILM928WlwkpzHQjZA0Z/svU126BQNw==}
+  hexo-filter-mathjax@0.10.0:
+    resolution: {integrity: sha512-RvF3OtA89v6PO6+G5dOZlDIaDJX5dnNSeLmhurk59kHEjxotxJaqY6KMwowCZXXudY0cAoHJQhq3qYCtLYbX7g==}
 
   hexo-filter-mermaid-diagrams@1.0.5:
     resolution: {integrity: sha512-/IkIMKn4V7PBAzMJGNDPSoBFlv1JGvIELXm5AWkR8N5N44kDTNJLtabb4h095UhZQIXOrF9zA1WYhi6wrWLW5Q==}
@@ -3235,7 +3235,7 @@ snapshots:
       resolve: 1.22.12
       tildify: 2.0.0
 
-  hexo-filter-mathjax@0.11.0:
+  hexo-filter-mathjax@0.10.0:
     dependencies:
       '@mathjax/mathjax-mhchem-font-extension': 4.1.2
       '@mathjax/src': 4.1.2
