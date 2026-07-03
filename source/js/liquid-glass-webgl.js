@@ -20,6 +20,16 @@
         return !!overlay && overlay.classList.contains("active");
       },
     },
+    {
+      selector: ".plfjy-i18n-attribution",
+      name: "i18n-attribution",
+      pauseWhenInactive: true,
+      baseAlpha: 0.62,
+      effectAlpha: 1.0,
+      isActive(target) {
+        return target.classList.contains("plfjy-i18n-attribution-active");
+      },
+    },
   ];
 
   const MINIMUM_ENGINE_VERSIONS = {
