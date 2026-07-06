@@ -219,6 +219,8 @@ body.dark .plfjy-i18n-switcher {
 }
 
 .plfjy-i18n-attribution {
+  --plfjy-i18n-attribution-ink: rgba(0, 0, 0, 0.54);
+
   position: fixed;
   left: calc(14px + env(safe-area-inset-left, 0px));
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
@@ -244,7 +246,7 @@ body.dark .plfjy-i18n-switcher {
     0 8px 24px rgba(0, 0, 0, 0.22),
     inset 0 1px 1px rgba(255, 255, 255, 0.72),
     inset 0 -1px 1px rgba(255, 255, 255, 0.12);
-  color: var(--third-text-color, var(--default-text-color, #555555));
+  color: var(--plfjy-i18n-attribution-ink);
 
   font-size: 12px;
   line-height: 1.2;
@@ -273,7 +275,7 @@ html.liquid-glass-webgl-enabled .plfjy-i18n-attribution {
 .plfjy-i18n-attribution-icon {
   position: relative;
   z-index: 1;
-  color: var(--primary-color, #ca8bff);
+  color: currentColor;
   font-size: 12px;
   line-height: 1;
   flex: 0 0 auto;
@@ -302,6 +304,8 @@ html.liquid-glass-webgl-disabled .plfjy-i18n-attribution canvas.liquid-glass-web
 html[data-theme='dark'] .plfjy-i18n-attribution,
 body.dark .plfjy-i18n-attribution,
 body.dark-mode .plfjy-i18n-attribution {
+  --plfjy-i18n-attribution-ink: rgba(255, 255, 255, 0.62);
+
   border-color: var(--plfjy-glass-border-dark, rgba(255, 255, 255, 0.24));
   background: var(--plfjy-glass-bg-dark, rgba(24, 24, 32, 0.34));
   box-shadow:
@@ -320,6 +324,8 @@ html.liquid-glass-webgl-enabled body.dark-mode .plfjy-i18n-attribution {
 
 @media (prefers-color-scheme: dark) {
   .plfjy-i18n-attribution {
+    --plfjy-i18n-attribution-ink: rgba(255, 255, 255, 0.62);
+
     border-color: var(--plfjy-glass-border-dark, rgba(255, 255, 255, 0.24));
     background: var(--plfjy-glass-bg-dark, rgba(24, 24, 32, 0.34));
     box-shadow:
