@@ -376,6 +376,9 @@ html.liquid-glass-webgl-enabled body.dark-mode .plfjy-i18n-attribution {
 }
 
 .plfjy-i18n-language-prompt-card {
+  --plfjy-i18n-prompt-ink: #f4f4f5;
+  --plfjy-i18n-prompt-muted: #d8d8df;
+
   position: relative;
   z-index: 1;
   isolation: isolate;
@@ -385,8 +388,8 @@ html.liquid-glass-webgl-enabled body.dark-mode .plfjy-i18n-attribution {
   padding: 22px;
   border: 1px solid var(--plfjy-glass-border-light, rgba(255, 255, 255, 0.44));
   border-radius: 16px;
-  background: var(--plfjy-glass-bg-light, rgba(255, 255, 255, 0.28));
-  color: var(--default-text-color, #333333);
+  background: rgba(18, 20, 30, 0.52);
+  color: var(--plfjy-i18n-prompt-ink);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.28),
     inset 0 1px 1px rgba(255, 255, 255, 0.72),
@@ -400,7 +403,7 @@ html.liquid-glass-webgl-enabled body.dark-mode .plfjy-i18n-attribution {
 }
 
 html.liquid-glass-webgl-enabled .plfjy-i18n-language-prompt-card {
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(18, 20, 30, 0.44);
   -webkit-backdrop-filter: blur(9px) saturate(115%);
   backdrop-filter: blur(9px) saturate(115%);
 }
@@ -431,10 +434,14 @@ html.liquid-glass-webgl-disabled .plfjy-i18n-language-prompt-card canvas.liquid-
 
 .plfjy-i18n-language-prompt-title,
 .plfjy-i18n-language-prompt-subtitle {
+  color: var(--plfjy-i18n-prompt-ink);
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.65;
   font-weight: 650;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.62),
+    0 0 10px rgba(0, 0, 0, 0.34);
 }
 
 .plfjy-i18n-language-prompt-subtitle {
@@ -446,9 +453,12 @@ html.liquid-glass-webgl-disabled .plfjy-i18n-language-prompt-card canvas.liquid-
   align-items: center;
   gap: 10px;
   margin: 18px 0 14px;
-  color: var(--third-text-color, #666666);
+  color: var(--plfjy-i18n-prompt-muted);
   font-size: 0.9rem;
   cursor: pointer;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.54),
+    0 0 8px rgba(0, 0, 0, 0.28);
   user-select: none;
 }
 
@@ -457,6 +467,7 @@ html.liquid-glass-webgl-disabled .plfjy-i18n-language-prompt-card canvas.liquid-
   width: 18px;
   height: 18px;
   accent-color: var(--primary-color, #ca8bff);
+  mix-blend-mode: normal;
 }
 
 .plfjy-i18n-language-prompt-confirm,
@@ -482,15 +493,17 @@ html.liquid-glass-webgl-disabled .plfjy-i18n-language-prompt-card canvas.liquid-
 
 .plfjy-i18n-language-prompt-cancel {
   margin-top: 10px;
-  background: color-mix(in srgb, var(--default-text-color, #333333) 8%, transparent);
-  color: var(--third-text-color, #666666);
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--plfjy-i18n-prompt-muted);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.48);
 }
 
 .plfjy-i18n-language-prompt-provider {
   margin: 12px 0 0;
-  color: var(--third-text-color, #666666);
+  color: var(--plfjy-i18n-prompt-muted);
   font-size: 0.78rem;
   line-height: 1.45;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.44);
   text-align: center;
 }
 
@@ -511,7 +524,6 @@ body.dark .plfjy-i18n-language-prompt-card,
 body.dark-mode .plfjy-i18n-language-prompt-card {
   border-color: var(--plfjy-glass-border-dark, rgba(255, 255, 255, 0.24));
   background: var(--plfjy-glass-bg-dark, rgba(24, 24, 32, 0.34));
-  color: var(--default-text-color, #f4f4f5);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.36),
     inset 0 1px 1px rgba(255, 255, 255, 0.32),
@@ -523,7 +535,7 @@ html.liquid-glass-webgl-enabled.dark .plfjy-i18n-language-prompt-card,
 html[data-theme='dark'].liquid-glass-webgl-enabled .plfjy-i18n-language-prompt-card,
 html.liquid-glass-webgl-enabled body.dark .plfjy-i18n-language-prompt-card,
 html.liquid-glass-webgl-enabled body.dark-mode .plfjy-i18n-language-prompt-card {
-  background: rgba(24, 24, 32, 0.16);
+  background: rgba(18, 20, 30, 0.44);
 }
 
 html[data-theme='dark'] .plfjy-i18n-language-prompt-remember,
@@ -531,20 +543,23 @@ html[data-theme='dark'] .plfjy-i18n-language-prompt-cancel,
 html[data-theme='dark'] .plfjy-i18n-language-prompt-provider,
 body.dark .plfjy-i18n-language-prompt-remember,
 body.dark .plfjy-i18n-language-prompt-cancel,
-body.dark .plfjy-i18n-language-prompt-provider {
-  color: var(--third-text-color, #b8bcc8);
+body.dark .plfjy-i18n-language-prompt-provider,
+body.dark-mode .plfjy-i18n-language-prompt-remember,
+body.dark-mode .plfjy-i18n-language-prompt-cancel,
+body.dark-mode .plfjy-i18n-language-prompt-provider {
+  color: var(--plfjy-i18n-prompt-muted);
 }
 
 html[data-theme='dark'] .plfjy-i18n-language-prompt-cancel,
-body.dark .plfjy-i18n-language-prompt-cancel {
-  background: color-mix(in srgb, var(--default-text-color, #ffffff) 8%, transparent);
+body.dark .plfjy-i18n-language-prompt-cancel,
+body.dark-mode .plfjy-i18n-language-prompt-cancel {
+  background: rgba(255, 255, 255, 0.10);
 }
 
 @media (prefers-color-scheme: dark) {
   .plfjy-i18n-language-prompt-card {
     border-color: var(--plfjy-glass-border-dark, rgba(255, 255, 255, 0.24));
     background: var(--plfjy-glass-bg-dark, rgba(24, 24, 32, 0.34));
-    color: var(--default-text-color, #f4f4f5);
     box-shadow:
       0 20px 60px rgba(0, 0, 0, 0.36),
       inset 0 1px 1px rgba(255, 255, 255, 0.32),
@@ -552,17 +567,17 @@ body.dark .plfjy-i18n-language-prompt-cancel {
   }
 
   html.liquid-glass-webgl-enabled .plfjy-i18n-language-prompt-card {
-    background: rgba(24, 24, 32, 0.16);
+    background: rgba(18, 20, 30, 0.44);
   }
 
   .plfjy-i18n-language-prompt-remember,
   .plfjy-i18n-language-prompt-cancel,
   .plfjy-i18n-language-prompt-provider {
-    color: var(--third-text-color, #b8bcc8);
+    color: var(--plfjy-i18n-prompt-muted);
   }
 
   .plfjy-i18n-language-prompt-cancel {
-    background: color-mix(in srgb, var(--default-text-color, #ffffff) 8%, transparent);
+    background: rgba(255, 255, 255, 0.10);
   }
 }
 

@@ -16,6 +16,7 @@
   const PAGE_LANGUAGE = 'zh-CN';
   const STORAGE_KEY = 'plfjy-i18n-lang';
   const LANGUAGE_PROMPT_KEY = 'plfjy-i18n-language-prompt-dismissed';
+  const LANGUAGE_PROMPT_CHECKED_FLAG = '__PLFJY_I18N_LANGUAGE_PROMPT_CHECKED__';
   const SWITCHER_ID = 'plfjy-i18n-switcher';
   const ATTRIBUTION_ID = 'plfjy-i18n-attribution';
   const SELECT_ID = 'plfjy-i18n-select';
@@ -848,6 +849,14 @@
     });
   }
 
+  function scheduleInitialLanguagePrompt() {
+    if (window[LANGUAGE_PROMPT_CHECKED_FLAG]) return;
+
+    window[LANGUAGE_PROMPT_CHECKED_FLAG] = true;
+    window.clearTimeout(languagePromptTimer);
+    languagePromptTimer = window.setTimeout(showLanguagePromptIfNeeded, 600);
+  }
+
   function restoreSavedLanguage() {
     const savedLanguage = getSavedLanguage();
     const select = document.getElementById(SELECT_ID);
@@ -931,8 +940,7 @@
     window.addEventListener('resize', scheduleMount);
     document.addEventListener('click', scheduleMount, true);
 
-    window.clearTimeout(languagePromptTimer);
-    languagePromptTimer = window.setTimeout(showLanguagePromptIfNeeded, 600);
+    scheduleInitialLanguagePrompt();
   }
 
   if (document.readyState === 'loading') {

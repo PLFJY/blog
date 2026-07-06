@@ -52,20 +52,20 @@ global:
     # Chinese fonts
     chinese:
       enable: false # Whether to enable custom chinese fonts
-      family: # Font family
-      url:
+      family: Noto Sans SC # Font family
+      url: https://fonts.font.im/css?family=Noto+Sans+SC:wght@400;500;700&display=swap
         # Font URL to CSS file
         # English fonts
     english:
       enable: false # Whether to enable custom english fonts
-      family: # Font family
-      url:
+      family: Noto Sans # Font family
+      url: https://fonts.font.im/css?family=Noto+Sans&display=swap
         # Font URL to CSS file
         # Custom title fonts (navbar, sidebar)
     title:
       enable: false # Whether to enable custom title fonts
-      family: # Font family
-      url:
+      family: Noto Sans SC # Font family
+      url: https://fonts.font.im/css?family=Noto+Sans+SC:wght@400;500;700&display=swap
         # Font URL to CSS file
         # Content max width
   content_max_width: 1000px
@@ -174,9 +174,9 @@ home_banner:
     # Whether to enable custom font
     enable: false
     # Font family
-    family: # URL to font CSS file
-
-    url: # Home banner social links
+    family: Noto Serif SC # URL to font CSS file
+    url: https://fonts.font.im/css?family=Noto+Serif+SC:wght@400;500;700&display=swap
+    # Home banner social links
   social_links:
     # Whether to enable
     enable: true
@@ -209,7 +209,7 @@ navbar:
       icon: fa-regular fa-house # can be empty
     Archives:
       path: /archives
-      icon: fa-regular fa-archive # can be empty
+      icon: fa-regular fa-archive
     About me:
       icon: fa-regular fa-user
       path: /about
@@ -269,7 +269,7 @@ home:
 articles:
   # Set the styles of the article
   style:
-    font_size: 16px # Font size
+    font_size: 1rem # Font size
     line_height: 1.5 # Line height
     image_border_radius: 14px # image border radius
     image_alignment: center # image alignment. left, center
@@ -305,9 +305,9 @@ articles:
       dark: github-dark # dark mode theme, support: github-dark, monokai-sublime, vs2015, night-owl, atom-one-dark, nord, tokyo-night-dark, a11y-dark, agate
     font:
       # Custom font
-      enable: false # Whether to enable
-      family: # Font family
-      url:
+      enable: true # Whether to enable
+      family: JetBrains Mono
+      url: https://fonts.font.im/css?family=JetBrains+Mono&display=swap
         # Font URL to CSS file
         # Table of contents settings
   toc:
