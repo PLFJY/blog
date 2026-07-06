@@ -589,27 +589,56 @@ html.liquid-glass-webgl-enabled.dark div.search-pop-overlay.active div.search-he
 /* =========================================================
  * 6. Theme-following text color patches
  * ========================================================= */
-
-.home-sidebar-container .sidebar-content .statistics.flex.justify-around.my-2\.5 a .number.text-2xl.sm\:text-xl.text-second-text-color.font-semibold,
-.article-content-container .article-title.relative.w-full h1,
-.friends-link-container.flex.flex-col,
-.friends-link-container.flex.flex-col div {
-    color: var(--second-text-color) !important;
-}
-
-.home-sidebar-container .sidebar-content .statistics.flex.justify-around.my-2\.5 a .label.text-third-text-color.text-sm,
-.author.flex.items-center .author-label.ml-1\.5.text-xs.px-2.py-0\.5.rounded-small.text-third-text-color.border.border-shadow-color-1 {
-    color: var(--third-text-color) !important;
-}
-
-.author.flex.items-center .name.text-default-text-color.text-lg.font-semibold,
-.navbar-content.transition-navbar .right .desktop ul li a {
-    color: var(--default-text-color);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .home-banner-container .social-contacts a,
-    .home-banner-container .social-contacts i {
-        transition: none;
+ 
+ .home-sidebar-container .sidebar-content .statistics.flex.justify-around.my-2\.5 a .number.text-2xl.sm\:text-xl.text-second-text-color.font-semibold,
+ .article-content-container .article-title.relative.w-full h1,
+ .friends-link-container.flex.flex-col,
+ .friends-link-container.flex.flex-col div {
+     color: var(--second-text-color) !important;
     }
+    
+    .home-sidebar-container .sidebar-content .statistics.flex.justify-around.my-2\.5 a .label.text-third-text-color.text-sm,
+    .author.flex.items-center .author-label.ml-1\.5.text-xs.px-2.py-0\.5.rounded-small.text-third-text-color.border.border-shadow-color-1 {
+        color: var(--third-text-color) !important;
+    }
+    
+    .author.flex.items-center .name.text-default-text-color.text-lg.font-semibold,
+    .navbar-content.transition-navbar .right .desktop ul li a {
+        color: var(--default-text-color);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+        .home-banner-container .social-contacts a,
+        .home-banner-container .social-contacts i {
+            transition: none;
+        }
+    }
+    
+    
+/* =========================================================
+ * 7. Title fontsize edit 
+ * ========================================================= */
+
+.article-content-container .article-title.relative.w-full h1 {
+    font-size: 2.2rem;
+}
+
+.article-content-container .article-content.markdown-body h2 {
+    font-size: 1.75rem;
+}
+
+.article-content-container .article-content.markdown-body h3 {
+    font-size: 1.45rem;
+}
+
+.article-content-container .article-content.markdown-body h4 {
+    font-size: 1.2rem;
+}
+
+.article-content-container .article-content.markdown-body h5 {
+    font-size: 1.05rem;
+}
+
+.article-content-container .article-content.markdown-body p {
+    font-size: 1rem;
 }
