@@ -258,7 +258,7 @@ public class Student {
 }
 ```
 
-我们改造了 `setName 方法`，这下只有在 Tom 没有被取过名字的情况下才能给他取名，比如我们先给他取了名字：
+我们改造了 `setName` 方法，这下只有在 Tom 没有被取过名字的情况下才能给他取名，比如我们先给他取了名字：
 
 ```Java
 Student Tom = new Student();
