@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-15T02:39:42.471Z",
+  "sourceCommitSha": "a457e80892fb84226b8acb4f8c8b16190032009b",
+  "relativeId": "ap-csa/01-basic-concept",
+  "postPath": "source/_posts/ap-csa/01-basic-concept.md",
+  "folderPath": "ap-csa",
+  "postSlug": "01-basic-concept",
+  "assetDir": "source/_posts/ap-csa/01-basic-concept/",
+  "markdownAssetPrefix": "01-basic-concept",
+  "assetCount": 6,
+  "assetTotalSize": 1159150,
+  "assets": [
+    {
+      "filename": "image-20250721123619401.png",
+      "repoPath": "source/_posts/ap-csa/01-basic-concept/image-20250721123619401.png",
+      "markdownPath": "01-basic-concept/image-20250721123619401.png",
+      "size": 35338
+    },
+    {
+      "filename": "VSCode_1.png",
+      "repoPath": "source/_posts/ap-csa/01-basic-concept/VSCode_1.png",
+      "markdownPath": "01-basic-concept/VSCode_1.png",
+      "size": 282333
+    },
+    {
+      "filename": "VSCode_2.png",
+      "repoPath": "source/_posts/ap-csa/01-basic-concept/VSCode_2.png",
+      "markdownPath": "01-basic-concept/VSCode_2.png",
+      "size": 439828
+    },
+    {
+      "filename": "VSCode_3.png",
+      "repoPath": "source/_posts/ap-csa/01-basic-concept/VSCode_3.png",
+      "markdownPath": "01-basic-concept/VSCode_3.png",
+      "size": 295655
+    },
+    {
+      "filename": "VSCode_4.png",
+      "repoPath": "source/_posts/ap-csa/01-basic-concept/VSCode_4.png",
+      "markdownPath": "01-basic-concept/VSCode_4.png",
+      "size": 84178
+    },
+    {
+      "filename": "示意图.png",
+      "repoPath": "source/_posts/ap-csa/01-basic-concept/示意图.png",
+      "markdownPath": "01-basic-concept/示意图.png",
+      "size": 21818
+    }
+  ]
+}

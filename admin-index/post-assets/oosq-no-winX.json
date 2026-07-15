@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-15T02:39:42.471Z",
+  "sourceCommitSha": "a457e80892fb84226b8acb4f8c8b16190032009b",
+  "relativeId": "oosq-no-winX",
+  "postPath": "source/_posts/oosq-no-winX.md",
+  "folderPath": "",
+  "postSlug": "oosq-no-winX",
+  "assetDir": "source/_posts/oosq-no-winX/",
+  "markdownAssetPrefix": "oosq-no-winX",
+  "assetCount": 6,
+  "assetTotalSize": 272460,
+  "assets": [
+    {
+      "filename": "4f940637c3d3de2dd6c7f77951bb30c2.webp",
+      "repoPath": "source/_posts/oosq-no-winX/4f940637c3d3de2dd6c7f77951bb30c2.webp",
+      "markdownPath": "oosq-no-winX/4f940637c3d3de2dd6c7f77951bb30c2.webp",
+      "size": 83158
+    },
+    {
+      "filename": "78e08dfded342584bfb048668fd6fc9a.webp",
+      "repoPath": "source/_posts/oosq-no-winX/78e08dfded342584bfb048668fd6fc9a.webp",
+      "markdownPath": "oosq-no-winX/78e08dfded342584bfb048668fd6fc9a.webp",
+      "size": 105068
+    },
+    {
+      "filename": "958547831a40eb0148df10e6e2333006.webp",
+      "repoPath": "source/_posts/oosq-no-winX/958547831a40eb0148df10e6e2333006.webp",
+      "markdownPath": "oosq-no-winX/958547831a40eb0148df10e6e2333006.webp",
+      "size": 28974
+    },
+    {
+      "filename": "994ceca1aaa7640fb8396ab09c67d0a4.webp",
+      "repoPath": "source/_posts/oosq-no-winX/994ceca1aaa7640fb8396ab09c67d0a4.webp",
+      "markdownPath": "oosq-no-winX/994ceca1aaa7640fb8396ab09c67d0a4.webp",
+      "size": 42274
+    },
+    {
+      "filename": "a24a57a30baebbe8265c3300703d21b5.webp",
+      "repoPath": "source/_posts/oosq-no-winX/a24a57a30baebbe8265c3300703d21b5.webp",
+      "markdownPath": "oosq-no-winX/a24a57a30baebbe8265c3300703d21b5.webp",
+      "size": 8624
+    },
+    {
+      "filename": "屏幕截图-2025-07-20-125621.webp",
+      "repoPath": "source/_posts/oosq-no-winX/屏幕截图-2025-07-20-125621.webp",
+      "markdownPath": "oosq-no-winX/屏幕截图-2025-07-20-125621.webp",
+      "size": 4362
+    }
+  ]
+}
