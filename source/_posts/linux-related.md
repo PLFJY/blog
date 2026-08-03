@@ -406,3 +406,15 @@ printf '[rollback] completed; log out/in to fully reload dconf and KDE services\
 ## HyprShell -- Hyprland 下好用的 alt-tab 工具
 
 https://github.com/h3rmt/hyprshell
+
+## Hyprland 中的第三方截图
+
+https://github.com/Satty-org/Satty
+
+```
+paru -S satty
+```
+
+```
+[[mkdir -p "$HOME/Pictures/Screenshots"; grim -g "$(slurp)" -t ppm - | satty -f - --copy-command wl-copy --output-filename "$HOME/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"]]
+```
