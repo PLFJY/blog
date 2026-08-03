@@ -233,9 +233,41 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness -5
 
 这样写入就好了
 
-## Waybar Media player
+## Waybar
+
+### Media player
 
 https://github.com/BEST8OY/ScrollMPRIS
+
+### 日历
+
+https://github.com/forrestknight/waycal
+
+### Fcitx 5 Rime 图标颜色异常
+
+```
+vim ~/.config/fcitx5/conf/classicui.conf
+```
+
+```
+# Prefer Text Icon
+PreferTextIcon=True
+```
+
+然后修改 EN 的图标，en 真的好丑
+
+```
+mkdir -p ~/.local/share/fcitx5/inputmethod
+cat > ~/.local/share/fcitx5/inputmethod/keyboard-us.conf <<'EOF'
+[InputMethod]
+Name=Keyboard - English (US)
+Icon=input-keyboard
+Label=EN
+LangCode=en
+Addon=keyboard
+Configurable=True
+EOF
+```
 
 ## Hyprland 剪贴板
 
