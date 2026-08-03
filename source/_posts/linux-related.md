@@ -402,3 +402,7 @@ printf '[rollback] completed; log out/in to fully reload dconf and KDE services\
 1. Plasma Portal 的运行时选择没有通过重新登录 KDE 实际测试；系统仍保留 KDE Portal 配置，没有创建通用用户 Portal 配置。
 2. 已禁用 `kde-gtk-config` 自动加载，因此 Plasma 不会继续自动生成 GTK 颜色 CSS 覆盖文件。
 3. systemd user environment 中的 Qt Platform Theme 是全局用户级环境
+
+## HyprShell -- Hyprland 下好用的 alt-tab 工具
+
+https://github.com/h3rmt/hyprshell
