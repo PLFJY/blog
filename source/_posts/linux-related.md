@@ -269,6 +269,12 @@ Configurable=True
 EOF
 ```
 
+### NetworkManager、蓝牙用的侧边栏
+
+```
+paru -S nm-connection-editor nm-sidebar bm-sidebar
+```
+
 ## Hyprland 剪贴板
 
 ```
@@ -276,8 +282,83 @@ paru -S clipvault
 ```
 
 ```
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd([[entry="$(clipvault list | wofi -d -k /dev/null -S dmenu --pre-display-cmd "echo '%s' | cut -f 2")"; [ -n "$entry" ] || exit 0; printf '%s\n' "$entry" | clipvault get | wl-copy; sleep 0.15; wtype -M ctrl -k v -m ctrl]]))
+hl.exec_cmd("wl-paste --watch clipvault store --ignore-pattern '^<meta http-equiv='")
+hl.exec_cmd("wl-paste --type image --watch clipvault store")
 ```
+
+### 正确处理剪贴板的图片
+
+```
+paru -S imagemagick
+```
+
+```
+mkdir -p ~/.local/bin && code ~/.local/bin/clipvault-wofi-preview
+```
+
+```bash
+#!/usr/bin/env bash
+
+entry="${1-}"
+
+[[ -n "$entry" ]] || exit 0
+
+id="${entry%%$'\t'*}"
+preview="${entry#*$'\t'}"
+
+# 普通文本：保持原来的行为，只显示第二列
+if [[ "$preview" != *"binary data"* || "$preview" != *"image/"* ]]; then
+    printf '%s\n' "$preview"
+    exit 0
+fi
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/clipvault/wofi-thumbnails"
+thumb="$cache_dir/$id.png"
+lock="$cache_dir/$id.lock"
+
+mkdir -p "$cache_dir"
+
+# 同一张图片只生成一次缩略图
+(
+    flock -x 9
+
+    if [[ ! -s "$thumb" ]]; then
+        tmp="$cache_dir/.$id.$$.png"
+
+        if printf '%s\n' "$entry" |
+            clipvault get |
+            magick - -thumbnail '256x256>' "$tmp"
+        then
+            mv -f "$tmp" "$thumb"
+        else
+            rm -f "$tmp"
+        fi
+    fi
+) 9>"$lock"
+
+if [[ -s "$thumb" ]]; then
+    printf 'img:%s:text:%s\n' "$thumb" "$preview"
+else
+    printf '%s\n' "$preview"
+fi
+```
+
+```
+chmod +x ~/.local/bin/clipvault-wofi-preview
+```
+
+
+```
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd([[entry="$(clipvault list | wofi -d -k /dev/null -S dmenu -I -q -D image_size=96 -D pre_display_exec=true --pre-display-cmd "$HOME/.local/bin/clipvault-wofi-preview %s")"; [ -n "$entry" ] || exit 0; printf '%s\n' "$entry" | clipvault get | wl-copy; sleep 0.15; wtype -M ctrl -k v -m ctrl]]))
+```
+
+最终效果就是：
+
+![clipboard-20260804-133711.webp](linux-related/clipboard-20260804-133711.webp)!
+
+可以显示图片
+
+选中自动粘贴
 
 ## Wlogout Logout Hyprland
 
@@ -632,3 +713,22 @@ paru -S satty
 ```
 [[mkdir -p "$HOME/Pictures/Screenshots"; grim -g "$(slurp)" -t ppm - | satty -f - --copy-command wl-copy --output-filename "$HOME/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"]]
 ```
+
+## Flock 进程单例锁 Waybar & Hyprland Key bindings 必备
+
+https://geek-blogs.com/blog/linux-flock/
+
+https://www.junmajinlong.com/shell/flock/index.html
+
+**简单命令：**
+
+```bash
+flock -n "$XDG_RUNTIME_DIR/唯一名称.lock" 命令 参数
+```
+
+**复杂命令：**
+
+```bash
+exec 9>"$XDG_RUNTIME_DIR/唯一名称.lock"; flock -n 9 || exit 0; 后面的完整命令流程
+```
+
