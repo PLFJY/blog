@@ -389,10 +389,10 @@ https://github.com/psi4j/sunsetr
 KDE 需要的值必须精确是：
 
 ```bash
-XDG_MENU_PREFIX=arch-
+XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental
 ```
 
-`kbuildsycoca6` 要作为**另一条命令**运行。ArchWiki 目前给出的方案也是先设置 `XDG_MENU_PREFIX=arch-`，再执行 `kbuildsycoca6 --noincremental` 来重建 KService cache。([Arch Wiki](https://wiki.archlinux.org/title/Dolphin "Dolphin - ArchWiki"))
+`XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental` 要作为**另一条命令**运行。ArchWiki 目前给出的方案也是先设置 `XDG_MENU_PREFIX=arch-`，再执行 `XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental kbuildsycoca6 --noincremental` 来重建 KService cache。([Arch Wiki](https://wiki.archlinux.org/title/Dolphin "Dolphin - ArchWiki"))
 
 ## Lua 配置
 
@@ -400,7 +400,7 @@ XDG_MENU_PREFIX=arch-
 hl.env("XDG_MENU_PREFIX", "arch-")
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("kbuildsycoca6 --noincremental")
+    hl.exec_cmd("XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental")
 end)
 ```
 
@@ -439,59 +439,119 @@ hl.env("XDG_MENU_PREFIX", "plasma-")
 ## Hyprland 的深色模式切换相关
 
 ### 架构
-Darkman 作为全局 systemd user service；使用经纬度，禁用 Geoclue；KDE/Qt 使用 KDE Platform Theme；Qt5/Qt6 不使用 qt5ct/qt6ct；GTK 使用 Breeze/Breeze-Dark；Darkman 更新 KDE、GSettings、GTK2、GTK3、GTK4；Hyprland Portal 使用 Darkman Settings backend，Plasma 继续使用 KDE Porta
+
+```
+Darkman 全局 user service
+        │
+        ├─ 10-breeze-state：记录统一 light/dark 状态并触发适配器
+        │
+        └─ darkman-apply-theme.service
+             └─ darkman-apply-breeze-theme：显式使用 offscreen Qt
+
+Hyprland hyprland.start
+        ├─ 同步当前会话环境给 D-Bus / systemd user
+        └─ 启动一次 darkman-apply-theme.service
+```
+
+Darkman 本身不需要 DISPLAY 或 WAYLAND_DISPLAY。KDE 主题命令使用：
+
+~~~bash
+QT_QPA_PLATFORM=offscreen QT_QPA_PLATFORMTHEME=kde \
+  plasma-apply-colorscheme BreezeDark
+~~~
 
 ### 前置条件
 需要安装：`darkman`、`breeze`、`breeze-gtk`、`qt5ct`、`qt6ct`、`dconf`、`gsettings-desktop-schemas`、`xdg-desktop-portal`、`xdg-desktop-portal-hyprland`、`xdg-desktop-portal-gtk`、`xdg-desktop-portal-kde`、`plasma-integration`、`kde-gtk-config`、`breeze5 6.7.3-1`、`plasma5-integration 6.7.3-1`。
 
 ### 配置
 
-Darkman 配置：`~/.config/darkman/config.yaml`，内容为 `lat: `、`lng: `、`usegeoclue: false`、`portal: true`。
+#### Darkman
 
-Darkman 脚本：`~/.local/share/darkman/10-breeze-theme`。脚本使用 `set -euo pipefail`，接受 `dark/light` 参数，更新 KDE、GSettings、GTK2/3/4，并使用临时文件原子替换相关配置键。
+##### `~/.local/share/darkman/10-breeze-state`
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+readonly state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/darkman"
+readonly state_file="$state_dir/theme-mode"
+
+mode="${1:-}"
+case "$mode" in
+  dark|light) ;;
+  *)
+    printf '[darkman-state] usage: %s dark|light\n' "$0" >&2
+    exit 2
+    ;;
+esac
+
+mkdir -p -- "$state_dir"
+tmp="$(mktemp "$state_file.tmp.XXXXXX")"
+trap 'rm -f -- "$tmp"' EXIT
+printf '%s\n' "$mode" > "$tmp"
+chmod 0644 "$tmp"
+mv -- "$tmp" "$state_file"
+trap - EXIT
+
+printf '[darkman-state] canonical mode=%s file=%s\n' "$mode" "$state_file"
+
+# Darkman is deliberately headless. The actual adapter runs as a separate
+# user unit and owns its explicit offscreen Qt environment.
+if systemctl --user restart --no-block darkman-apply-theme.service; then
+  printf '[darkman-state] queued darkman-apply-theme.service\n'
+else
+  printf '[darkman-state] warning: could not queue theme adapter\n' >&2
+fi
+```
+
+- Darkman 唯一活动 hook。
+- 接受 dark 或 light。
+- 原子写入 ~/.local/state/darkman/theme-mode。
+- 触发 darkman-apply-theme.service。
+- 不调用图形 Qt 程序。
+
+
+##### `~/.local/bin/darkman-apply-breeze-theme`
 
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
 readonly config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+readonly state_file="${XDG_STATE_HOME:-$HOME/.local/state}/darkman/theme-mode"
 readonly gtk2_rc="$config_home/gtkrc"
 readonly gtk2_user_rc="$HOME/.gtkrc-2.0"
 readonly gtk3_settings="$config_home/gtk-3.0/settings.ini"
 readonly gtk4_settings="$config_home/gtk-4.0/settings.ini"
 
-mode="${1:-}"
-case "$mode" in
-  dark)
-    gtk_theme='Breeze-Dark'
-    gtk2_theme_dir='Breeze-Dark'
-    plasma_scheme='BreezeDark'
-    prefer_dark='true'
-    color_scheme='prefer-dark'
-    ;;
-  light)
-    gtk_theme='Breeze'
-    gtk2_theme_dir='Breeze'
-    plasma_scheme='BreezeLight'
-    prefer_dark='false'
-    color_scheme='default'
-    ;;
-  *)
-    printf 'usage: %s dark|light\n' "$0" >&2
-    exit 2
-    ;;
-esac
+log() {
+  printf '[darkman-adapter] %s\n' "$*"
+}
 
-printf '[darkman-breeze] applying %s: KDE=%s GTK=%s\n' \
-  "$mode" "$plasma_scheme" "$gtk_theme"
+read_mode() {
+  local value
+  if [[ -r "$state_file" ]]; then
+    value="$(<"$state_file")"
+  else
+    value="$(/usr/bin/darkman get 2>/dev/null || true)"
+  fi
+  case "$value" in
+    dark|light) printf '%s\n' "$value" ;;
+    *)
+      log "invalid or missing mode: ${value:-<empty>}" >&2
+      return 2
+      ;;
+  esac
+}
 
 update_settings_ini() {
   local file="$1"
-  local tmp
-  local mode_bits
+  local gtk_theme="$2"
+  local prefer_dark="$3"
+  local tmp mode_bits
 
   if [[ ! -f "$file" ]]; then
-    printf '[darkman-breeze] skip missing %s\n' "$file"
+    log "skip missing $file"
     return 0
   fi
 
@@ -499,21 +559,10 @@ update_settings_ini() {
   mode_bits="$(stat -c '%a' "$file")"
   if ! awk -v theme="$gtk_theme" -v dark="$prefer_dark" '
     BEGIN { in_settings=0; settings_seen=0; theme_seen=0; dark_seen=0 }
-    /^\[Settings\][[:space:]]*$/ {
-      in_settings=1
-      settings_seen=1
-      print
-      next
-    }
+    /^\[Settings\][[:space:]]*$/ { in_settings=1; settings_seen=1; print; next }
     /^\[/ {
-      if (in_settings && !theme_seen) {
-        print "gtk-theme-name=" theme
-        theme_seen=1
-      }
-      if (in_settings && !dark_seen) {
-        print "gtk-application-prefer-dark-theme=" dark
-        dark_seen=1
-      }
+      if (in_settings && !theme_seen) { print "gtk-theme-name=" theme; theme_seen=1 }
+      if (in_settings && !dark_seen) { print "gtk-application-prefer-dark-theme=" dark; dark_seen=1 }
       in_settings=0
       print
       next
@@ -532,12 +581,8 @@ update_settings_ini() {
       print
     }
     END {
-      if (in_settings && !theme_seen) {
-        print "gtk-theme-name=" theme
-      }
-      if (in_settings && !dark_seen) {
-        print "gtk-application-prefer-dark-theme=" dark
-      }
+      if (in_settings && !theme_seen) print "gtk-theme-name=" theme
+      if (in_settings && !dark_seen) print "gtk-application-prefer-dark-theme=" dark
       if (!settings_seen) {
         print ""
         print "[Settings]"
@@ -551,22 +596,23 @@ update_settings_ini() {
   fi
   chmod "$mode_bits" "$tmp"
   mv -- "$tmp" "$file"
-  printf '[darkman-breeze] updated %s\n' "$file"
+  log "updated $file"
 }
 
 update_gtkrc() {
   local file="$1"
-  local tmp
-  local mode_bits
+  local gtk_theme="$2"
+  local theme_dir="$3"
+  local tmp mode_bits
 
   if [[ ! -f "$file" ]]; then
-    printf '[darkman-breeze] skip missing %s\n' "$file"
+    log "skip missing $file"
     return 0
   fi
 
   tmp="$(mktemp "${file}.tmp.XXXXXX")"
   mode_bits="$(stat -c '%a' "$file")"
-  if ! awk -v theme="$gtk_theme" -v theme_dir="$gtk2_theme_dir" '
+  if ! awk -v theme="$gtk_theme" -v theme_dir="$theme_dir" '
     BEGIN { theme_seen=0; include_seen=0 }
     /^[[:space:]]*include[[:space:]]+"\/usr\/share\/themes\/[^/"]+\/gtk-2\.0\/gtkrc"[[:space:]]*$/ {
       print "include \"/usr/share/themes/" theme_dir "/gtk-2.0/gtkrc\""
@@ -580,12 +626,8 @@ update_gtkrc() {
     }
     { print }
     END {
-      if (!include_seen) {
-        print "include \"/usr/share/themes/" theme_dir "/gtk-2.0/gtkrc\""
-      }
-      if (!theme_seen) {
-        print "gtk-theme-name=\"" theme "\""
-      }
+      if (!include_seen) print "include \"/usr/share/themes/" theme_dir "/gtk-2.0/gtkrc\""
+      if (!theme_seen) print "gtk-theme-name=\"" theme "\""
     }
   ' "$file" > "$tmp"; then
     rm -f -- "$tmp"
@@ -593,34 +635,113 @@ update_gtkrc() {
   fi
   chmod "$mode_bits" "$tmp"
   mv -- "$tmp" "$file"
-  printf '[darkman-breeze] updated %s\n' "$file"
+  log "updated $file"
 }
 
-notify_kde_palette_change() {
-    dbus-send --session --type=signal \
-        /KGlobalSettings \
-        org.kde.KGlobalSettings.notifyChange \
-        int32:0 int32:0
-}
+mode="$(read_mode)"
+case "$mode" in
+  dark)
+    gtk_theme='Breeze-Dark'
+    gtk2_theme_dir='Breeze-Dark'
+    plasma_scheme='BreezeDark'
+    prefer_dark='true'
+    color_scheme='prefer-dark'
+    ;;
+  light)
+    gtk_theme='Breeze'
+    gtk2_theme_dir='Breeze'
+    plasma_scheme='BreezeLight'
+    prefer_dark='false'
+    color_scheme='default'
+    ;;
+esac
 
-/usr/bin/plasma-apply-colorscheme "$plasma_scheme"
-notify_kde_palette_change
+log "applying mode=$mode KDE=$plasma_scheme GTK=$gtk_theme"
+
+# The global Darkman service has no DISPLAY or WAYLAND_DISPLAY. The KDE
+# command is therefore deliberately given an offscreen Qt backend instead of
+# inheriting an arbitrary desktop session.
+kde_status=0
+if QT_QPA_PLATFORM=offscreen QT_QPA_PLATFORMTHEME=kde \
+    /usr/bin/plasma-apply-colorscheme "$plasma_scheme"; then
+  log "KDE color scheme applied: $plasma_scheme"
+else
+  kde_status=$?
+  log "warning: KDE color scheme adapter failed with status $kde_status" >&2
+fi
+
 /usr/bin/gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
 /usr/bin/gsettings set org.gnome.desktop.interface color-scheme "$color_scheme"
 
-update_gtkrc "$gtk2_rc"
-update_gtkrc "$gtk2_user_rc"
-update_settings_ini "$gtk3_settings"
-update_settings_ini "$gtk4_settings"
+update_gtkrc "$gtk2_rc" "$gtk_theme" "$gtk2_theme_dir"
+update_gtkrc "$gtk2_user_rc" "$gtk_theme" "$gtk2_theme_dir"
+update_settings_ini "$gtk3_settings" "$gtk_theme" "$prefer_dark"
+update_settings_ini "$gtk4_settings" "$gtk_theme" "$prefer_dark"
 
-printf '[darkman-breeze] completed %s\n' "$mode"
+# This is a notification only; it does not write KDE configuration.
+/usr/bin/dbus-send --session --type=signal \
+  /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:0 int32:0 2>/dev/null || true
+
+log "completed mode=$mode"
+exit "$kde_status"
 ```
 
-创建 `~/.config/kded6rc`，其中 `[Module-gtkconfig]` 的 `autoload=false`。同时通过 kded6 D-Bus 接口关闭并卸载当前运行的 `gtkconfig` 模块，避免重新生成 GTK 颜色 CSS。
+- 新的统一主题适配器。
+- 使用 set -euo pipefail。
+- KDE 失败时仍继续处理 GTK，并返回失败状态供 systemd 记录。
+- 只修改 GTK 配置中的相关键，不重写整个文件。
+- 不设置 GTK_THEME、QT_STYLE_OVERRIDE 或 QT_PLUGIN_PATH。
 
-创建 `~/.config/xdg-desktop-portal/hyprland-portals.conf`，优先级为 `default=hyprland;gtk`，Settings 为 `darkman;gtk`。没有创建通用 `portals.conf`，没有修改系统 Portal 配置。
+##### 用户 systemd
 
-修改 `~/.config/hypr/autostart.lua`，为已有 D-Bus/systemd 环境同步命令显式提供 `QT_QPA_PLATFORM=wayland;xcb` 和 `QT_QPA_PLATFORMTHEME=kde`。
+`~/.config/systemd/user/darkman-apply-theme.service`
+
+```
+[Unit]
+Description=Apply the current Darkman Breeze theme state
+
+[Service]
+Type=oneshot
+TimeoutStartSec=45
+Environment=QT_QPA_PLATFORM=offscreen
+Environment=QT_QPA_PLATFORMTHEME=kde
+ExecStart=%h/.local/bin/darkman-apply-breeze-theme
+```
+
+- Type=oneshot，不 enable，不常驻。
+- 由 Darkman hook 或 Hyprland hyprland.start 启动。
+- 只对该服务设置：
+
+~~~ini
+Environment=QT_QPA_PLATFORM=offscreen
+Environment=QT_QPA_PLATFORMTHEME=kde
+~~~
+
+因此不依赖 Darkman 服务继承某个旧的桌面显示环境。
+
+#### Hyprland
+
+修改：`~/.config/hypr/autostart.lua`
+
+```lua
+hl.exec_cmd(
+    "dbus-update-activation-environment --systemd " ..
+    "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP " ..
+    "XDG_SESSION_TYPE QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME")
+hl.exec_cmd(
+    "systemctl --user import-environment " ..
+    "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP " ..
+    "XDG_SESSION_TYPE QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME")
+hl.exec_cmd("systemctl --user start --no-block darkman-apply-theme.service")
+```
+
+保留原有唯一的 hl.on("hyprland.start", function () handler，只追加：
+
+- DISPLAY 到 D-Bus activation environment 同步范围。
+- systemctl --user import-environment。
+- 启动当前模式的 darkman-apply-theme.service。
+
+没有改动显示器、快捷键、输入法、动画、窗口规则或其他启动项。
 
 ### Darkman 服务
 
@@ -637,60 +758,56 @@ printf '[darkman-breeze] completed %s\n' "$mode"
 
 ### 回滚
 
+~/.local/bin/hypr-theme-rollback-rearchitecture
 
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly backup_dir='/home/plfjy/.local/state/hypr-theme-backup-20260801-231447'
-readonly config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+readonly backup_dir="/home/plfjy/.local/state/hypr-theme-backup-20260804-223016-rearchitecture"
+readonly home_dir="/home/plfjy"
+readonly rescue_dir="$home_dir/.local/state/hypr-theme-rearchitecture-current-$(date +%Y%m%d-%H%M%S)"
 
-if [[ ! -d "$backup_dir" ]]; then
-  printf 'backup directory not found: %s\n' "$backup_dir" >&2
-  exit 1
+mkdir -p -- "$rescue_dir"
+
+if systemctl --user is-active --quiet darkman-apply-theme.service 2>/dev/null; then
+  systemctl --user stop darkman-apply-theme.service
 fi
 
-restore_file() {
-  local source="$1"
-  local target="$2"
-  if [[ -e "$source" ]]; then
-    mkdir -p "$(dirname "$target")"
-    cp -a -- "$source" "$target"
-    printf '[rollback] restored %s\n' "$target"
+for item in .config/hypr/autostart.lua .local/share/darkman/10-breeze-state \
+  .local/share/darkman/10-breeze-theme.legacy-disabled \
+  .local/bin/darkman-apply-breeze-theme .config/systemd/user/darkman-apply-theme.service; do
+  if [[ -e "$home_dir/$item" ]]; then
+    mkdir -p -- "$rescue_dir/$(dirname "$item")"
+    mv -- "$home_dir/$item" "$rescue_dir/$item"
   fi
-}
+done
 
-systemctl --user disable --now darkman.service || true
-
-restore_file "$backup_dir/gtk-3.0/settings.ini" "$config_home/gtk-3.0/settings.ini"
-restore_file "$backup_dir/gtk-3.0/gtk.css" "$config_home/gtk-3.0/gtk.css"
-restore_file "$backup_dir/gtk-3.0/colors.css" "$config_home/gtk-3.0/colors.css"
-restore_file "$backup_dir/gtk-4.0/settings.ini" "$config_home/gtk-4.0/settings.ini"
-restore_file "$backup_dir/gtk-4.0/gtk.css" "$config_home/gtk-4.0/gtk.css"
-restore_file "$backup_dir/gtk-4.0/colors.css" "$config_home/gtk-4.0/colors.css"
-restore_file "$backup_dir/gtkrc" "$config_home/gtkrc"
-restore_file "$backup_dir/gtkrc-2.0" "$config_home/gtkrc-2.0"
-restore_file "$backup_dir/.gtkrc-2.0" "$HOME/.gtkrc-2.0"
-restore_file "$backup_dir/kdeglobals" "$config_home/kdeglobals"
-restore_file "$backup_dir/plasmarc" "$config_home/plasmarc"
-restore_file "$backup_dir/kcminputrc" "$config_home/kcminputrc"
-restore_file "$backup_dir/dconf/user" "$config_home/dconf/user"
-
-rm -f -- "$config_home/darkman/config.yaml"
-rm -f -- "$HOME/.local/share/darkman/10-breeze-theme"
-rm -f -- "$config_home/xdg-desktop-portal/hyprland-portals.conf"
-rm -f -- "$config_home/kded6rc"
-
-if busctl --user status org.kde.kded6 >/dev/null 2>&1; then
-  busctl --user call org.kde.kded6 /kded org.kde.kded6 setModuleAutoloading sb gtkconfig true || true
-  busctl --user call org.kde.kded6 /kded org.kde.kded6 loadModule s gtkconfig || true
+if [[ -f "$rescue_dir/.local/share/darkman/10-breeze-theme.legacy-disabled" ]]; then
+  mv -- "$rescue_dir/.local/share/darkman/10-breeze-theme.legacy-disabled" \
+    "$home_dir/.local/share/darkman/10-breeze-theme"
 fi
 
-printf '[rollback] completed; log out/in to fully reload dconf and KDE services\n'
+for item in .config/hypr/autostart.lua .config/darkman .local/share/darkman \
+  .config/xdg-desktop-portal .config/gtkrc .gtkrc-2.0 .config/gtk-2.0 \
+  .config/gtk-3.0 .config/gtk-4.0 .config/kded6rc .config/kdeglobals \
+  .config/plasmarc .config/kcminputrc .config/dconf/user; do
+  if [[ -e "$backup_dir/$item" ]]; then
+    mkdir -p -- "$home_dir/$(dirname "$item")"
+    cp -a "$backup_dir/$item" "$home_dir/$item"
+  fi
+done
 
+systemctl --user daemon-reload
+printf 'Restored previous implementation from %s\n' "$backup_dir"
+printf 'New files were preserved under %s\n' "$rescue_dir"
 ```
 
-回滚脚本不会自动卸载 `breeze5` 或 `plasma5-integration`。如果确认不再需要，可另行执行 `sudo pacman -Rns breeze5 plasma5-integration`。
+- 停止主题适配器。
+- 将新文件保存到新的 rescue 目录。
+- 从本次备份恢复旧实现，包括 KDE、dconf、GTK、Portal 和 Hyprland 配置。
+- 恢复旧的 10-breeze-theme 文件名。
+- 重新加载用户 systemd 单元。
 
 ### 已知限制
 
