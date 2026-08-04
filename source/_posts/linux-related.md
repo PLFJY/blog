@@ -305,7 +305,55 @@ https://github.com/psi4j/sunsetr
 
 ## Dolphin Open with 空白
 
-https://www.lorenzobettini.it/2024/05/fixing-the-empty-open-with-in-dolphin-in-hyprland/
+KDE 需要的值必须精确是：
+
+```bash
+XDG_MENU_PREFIX=arch-
+```
+
+`kbuildsycoca6` 要作为**另一条命令**运行。ArchWiki 目前给出的方案也是先设置 `XDG_MENU_PREFIX=arch-`，再执行 `kbuildsycoca6 --noincremental` 来重建 KService cache。([Arch Wiki](https://wiki.archlinux.org/title/Dolphin "Dolphin - ArchWiki"))
+
+## Lua 配置
+
+```lua
+hl.env("XDG_MENU_PREFIX", "arch-")
+
+hl.on("hyprland.start", function()
+    hl.exec_cmd("kbuildsycoca6 --noincremental")
+end)
+```
+
+`hl.env()` 只负责环境变量；当前 Hyprland Lua 配置的官方示例也是通过 `hl.on("hyprland.start", ...)` 配合 `hl.exec_cmd()` 做自启动。([GitHub](https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.lua "Hyprland/example/hyprland.lua at main · hyprwm/Hyprland · GitHub"))
+
+### 确认 prefix
+
+```bash
+ls -1 /etc/xdg/menus/*-applications.menu
+```
+
+如果看到：
+
+```text
+/etc/xdg/menus/arch-applications.menu
+```
+
+就用：
+
+```lua
+hl.env("XDG_MENU_PREFIX", "arch-")
+```
+
+如果只有：
+
+```text
+/etc/xdg/menus/plasma-applications.menu
+```
+
+则应该用：
+
+```lua
+hl.env("XDG_MENU_PREFIX", "plasma-")
+```
 
 ## Hyprland 的深色模式切换相关
 
@@ -320,6 +368,172 @@ Darkman 作为全局 systemd user service；使用经纬度，禁用 Geoclue；K
 Darkman 配置：`~/.config/darkman/config.yaml`，内容为 `lat: `、`lng: `、`usegeoclue: false`、`portal: true`。
 
 Darkman 脚本：`~/.local/share/darkman/10-breeze-theme`。脚本使用 `set -euo pipefail`，接受 `dark/light` 参数，更新 KDE、GSettings、GTK2/3/4，并使用临时文件原子替换相关配置键。
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+readonly config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+readonly gtk2_rc="$config_home/gtkrc"
+readonly gtk2_user_rc="$HOME/.gtkrc-2.0"
+readonly gtk3_settings="$config_home/gtk-3.0/settings.ini"
+readonly gtk4_settings="$config_home/gtk-4.0/settings.ini"
+
+mode="${1:-}"
+case "$mode" in
+  dark)
+    gtk_theme='Breeze-Dark'
+    gtk2_theme_dir='Breeze-Dark'
+    plasma_scheme='BreezeDark'
+    prefer_dark='true'
+    color_scheme='prefer-dark'
+    ;;
+  light)
+    gtk_theme='Breeze'
+    gtk2_theme_dir='Breeze'
+    plasma_scheme='BreezeLight'
+    prefer_dark='false'
+    color_scheme='default'
+    ;;
+  *)
+    printf 'usage: %s dark|light\n' "$0" >&2
+    exit 2
+    ;;
+esac
+
+printf '[darkman-breeze] applying %s: KDE=%s GTK=%s\n' \
+  "$mode" "$plasma_scheme" "$gtk_theme"
+
+update_settings_ini() {
+  local file="$1"
+  local tmp
+  local mode_bits
+
+  if [[ ! -f "$file" ]]; then
+    printf '[darkman-breeze] skip missing %s\n' "$file"
+    return 0
+  fi
+
+  tmp="$(mktemp "${file}.tmp.XXXXXX")"
+  mode_bits="$(stat -c '%a' "$file")"
+  if ! awk -v theme="$gtk_theme" -v dark="$prefer_dark" '
+    BEGIN { in_settings=0; settings_seen=0; theme_seen=0; dark_seen=0 }
+    /^\[Settings\][[:space:]]*$/ {
+      in_settings=1
+      settings_seen=1
+      print
+      next
+    }
+    /^\[/ {
+      if (in_settings && !theme_seen) {
+        print "gtk-theme-name=" theme
+        theme_seen=1
+      }
+      if (in_settings && !dark_seen) {
+        print "gtk-application-prefer-dark-theme=" dark
+        dark_seen=1
+      }
+      in_settings=0
+      print
+      next
+    }
+    {
+      if (in_settings && $0 ~ /^gtk-theme-name[[:space:]]*=/) {
+        print "gtk-theme-name=" theme
+        theme_seen=1
+        next
+      }
+      if (in_settings && $0 ~ /^gtk-application-prefer-dark-theme[[:space:]]*=/) {
+        print "gtk-application-prefer-dark-theme=" dark
+        dark_seen=1
+        next
+      }
+      print
+    }
+    END {
+      if (in_settings && !theme_seen) {
+        print "gtk-theme-name=" theme
+      }
+      if (in_settings && !dark_seen) {
+        print "gtk-application-prefer-dark-theme=" dark
+      }
+      if (!settings_seen) {
+        print ""
+        print "[Settings]"
+        print "gtk-theme-name=" theme
+        print "gtk-application-prefer-dark-theme=" dark
+      }
+    }
+  ' "$file" > "$tmp"; then
+    rm -f -- "$tmp"
+    return 1
+  fi
+  chmod "$mode_bits" "$tmp"
+  mv -- "$tmp" "$file"
+  printf '[darkman-breeze] updated %s\n' "$file"
+}
+
+update_gtkrc() {
+  local file="$1"
+  local tmp
+  local mode_bits
+
+  if [[ ! -f "$file" ]]; then
+    printf '[darkman-breeze] skip missing %s\n' "$file"
+    return 0
+  fi
+
+  tmp="$(mktemp "${file}.tmp.XXXXXX")"
+  mode_bits="$(stat -c '%a' "$file")"
+  if ! awk -v theme="$gtk_theme" -v theme_dir="$gtk2_theme_dir" '
+    BEGIN { theme_seen=0; include_seen=0 }
+    /^[[:space:]]*include[[:space:]]+"\/usr\/share\/themes\/[^/"]+\/gtk-2\.0\/gtkrc"[[:space:]]*$/ {
+      print "include \"/usr/share/themes/" theme_dir "/gtk-2.0/gtkrc\""
+      include_seen=1
+      next
+    }
+    /^[[:space:]]*gtk-theme-name[[:space:]]*=/ {
+      print "gtk-theme-name=\"" theme "\""
+      theme_seen=1
+      next
+    }
+    { print }
+    END {
+      if (!include_seen) {
+        print "include \"/usr/share/themes/" theme_dir "/gtk-2.0/gtkrc\""
+      }
+      if (!theme_seen) {
+        print "gtk-theme-name=\"" theme "\""
+      }
+    }
+  ' "$file" > "$tmp"; then
+    rm -f -- "$tmp"
+    return 1
+  fi
+  chmod "$mode_bits" "$tmp"
+  mv -- "$tmp" "$file"
+  printf '[darkman-breeze] updated %s\n' "$file"
+}
+
+notify_kde_palette_change() {
+    dbus-send --session --type=signal \
+        /KGlobalSettings \
+        org.kde.KGlobalSettings.notifyChange \
+        int32:0 int32:0
+}
+
+/usr/bin/plasma-apply-colorscheme "$plasma_scheme"
+notify_kde_palette_change
+/usr/bin/gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
+/usr/bin/gsettings set org.gnome.desktop.interface color-scheme "$color_scheme"
+
+update_gtkrc "$gtk2_rc"
+update_gtkrc "$gtk2_user_rc"
+update_settings_ini "$gtk3_settings"
+update_settings_ini "$gtk4_settings"
+
+printf '[darkman-breeze] completed %s\n' "$mode"
+```
 
 创建 `~/.config/kded6rc`，其中 `[Module-gtkconfig]` 的 `autoload=false`。同时通过 kded6 D-Bus 接口关闭并卸载当前运行的 `gtkconfig` 模块，避免重新生成 GTK 颜色 CSS。
 
