@@ -262,7 +262,7 @@ cat > ~/.local/share/fcitx5/inputmethod/keyboard-us.conf <<'EOF'
 [InputMethod]
 Name=Keyboard - English (US)
 Icon=input-keyboard
-Label=EN
+Label=En
 LangCode=en
 Addon=keyboard
 Configurable=True
