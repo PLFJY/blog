@@ -35,6 +35,9 @@ importers:
       hexo-generator-searchdb:
         specifier: ^1.5.0
         version: 1.5.0(chokidar@3.6.0)
+      hexo-generator-sitemap:
+        specifier: ^3.0.1
+        version: 3.0.1(chokidar@3.6.0)
       hexo-generator-tag:
         specifier: ^2.0.0
         version: 2.0.0
@@ -43,13 +46,13 @@ importers:
         version: 2.0.0
       hexo-renderer-marked:
         specifier: ^7.0.1
-        version: 7.0.1
+        version: 7.0.1(supports-color@5.5.0)
       hexo-renderer-stylus:
         specifier: ^3.0.1
-        version: 3.0.1
+        version: 3.0.1(supports-color@5.5.0)
       hexo-server:
         specifier: ^3.0.0
-        version: 3.0.0
+        version: 3.0.0(supports-color@5.5.0)
       hexo-theme-landscape:
         specifier: ^1.1.0
         version: 1.1.0
@@ -64,7 +67,7 @@ importers:
         version: 5.2.2
       nodejieba:
         specifier: ^3.5.8
-        version: 3.5.8
+        version: 3.5.8(supports-color@5.5.0)
 
 packages:
 
@@ -609,6 +612,10 @@ packages:
   entities@2.0.0:
     resolution: {integrity: sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==}
 
+  entities@3.0.1:
+    resolution: {integrity: sha512-WiyBqoomrwMdFG1e0kqvASYfnlb0lp8M5o5Fw2OFq1hNZxxcNk8Ik0Xm7LxzBhuidnZB/UtBqVCgUz3kBOP51Q==}
+    engines: {node: '>=0.12'}
+
   entities@4.2.0:
     resolution: {integrity: sha512-wEJa03bJgqEwPnkUqYdgmcfUXfm6+4hePQhntIvRy/1/+C4dFuhYHsgKBRjbQ6OWBh42P+VhAoCDO77DUh0e/Q==}
     engines: {node: '>=0.12'}
@@ -952,6 +959,10 @@ packages:
   hexo-generator-searchdb@1.5.0:
     resolution: {integrity: sha512-d0b5SueDxJimTFaHpPg430FQFx7DtMkmEIHo0UTOjXWRy+eDqNSp1CuS04P7fWzMnH2h+aQc6O9D2yY+3sdAUg==}
 
+  hexo-generator-sitemap@3.0.1:
+    resolution: {integrity: sha512-n+0KLNmq6TLbiZPTQF6NY5MbEem/O+DFx0lgQZNQcU4tdjXIZRrQJs+KRKeT66NTkdlYTqb4WwCxswLqQz0crA==}
+    engines: {node: '>=12.13.0'}
+
   hexo-generator-tag@2.0.0:
     resolution: {integrity: sha512-1px/hF3veEohWDN8jjzchQhaiz+uOStUvvMaBJC9vWOlALh30UFcapL8IrvAwwJZjFRVA+WqGgDRqoQ8+yaaFw==}
     engines: {node: '>=14'}
@@ -990,6 +1001,10 @@ packages:
   hexo-theme-redefine@2.9.0:
     resolution: {integrity: sha512-rKsxBPwdJ95kitOqNTLVhY6Wh0mN/5elbDmR5GcrLYrVsZhhY+f1vmgyptUPhkMWp0NiwzrXc4QSkbncfN+vWg==}
 
+  hexo-util@2.7.0:
+    resolution: {integrity: sha512-hQM3h34nhDg0bSe/Tg1lnpODvNkz7h2u0+lZGzlKL0Oufp+5KCAEUX9wal7/xC7ax3/cwEn8IuoU75kNpZLpJQ==}
+    engines: {node: '>=12.4.0'}
+
   hexo-util@3.3.0:
     resolution: {integrity: sha512-YvGngXijE2muEh5L/VI4Fmjqb+/yAkmY+VuyhWVoRwQu1X7bmWodsfYRXX7CUYhi5LqsvH8FAe/yBW1+f6ZX4Q==}
     engines: {node: '>=14'}
@@ -1021,6 +1036,9 @@ packages:
 
   htmlparser2@10.1.0:
     resolution: {integrity: sha512-VTZkM9GWRAtEpveh7MSF6SjjrpNVNNVJfFup7xTY3UpFtm67foy9HDVXneLtFVt4pMz5kZtgNcvCniNFb1hlEQ==}
+
+  htmlparser2@7.0.0:
+    resolution: {integrity: sha512-IhdltX9BWhYQft4UPA92jFasNajskja0om6vU0DaIEL4OseCg5zE+mHAMr51AT89TbzzECrQWJ4CZ5NVYTPlKw==}
 
   htmlparser2@9.0.0:
     resolution: {integrity: sha512-uxbSI98wmFT/G4P2zXx4OVx04qWUmyFPrD2/CNepa2Zo3GPNaCaaxElDgwUrwYWkK1nr9fft0Ya8dws8coDLLQ==}
@@ -2127,7 +2145,7 @@ packages:
 
   uuid@3.0.1:
     resolution: {integrity: sha512-tyhM7iisckwwmyHVFcjTzISz/R1ss/bRudNgHFYsgeu7j4JbhRvjE+Hbcpr9y5xh+b+HxeFjuToDT4i9kQNrtA==}
-    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+    deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
     hasBin: true
 
   vary@1.1.2:
@@ -2219,10 +2237,10 @@ snapshots:
 
   '@adobe/css-tools@4.3.1': {}
 
-  '@mapbox/node-pre-gyp@1.0.10':
+  '@mapbox/node-pre-gyp@1.0.10(supports-color@5.5.0)':
     dependencies:
       detect-libc: 2.1.2
-      https-proxy-agent: 5.0.0
+      https-proxy-agent: 5.0.0(supports-color@5.5.0)
       make-dir: 3.1.0
       node-fetch: 2.7.0
       nopt: 5.0.0
@@ -2295,21 +2313,21 @@ snapshots:
 
   acorn@8.17.0: {}
 
-  agent-base@6.0.0:
+  agent-base@6.0.0(supports-color@5.5.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
-  agent-base@7.0.2:
+  agent-base@7.0.2(supports-color@5.5.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
-  agent-base@7.1.0:
+  agent-base@7.1.0(supports-color@5.5.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -2563,11 +2581,11 @@ snapshots:
     dependencies:
       mime-db: 1.54.0
 
-  compression@1.8.1:
+  compression@1.8.1(supports-color@5.5.0):
     dependencies:
       bytes: 3.1.2
       compressible: 2.0.18
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       negotiator: 0.6.4
       on-headers: 1.1.0
       safe-buffer: 5.2.1
@@ -2582,10 +2600,10 @@ snapshots:
       ini: 1.3.4
       proto-list: 1.2.4
 
-  connect@3.7.0:
+  connect@3.7.0(supports-color@5.5.0):
     dependencies:
-      debug: 2.6.9
-      finalhandler: 1.1.2
+      debug: 2.6.9(supports-color@5.5.0)
+      finalhandler: 1.1.2(supports-color@5.5.0)
       parseurl: 1.3.3
       utils-merge: 1.0.1
     transitivePeerDependencies:
@@ -2657,13 +2675,17 @@ snapshots:
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.0.0
 
-  debug@2.6.9:
+  debug@2.6.9(supports-color@5.5.0):
     dependencies:
       ms: 2.0.0
+    optionalDependencies:
+      supports-color: 5.5.0
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@5.5.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 5.5.0
 
   decimal.js@10.6.0: {}
 
@@ -2844,6 +2866,8 @@ snapshots:
 
   entities@2.0.0: {}
 
+  entities@3.0.1: {}
+
   entities@4.2.0: {}
 
   entities@4.4.0: {}
@@ -3003,9 +3027,9 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
-  finalhandler@1.1.2:
+  finalhandler@1.1.2(supports-color@5.5.0):
     dependencies:
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       encodeurl: 1.0.2
       escape-html: 1.0.3
       on-finished: 2.3.0
@@ -3280,6 +3304,14 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
+  hexo-generator-sitemap@3.0.1(chokidar@3.6.0):
+    dependencies:
+      hexo-util: 2.7.0
+      micromatch: 4.0.8
+      nunjucks: 3.2.4(chokidar@3.6.0)
+    transitivePeerDependencies:
+      - chokidar
+
   hexo-generator-tag@2.0.0:
     dependencies:
       hexo-pagination: 3.0.0
@@ -3298,11 +3330,11 @@ snapshots:
     dependencies:
       ejs: 3.1.6
 
-  hexo-renderer-marked@7.0.1:
+  hexo-renderer-marked@7.0.1(supports-color@5.5.0):
     dependencies:
       dompurify: 3.4.11
       hexo-util: 3.3.0
-      jsdom: 25.0.1
+      jsdom: 25.0.1(supports-color@5.5.0)
       marked: 15.0.4
     transitivePeerDependencies:
       - bufferutil
@@ -3310,29 +3342,40 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  hexo-renderer-stylus@3.0.1:
+  hexo-renderer-stylus@3.0.1(supports-color@5.5.0):
     dependencies:
-      nib: 1.2.0(stylus@0.62.0)
-      stylus: 0.62.0
+      nib: 1.2.0(stylus@0.62.0(supports-color@5.5.0))
+      stylus: 0.62.0(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
-  hexo-server@3.0.0:
+  hexo-server@3.0.0(supports-color@5.5.0):
     dependencies:
       bluebird: 3.7.2
-      compression: 1.8.1
-      connect: 3.7.0
+      compression: 1.8.1(supports-color@5.5.0)
+      connect: 3.7.0(supports-color@5.5.0)
       mime: 3.0.0
-      morgan: 1.11.0
+      morgan: 1.11.0(supports-color@5.5.0)
       open: 8.4.2
       picocolors: 1.1.1
-      serve-static: 1.16.3
+      serve-static: 1.16.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
   hexo-theme-landscape@1.1.0: {}
 
   hexo-theme-redefine@2.9.0: {}
+
+  hexo-util@2.7.0:
+    dependencies:
+      bluebird: 3.7.2
+      camel-case: 4.1.2
+      cross-spawn: 7.0.6
+      deepmerge: 4.3.1
+      highlight.js: 11.11.1
+      htmlparser2: 7.0.0
+      prismjs: 1.30.0
+      strip-indent: 3.0.0
 
   hexo-util@3.3.0:
     dependencies:
@@ -3407,6 +3450,13 @@ snapshots:
       domutils: 3.2.2
       entities: 7.0.1
 
+  htmlparser2@7.0.0:
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 4.2.0
+      domutils: 2.6.0
+      entities: 3.0.1
+
   htmlparser2@9.0.0:
     dependencies:
       domelementtype: 2.3.0
@@ -3424,24 +3474,24 @@ snapshots:
       statuses: 2.0.2
       toidentifier: 1.0.1
 
-  http-proxy-agent@7.0.2:
+  http-proxy-agent@7.0.2(supports-color@5.5.0):
     dependencies:
-      agent-base: 7.1.0
-      debug: 4.4.3
+      agent-base: 7.1.0(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@5.0.0:
+  https-proxy-agent@5.0.0(supports-color@5.5.0):
     dependencies:
-      agent-base: 6.0.0
-      debug: 4.4.3
+      agent-base: 6.0.0(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@7.0.5:
+  https-proxy-agent@7.0.5(supports-color@5.5.0):
     dependencies:
-      agent-base: 7.0.2
-      debug: 4.4.3
+      agent-base: 7.0.2(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -3623,15 +3673,15 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  jsdom@25.0.1:
+  jsdom@25.0.1(supports-color@5.5.0):
     dependencies:
       cssstyle: 4.1.0
       data-urls: 5.0.0
       decimal.js: 10.6.0
       form-data: 4.0.6
       html-encoding-sniffer: 4.0.0
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.5
+      http-proxy-agent: 7.0.2(supports-color@5.5.0)
+      https-proxy-agent: 7.0.5(supports-color@5.5.0)
       is-potential-custom-element-name: 1.0.1
       nwsapi: 2.2.24
       parse5: 7.1.2
@@ -3784,10 +3834,10 @@ snapshots:
 
   moment@2.30.1: {}
 
-  morgan@1.11.0:
+  morgan@1.11.0(supports-color@5.5.0):
     dependencies:
       basic-auth: 2.0.1
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       depd: 2.0.0
       on-finished: 2.4.1
       on-headers: 1.1.0
@@ -3807,9 +3857,9 @@ snapshots:
 
   negotiator@0.6.4: {}
 
-  nib@1.2.0(stylus@0.62.0):
+  nib@1.2.0(stylus@0.62.0(supports-color@5.5.0)):
     dependencies:
-      stylus: 0.62.0
+      stylus: 0.62.0(supports-color@5.5.0)
 
   nice-try@1.0.5: {}
 
@@ -3824,9 +3874,9 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  nodejieba@3.5.8:
+  nodejieba@3.5.8(supports-color@5.5.0):
     dependencies:
-      '@mapbox/node-pre-gyp': 1.0.10
+      '@mapbox/node-pre-gyp': 1.0.10(supports-color@5.5.0)
       node-addon-api: 5.1.0
     transitivePeerDependencies:
       - encoding
@@ -4168,9 +4218,9 @@ snapshots:
 
   semver@7.8.5: {}
 
-  send@0.19.2:
+  send@0.19.2(supports-color@5.5.0):
     dependencies:
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       depd: 2.0.0
       destroy: 1.2.0
       encodeurl: 2.0.0
@@ -4186,12 +4236,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  serve-static@1.16.3:
+  serve-static@1.16.3(supports-color@5.5.0):
     dependencies:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 0.19.2
+      send: 0.19.2(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -4298,10 +4348,10 @@ snapshots:
 
   strnum@1.0.5: {}
 
-  stylus@0.62.0:
+  stylus@0.62.0(supports-color@5.5.0):
     dependencies:
       '@adobe/css-tools': 4.3.1
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
       glob: 7.2.0
       sax: 1.3.0
       source-map: 0.7.6

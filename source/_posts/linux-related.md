@@ -386,13 +386,30 @@ https://github.com/psi4j/sunsetr
 
 ## Dolphin Open with 空白
 
-KDE 需要的值必须精确是：
+在 Arch Linux + Hyprland 下，Dolphin 的“Open with”列表依赖 KDE 的
+`KService/ksycoca6` 应用缓存。即使 `mimeapps.list` 正常，如果缓存使用了错误的
+菜单前缀，Dolphin 仍然会显示空列表。
+
+先确认 Arch 的应用菜单和缓存工具已安装：
+
+```bash
+paru -S archlinux-xdg-menu
+```
+
+Arch 使用的菜单前缀必须是 `arch-`：
 
 ```bash
 XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental
 ```
 
-`XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental` 要作为**另一条命令**运行。ArchWiki 目前给出的方案也是先设置 `XDG_MENU_PREFIX=arch-`，再执行 `XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental kbuildsycoca6 --noincremental` 来重建 KService cache。([Arch Wiki](https://wiki.archlinux.org/title/Dolphin "Dolphin - ArchWiki"))
+上面是一条带环境变量的命令；也可以拆成：
+
+```bash
+export XDG_MENU_PREFIX=arch-
+kbuildsycoca6 --noincremental
+```
+
+([Arch Wiki](https://wiki.archlinux.org/title/Dolphin "Dolphin - ArchWiki"))
 
 ## Lua 配置
 
@@ -400,11 +417,24 @@ XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental
 hl.env("XDG_MENU_PREFIX", "arch-")
 
 hl.on("hyprland.start", function()
+    -- 让 D-Bus/systemd 启动的 KDE 服务也继承正确的菜单前缀
+    hl.exec_cmd(
+        "dbus-update-activation-environment --systemd " ..
+        "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP " ..
+        "XDG_SESSION_TYPE XDG_MENU_PREFIX QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME")
+    hl.exec_cmd(
+        "systemctl --user import-environment " ..
+        "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP " ..
+        "XDG_SESSION_TYPE XDG_MENU_PREFIX QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME")
     hl.exec_cmd("XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental")
 end)
 ```
 
 `hl.env()` 只负责环境变量；当前 Hyprland Lua 配置的官方示例也是通过 `hl.on("hyprland.start", ...)` 配合 `hl.exec_cmd()` 做自启动。([GitHub](https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.lua "Hyprland/example/hyprland.lua at main · hyprwm/Hyprland · GitHub"))
+
+`hl.env()` 设置会话环境；启动时还要把同一组环境变量同步给 D-Bus 和 systemd user
+manager，然后使用 `arch-` 前缀全量重建 KDE KService cache。这样重启后由 D-Bus/systemd
+启动的 KDE 服务也会继承正确的菜单前缀。
 
 ### 确认 prefix
 
