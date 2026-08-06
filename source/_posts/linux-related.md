@@ -446,22 +446,27 @@ Darkman 全局 user service
         ├─ 10-breeze-state：记录统一 light/dark 状态并触发适配器
         │
         └─ darkman-apply-theme.service
-             └─ darkman-apply-breeze-theme：显式使用 offscreen Qt
+             └─ darkman-apply-breeze-theme：按当前会话选择 Qt 后端
 
 Hyprland hyprland.start
         ├─ 同步当前会话环境给 D-Bus / systemd user
         └─ 启动一次 darkman-apply-theme.service
 ```
 
-Darkman 本身不需要 DISPLAY 或 WAYLAND_DISPLAY。KDE 主题命令使用：
+Darkman 主服务本身不需要 DISPLAY 或 WAYLAND_DISPLAY。适配器按会话选择 KDE Qt 后端：
 
 ~~~bash
+# Plasma Wayland
+QT_QPA_PLATFORM=wayland QT_QPA_PLATFORMTHEME=kde \
+  plasma-apply-colorscheme BreezeDark
+
+# Hyprland 或没有图形会话时
 QT_QPA_PLATFORM=offscreen QT_QPA_PLATFORMTHEME=kde \
   plasma-apply-colorscheme BreezeDark
 ~~~
 
 ### 前置条件
-需要安装：`darkman`、`breeze`、`breeze-gtk`、`qt5ct`、`qt6ct`、`dconf`、`gsettings-desktop-schemas`、`xdg-desktop-portal`、`xdg-desktop-portal-hyprland`、`xdg-desktop-portal-gtk`、`xdg-desktop-portal-kde`、`plasma-integration`、`kde-gtk-config`、`breeze5 6.7.3-1`、`plasma5-integration 6.7.3-1`。
+需要安装：`darkman`、`breeze`、`breeze-gtk`、`dconf`、`gsettings-desktop-schemas`、`xdg-desktop-portal`、`xdg-desktop-portal-hyprland`、`xdg-desktop-portal-gtk`、`xdg-desktop-portal-kde`、`plasma-integration`、`kde-gtk-config`、`breeze5`、`plasma5-integration`。当前方案不使用 `qt5ct` 或 `qt6ct`。
 
 ### 配置
 
@@ -495,8 +500,8 @@ trap - EXIT
 
 printf '[darkman-state] canonical mode=%s file=%s\n' "$mode" "$state_file"
 
-# Darkman is deliberately headless. The actual adapter runs as a separate
-# user unit and owns its explicit offscreen Qt environment.
+# Darkman is deliberately headless. The adapter selects a live Plasma
+# display when available, and falls back to offscreen in Hyprland.
 if systemctl --user restart --no-block darkman-apply-theme.service; then
   printf '[darkman-state] queued darkman-apply-theme.service\n'
 else
@@ -658,11 +663,23 @@ esac
 
 log "applying mode=$mode KDE=$plasma_scheme GTK=$gtk_theme"
 
-# The global Darkman service has no DISPLAY or WAYLAND_DISPLAY. The KDE
-# command is therefore deliberately given an offscreen Qt backend instead of
-# inheriting an arbitrary desktop session.
+# Use the live Plasma display when this user session is Plasma. In Hyprland,
+# or when no graphical session is available, use offscreen so the global
+# Darkman service can still persist the KDE scheme without X11/Wayland.
+qt_platform='offscreen'
+case "${XDG_CURRENT_DESKTOP:-}:${XDG_SESSION_DESKTOP:-}" in
+  KDE:*|*:KDE|Plasma:*|*:Plasma)
+    if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+      qt_platform='wayland'
+    elif [[ -n "${DISPLAY:-}" ]]; then
+      qt_platform='xcb'
+    fi
+    ;;
+esac
+log "KDE adapter Qt platform=$qt_platform desktop=${XDG_CURRENT_DESKTOP:-<unset>}"
+
 kde_status=0
-if QT_QPA_PLATFORM=offscreen QT_QPA_PLATFORMTHEME=kde \
+if QT_QPA_PLATFORM="$qt_platform" QT_QPA_PLATFORMTHEME=kde \
     /usr/bin/plasma-apply-colorscheme "$plasma_scheme"; then
   log "KDE color scheme applied: $plasma_scheme"
 else
@@ -703,21 +720,19 @@ Description=Apply the current Darkman Breeze theme state
 [Service]
 Type=oneshot
 TimeoutStartSec=45
-Environment=QT_QPA_PLATFORM=offscreen
 Environment=QT_QPA_PLATFORMTHEME=kde
 ExecStart=%h/.local/bin/darkman-apply-breeze-theme
 ```
 
 - Type=oneshot，不 enable，不常驻。
 - 由 Darkman hook 或 Hyprland hyprland.start 启动。
-- 只对该服务设置：
+- 只对该服务固定设置：
 
 ~~~ini
-Environment=QT_QPA_PLATFORM=offscreen
 Environment=QT_QPA_PLATFORMTHEME=kde
 ~~~
 
-因此不依赖 Darkman 服务继承某个旧的桌面显示环境。
+适配器根据 `XDG_CURRENT_DESKTOP`、`WAYLAND_DISPLAY` 和 `DISPLAY` 动态选择 `wayland`、`xcb` 或 `offscreen`。
 
 #### Hyprland
 
@@ -727,11 +742,12 @@ Environment=QT_QPA_PLATFORMTHEME=kde
 hl.exec_cmd(
     "dbus-update-activation-environment --systemd " ..
     "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP " ..
-    "XDG_SESSION_TYPE QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME")
+    "XDG_SESSION_TYPE XDG_MENU_PREFIX QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME")
 hl.exec_cmd(
     "systemctl --user import-environment " ..
     "DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP " ..
-    "XDG_SESSION_TYPE QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME")
+    "XDG_SESSION_TYPE XDG_MENU_PREFIX QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME")
+hl.exec_cmd("XDG_MENU_PREFIX=arch- kbuildsycoca6 --noincremental")
 hl.exec_cmd("systemctl --user start --no-block darkman-apply-theme.service")
 ```
 
@@ -739,6 +755,7 @@ hl.exec_cmd("systemctl --user start --no-block darkman-apply-theme.service")
 
 - DISPLAY 到 D-Bus activation environment 同步范围。
 - systemctl --user import-environment。
+- 在 Hyprland 会话启动时重建 KDE KService cache。
 - 启动当前模式的 darkman-apply-theme.service。
 
 没有改动显示器、快捷键、输入法、动画、窗口规则或其他启动项。
@@ -747,7 +764,14 @@ hl.exec_cmd("systemctl --user start --no-block darkman-apply-theme.service")
 
 执行了 `systemctl --user enable --now darkman.service`。当前状态为 `enabled`、`active`，并创建了 `~/.config/systemd/user/default.target.wants/darkman.service`。
 
-日志确认：日出为 `2026-08-02T06:18:25+08:00`，日落为 `2026-08-02T19:27:32+08:00`。
+位置配置为纬度 `22.8`、经度 `108.3`，`usegeoclue: false`，由 Darkman 根据系统 `Asia/Shanghai` 时区计算日出日落。
+
+在 Plasma Wayland 会话中已验证：
+
+- dark：`BreezeDark`、GTK `Breeze-Dark`、Plasma 当前方案 `BreezeDark`。
+- light：`BreezeLight`、GTK `Breeze`、Plasma 当前方案 `BreezeLight`。
+
+两次 `darkman-apply-theme.service` 均返回成功。
 
 ### 常用命令
 
@@ -811,9 +835,10 @@ printf 'New files were preserved under %s\n' "$rescue_dir"
 
 ### 已知限制
 
-1. Plasma Portal 的运行时选择没有通过重新登录 KDE 实际测试；系统仍保留 KDE Portal 配置，没有创建通用用户 Portal 配置。
+1. Plasma Portal 的运行时选择仍由 Plasma 自己管理；Darkman 只负责 Settings Portal 的颜色模式。
 2. 已禁用 `kde-gtk-config` 自动加载，因此 Plasma 不会继续自动生成 GTK 颜色 CSS 覆盖文件。
-3. systemd user environment 中的 Qt Platform Theme 是全局用户级环境
+3. 已运行的 Dolphin 和其他 Qt 应用通常需要重启后才读取新的调色板。
+4. `QT_QPA_PLATFORMTHEME=kde` 在 Hyprland 会话中使用；主题适配器服务自身也固定使用 KDE Platform Theme，但 Qt 平台后端按会话动态选择。
 
 ## HyprShell -- Hyprland 下好用的 alt-tab 工具
 
@@ -848,4 +873,3 @@ flock -n "$XDG_RUNTIME_DIR/唯一名称.lock" 命令 参数
 ```bash
 exec 9>"$XDG_RUNTIME_DIR/唯一名称.lock"; flock -n 9 || exit 0; 后面的完整命令流程
 ```
-
