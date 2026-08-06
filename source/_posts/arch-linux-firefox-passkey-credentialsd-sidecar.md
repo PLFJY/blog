@@ -272,7 +272,7 @@ tags:
 
 删减了一些，凑合着看吧，然后就是交给 GLM 5.2 执行了，最终效果非常好：
 
-![clipboard-20260806-035333.png](arch-linux-firefox-passkey-credentialsd-sidecar/clipboard-20260806-035333.png)
+![Firefox 在 Arch Linux 中显示 Hybrid QR Passkey 手机扫码界面](arch-linux-firefox-passkey-credentialsd-sidecar/clipboard-20260806-035333.png)
 
 日用的话问题应该是不大了
 
@@ -306,7 +306,9 @@ makepkg -si
 
 https://github.com/PLFJY/credentialsd/releases/latest
 
-就是这样
+![安装 Firefox 扩展](arch-linux-firefox-passkey-credentialsd-sidecar/clipboard-20260806-124157.webp)
+
+就是这样，扩展会自动看 Github Releases latest 完成自动更新，当然对应的包我没传 AUR 就没法自动更新了，所以你发现扩展如果更新了（概率很小）就去看一眼
 
 ---
 
