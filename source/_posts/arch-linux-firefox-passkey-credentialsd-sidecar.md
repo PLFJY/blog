@@ -13,7 +13,7 @@ tags:
 - 开源项目
 ---
 
-因为之前经历了微软盗号事件，最近研究出了国外平台账号安全的一个极佳解法———— Passkey + TOTP，但是问题来了，Passkey 我主要存在 iCloud KeyChain 上，一般我都是手机扫码然后 Face ID 使用的，Windows 上都没有大量存，更别说 Linux 了同时目前能找到的教程也都是怎么在 Linux 上存储 Passkey 的，没有用手机扫码使用 Passkey 的
+因为之前经历了微软盗号事件，最近研究出了国外平台账号安全的一个极佳解法 —— Passkey + TOTP，但是问题来了，Passkey 我主要存在 iCloud KeyChain 上，一般我都是手机扫码然后 Face ID 使用的，Windows 上都没有大量存，更别说 Linux 了同时目前能找到的教程也都是怎么在 Linux 上存储 Passkey 的，没有用手机扫码使用 Passkey 的
 
 然后问题就来了，我在 Linux 没办法在 FireFox 中使用 iPhone 扫码然后使用 Passkey，于是我就在全网寻找解决方案，结果真被我找到一个 credentialsd：https://github.com/linux-credentials/credentialsd 。 但是好问题，他们这是个半成品，就是能跑肯定是能跑，但是需要装他们魔改过的 XDG Desktop Portal，这就和我的 Arch 的系统包冲突了，于是我就在想，我能不能改一下，外置一个新的 XDG Desktop Portal，避开冲突，这样代码上可以随时合并上游，本地又能以暂时方案维护一个 XDG Desktop Portal 前端的方案
 
