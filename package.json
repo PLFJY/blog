@@ -36,5 +36,5 @@
     "js-yaml": "^5.2.2",
     "nodejieba": "^3.5.8"
   },
-  "packageManager": "pnpm@11.9.0"
+  "packageManager": "pnpm@11.20.0"
 }
