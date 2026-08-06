@@ -466,7 +466,7 @@ hl.env("XDG_MENU_PREFIX", "arch-")
 hl.env("XDG_MENU_PREFIX", "plasma-")
 ```
 
-## Hyprland 的深色模式切换相关
+## Hyprland & Plasma 共存的深色模式切换相关
 
 ### 架构
 
