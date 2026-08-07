@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="keywords" content="Hexo Theme Redefine"><meta name="author" content="零风PLFJY"><script>!function(){function e(e){const t="dark"===e,c=document.documentElement;c.classList.add(e),c.classList.remove(t?"light":"dark"),c.style.colorScheme=e}const t=function(){try{const e=localStorage.getItem("REDEFINE-THEME-STATUS");if(e){const{isDark:t}=JSON.parse(e);return t?"dark":"light"}}catch(e){}return matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}();e(t),matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:t})=>{localStorage.getItem("REDEFINE-THEME-STATUS")||e(t?"dark":"light")}),function(){const e=()=>{const e=document.body;return!!e&&(e.classList.add(t+"-mode"),!0)};if(e())return;const c=new MutationObserver(()=>{e()&&c.disconnect()});c.observe(document.documentElement,{childList:!0,subtree:!0})}()}()</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://evan.beee.top" crossorigin><link rel="canonical" href="https://blog.plfjy.top/ms-account-hacked/"><meta name="robots" content="index,follow"><meta name="googlebot" content="index,follow"><meta name="revisit-after" content="1 days"><meta name="description" content="PLFJY&#39;s Blog"><meta property="og:type" content="article"><meta property="og:title" content="记录一次微软账号被盗的经历"><meta property="og:url" content="https://blog.plfjy.top/ms-account-hacked/index.html"><meta property="og:site_name" content="零风PLFJYの小站"><meta property="og:description" content="PLFJY&#39;s Blog"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://blog.plfjy.top/img/header.png"><meta property="article:published_time" content="2026-08-04T00:40:05.788Z"><meta property="article:modified_time" content="2026-08-07T09:37:34.527Z"><meta property="article:author" content="Zero PLFJY"><meta property="article:tag" content="account"><meta property="article:tag" content="cyber serucity"><meta property="article:tag" content="microsoft"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://blog.plfjy.top/img/header.png"><link rel="icon" type="image/png" href="/img/header.png" sizes="192x192"><link rel="apple-touch-icon" sizes="180x180" href="/img/header.png"><meta name="theme-color" content="#CA8BFF"><link rel="shortcut icon" href="/img/header.png"><title>记录一次微软账号被盗的经历 | 零风PLFJYの小站</title><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/fonts/Chillax/chillax.css"><meta name="baidu-site-verification" content="codeva-30XQxsoqso"><meta name="color-scheme" content="light dark"><script data-swup-reload-script src="/js/redefine-theme-mode-head.js"></script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/simple-i18n.css"><script data-swup-reload-script src="/js/text-highlight.js"></script><script data-swup-reload-script src="/js/liquid-glass-webgl.js"></script><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/css/build/tailwind.css"><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/fonts/GeistMono/geist-mono.css"><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/fonts/Geist/geist.css"><link href="https://fonts.font.im/css?family=JetBrains+Mono&display=swap" rel="stylesheet"><script id="hexo-configurations">window.config={hostname:"blog.plfjy.top",root:"/",language:"en",path:"search.json"},window.theme={articles:{style:{font_size:"1rem",line_height:1.5,image_border_radius:"14px",image_alignment:"center",image_caption:!1,link_icon:!0,delete_mask:!1,title_alignment:"left",headings_top_spacing:{h1:"3.2rem",h2:"2.4rem",h3:"1.9rem",h4:"1.6rem",h5:"1.4rem",h6:"1.3rem"}},word_count:{enable:!0,count:!0,min2read:!0},author_label:{enable:!0,auto:!0,list:["Lv6"]},code_block:{copy:!0,style:"mac",highlight_theme:{light:"github",dark:"github-dark"},font:{enable:!0,family:"JetBrains Mono",url:"https://fonts.font.im/css?family=JetBrains+Mono&display=swap"}},toc:{enable:!0,max_depth:3,number:!1,expand:!0,init_open:!0},copyright:{enable:!0,default:"cc_by_nc_sa"},lazyload:!0,pangu_js:!1,recommendation:{enable:!0,title:"Suggestions",limit:3,mobile_limit:2,placeholder:"https://t.alcy.cc/xhl",skip_dirs:[]}},colors:{primary:"#CA8BFF",secondary:null,default_mode:"dark"},global:{fonts:{chinese:{enable:!1,family:"Noto Sans SC",url:"https://fonts.font.im/css?family=Noto+Sans+SC:wght@400;500;700&display=swap"},english:{enable:!1,family:"Noto Sans",url:"https://fonts.font.im/css?family=Noto+Sans&display=swap"},title:{enable:!1,family:"Noto Sans SC",url:"https://fonts.font.im/css?family=Noto+Sans+SC:wght@400;500;700&display=swap"}},content_max_width:"1000px",sidebar_width:"210px",hover:{shadow:!0,scale:!0},scroll_progress:{bar:!0,percentage:!0},website_counter:{url:"https://cn.vercount.one/js",enable:!0,site_pv:!0,site_uv:!0,post_pv:!0},single_page:!0,preloader:{enable:!1,custom_message:"欢迎来到PLFJYの小站  客官里边儿请~"},side_tools:{gear_rotation:!0,auto_expand:!1},open_graph:{enable:!0,image:"/img/header.png",description:"PLFJY's Blog"},google_analytics:{enable:!1,id:null}},home_banner:{enable:!0,style:"fixed",image:{light:"https://t.alcy.cc/fj",dark:"https://t.alcy.cc/fj"},title:"零风PLFJYのblog",subtitle:{text:["Hi, Welcome to my blog","I'll share some ideas here","A traveler diving into the world of code","アイ無限恒久☆永遠推し!!!☆"],hitokoto:{enable:!1,show_author:!1,api:"https://v1.hitokoto.cn"},typing_speed:100,backing_speed:80,starting_delay:500,backing_delay:1500,loop:!0,smart_backspace:!0},text_color:{light:"#fff",dark:"#fff"},text_style:{title_size:"2.8rem",subtitle_size:"1.5rem",line_height:1.2},custom_font:{enable:!1,family:"Noto Serif SC",url:"https://fonts.font.im/css?family=Noto+Serif+SC:wght@400;500;700&display=swap"},social_links:{enable:!0,style:"center",links:[{icon:"fa-regular fa-house",url:"https://plfjy.top/"},{icon:"fa-brands fa-bilibili",url:"https://space.bilibili.com/453909624/"},{icon:"fa-brands fa-github",url:"https://github.com/PLFJY/"},{icon:"fa-solid fa-at",url:"zero@plfjy.top"}],qrs:[{icon:"fa-brands fa-qq",qr:"/img/qq.jpg"}]}},plugins:{feed:{enable:!1},aplayer:{enable:!1,type:"fixed",audios:[{name:null,artist:null,url:null,cover:null,lrc:null}]},mermaid:{enable:!0,version:"11.4.1",theme:{light:"default",dark:"dark"}}},version:"2.9.0",navbar:{auto_hide:!1,color:{left:"#C89DEB",right:"#989CF0",transparency:25},width:{home:"1200px",pages:"1000px"},links:{Home:{path:"/",icon:"fa-regular fa-house"},Archives:{path:"/archives",icon:"fa-regular fa-archive"},"About me":{icon:"fa-regular fa-user",path:"/about"},Travelling:{path:"https://www.travellings.cn/plain.html",icon:"fa-regular fa-train-subway"},Links:{icon:"fa-regular fa-link",path:"/links"}},search:{enable:!0,preload:!0}},page_templates:{friends_column:2,tags_style:"blur",masonry:{batch_size:12,initial_batch_size:24}},home:{sidebar:{enable:!0,position:"left",first_item:"menu",announcement:"アイ無限恒久☆永遠推し!!!☆",show_on_mobile:!0,links:{Tags:{path:"/tags",icon:"fa-regular fa-tags"},Categories:{path:"/categories",icon:"fa-regular fa-folder"},Bookmarks:{path:"/bookmarks",icon:"fa-regular fa-bookmark"}}},article_date_format:"auto",excerpt_length:200,categories:{enable:!0,limit:3},tags:{enable:!0,limit:3}},footer:{runtime:!0,icon:'<a href="https://plfjy.top/">\n  <img src="/img/logo.png"\n    style="width:40px; margin:auto; transition:transform 0.2s ease;"\n    onmouseover="this.style.transform=\'scale(1.1)\'"\n    onmouseout="this.style.transform=\'scale(1)\'"/>\n</a>\n',start:"2025/07/19 19:30:00",statistics:!0,customize:null,icp:{enable:!0,number:"萌ICP备20259514号",url:"https://icp.gov.moe/?keyword=20259514"}},footerStart:"2025/07/19 19:30:00",mermaid:{style:{light:"default",dark:"dark"}}},window.lang_ago={second:"%s seconds ago",minute:"%s minutes ago",hour:"%s hours ago",day:"%s days ago",week:"%s weeks ago",month:"%s months ago",year:"%s years ago"},window.i18n={search:"Search...",toc:"On this page",prev:"Prev",next:"Next",prev_posts:"Prev posts",next_posts:"Next posts",page:"Page %d",recent_posts:"Recent Posts",share:"Share",powered_by:"POWERED BY %s",theme:"THEME",rss_feed:"RSS Feed",category:"Category",categories:"Categories",tag:"Tag",tags:"Tags",post:"Post",posts:"Posts",tagcloud:"Tag Cloud",comment:"Comment",comments:"Comments",home:"Home",archive:"Archive",archives:"Archives",top:"TOP",sticky:"Sticky","go-back-home":"Go Back Home",masonry_loading:"Loading photos...",image_viewer:"Image viewer",close:"Close",exif:{title:"EXIF",cards:{camera:"Camera",lens:"Lens",exposure:"Exposure",other:"Other"},fields:{make:"Brand",model:"Model",date_taken:"Date taken",lens_model:"Lens",focal_length:"Focal length",focus_mode:"Focus mode",shutter:"Shutter",aperture:"Aperture",iso:"ISO",exposure_program:"Exposure program",exposure_compensation:"Exposure compensation",metering_mode:"Metering mode",flash:"Flash",white_balance:"White balance",latitude:"Latitude",longitude:"Longitude",altitude:"Altitude"},status:{loading:"Loading...",no_exif:"No EXIF available",library_missing:"EXIF library not loaded",image_source_missing:"Image source unavailable",unavailable:"EXIF unavailable (blocked by CORS or missing metadata)",flag_unavailable:"EXIF unavailable"}},about:"About",changelog:"Changelog",links:"Links",link:"Link",friends:"Friends",friend:"Friend",timeline:"Timeline",shuoshuo:"Shuoshuo",bookmarks:"Bookmarks",site_uv:"VISITOR COUNT",site_pv:"TOTAL PAGE VIEWS",read_more:"Read more",wordcount:"Words",min2read:"Mins",status:"Status",runtime:"Blog up for",days:"days",hours:"hrs",minutes:"Min",seconds:"Sec",optimized_by:"and Optimized by Evan",rights:"All Rights Reserved",site_posts:"%s posts in total",site_wordcount:"%s words in total",copyright:{author:"Author",title:"Title",link:"Link",create_time:"Created at",update_time:"Updated at",license_title:"License",license_content:"This work is licensed under %s.",all_rights_reserved:"All Rights Reserved &#169; %s",public_domain:"This work is in the public domain."},ago:{second:"%s seconds ago",minute:"%s minutes ago",hour:"%s hours ago",day:"%s days ago",week:"%s weeks ago",month:"%s months ago",year:"%s years ago"},create_time:"Created",update_time:"Updated",expired:"This post is written %s days ago, and the content may not be up to date."},window.data={masonry:!1}</script><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/fontawesome/fontawesome.min.css"><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/fontawesome/brands.min.css"><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/fontawesome/solid.min.css"><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/fontawesome/regular.min.css"><meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div class="progress-bar-container"><span class="scroll-progress-bar"></span> <span class="pjax-progress-bar"></span></div><main class="page-container" id="swup"><div class="main-content-container flex flex-col justify-between min-h-dvh"><div class="main-content-header"><header class="navbar-container px-6 md:px-12"><div class="navbar-content transition-navbar"><div class="left"><a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/"><img src="/img/header.png" class="w-full h-full rounded-xs"> </a><a class="logo-title" href="/">零风PLFJYの小站</a></div><div class="right"><div class="desktop"><ul class="navbar-list"><li class="navbar-item"><a href="/"><i class="fa-regular fa-house fa-fw"></i> HOME</a></li><li class="navbar-item"><a href="/archives"><i class="fa-regular fa-archive fa-fw"></i> ARCHIVES</a></li><li class="navbar-item"><a href="/about"><i class="fa-regular fa-user fa-fw"></i> ABOUT ME</a></li><li class="navbar-item"><a target="_blank" rel="noopener" href="https://www.travellings.cn/plain.html"><i class="fa-regular fa-train-subway fa-fw"></i> TRAVELLING</a></li><li class="navbar-item"><a href="/links"><i class="fa-regular fa-link fa-fw"></i> LINKS</a></li><li class="navbar-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></li></ul></div><div class="mobile"><div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div><div class="icon-item navbar-bar"><div class="navbar-bar-middle"></div></div></div></div></div><div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between"><ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start"><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full" href="/"><span>HOME </span><i class="fa-regular fa-house fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full" href="/archives"><span>ARCHIVES </span><i class="fa-regular fa-archive fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full" href="/about"><span>ABOUT ME </span><i class="fa-regular fa-user fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full" target="_blank" rel="noopener" href="https://www.travellings.cn/plain.html"><span>TRAVELLING </span><i class="fa-regular fa-train-subway fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full" href="/links"><span>LINKS </span><i class="fa-regular fa-link fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active" href="/tags"><span>Tags</span> <i class="fa-regular fa-tags fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active" href="/categories"><span>Categories</span> <i class="fa-regular fa-folder fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active" href="/bookmarks"><span>Bookmarks</span> <i class="fa-regular fa-bookmark fa-sm fa-fw"></i></a></li></ul><div class="statistics flex justify-around my-2.5"><a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags"><div class="number text-2xl sm:text-xl text-second-text-color font-semibold">46</div><div class="label text-third-text-color text-sm">Tags</div></a><a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories"><div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div><div class="label text-third-text-color text-sm">Categories</div></a><a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives"><div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div><div class="label text-third-text-color text-sm">Posts</div></a></div></div><div class="window-mask"></div></header></div><div class="main-content-body transition-fade-up"><div class="main-content"><div class="post-page-container flex relative justify-between box-border w-full h-full"><div class="article-content-container"><div class="article-title relative w-full"><div class="w-full flex items-center pt-6 justify-start"><h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">记录一次微软账号被盗的经历</h1></div></div><div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8"><div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px"><img src="/img/header.png"></div><div class="info flex flex-col justify-between"><div class="author flex items-center"><span class="name text-default-text-color text-lg font-semibold">零风PLFJY</span> <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fa-regular fa-pen-fancy"></i>&nbsp; <span class="desktop">2026-08-04 08:40:05</span> <span class="mobile">2026-08-04 08:40:05</span> <span class="hover-info">Created</span> </span><span class="article-date article-meta-item"><i class="fa-regular fa-wrench"></i>&nbsp; <span class="desktop">2026-08-07 17:37:34</span> <span class="mobile">2026-08-07 17:37:34</span> <span class="hover-info">Updated</span> </span><span class="article-tags article-meta-item"><i class="fa-regular fa-tags"></i>&nbsp;<ul><li><a href="/tags/microsoft/">microsoft</a>&nbsp;</li><li>| <a href="/tags/account/">account</a>&nbsp;</li><li>| <a href="/tags/cyber-serucity/">cyber serucity</a>&nbsp;</li></ul></span><span class="article-wordcount article-meta-item"><i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.2k Words</span> </span><span class="article-min2read article-meta-item"><i class="fa-regular fa-clock"></i>&nbsp;<span>7 Mins</span> </span><span class="article-pv article-meta-item"><i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8"><h2 id="序——开端"><a href="#序——开端" class="headerlink" title="序——开端"></a>序——开端</h2><p>2026 年 3 月 30 日晚上，我回到教室突然发现自己电脑上的 outlook 疯狂弹窗提醒我微软账号的登录已过期让我重新登录，我以为只是一次普通的例行重新认证，但是当我输入密码后提示密码错误我隐隐发现了不对，上方显示的是一个我从来没有见过的邮箱，我心里一惊立刻打开浏览器访问 outlook 的网页端发现账号被盗了，攻击者修改了我的主要登录邮箱，移除了我的密码，移除了手机号，移除了密保邮箱，删除了通行密钥，也就是说，我失去了对账号的彻底控制权</p><h2 id="第一章——自救"><a href="#第一章——自救" class="headerlink" title="第一章——自救"></a>第一章——自救</h2><p>当时我的大脑宕机了，手上不断的疯了似的寻找微软账号恢复的入口，填写表单，恢复表单填写完成之后，我觉得不能坐以待毙，等微软的速度实在是太慢了，我决定先用自己的能力先尝试抢回账号的控制权，我就想到了我家里的主力 Windows 台式机，这台机子是长期登录微软账号的，它应该有一定的信任权重。我立刻打电话让我家里人打开了电脑，我利用远程控制发现了设置中的完整盗号者邮箱名称，<a class="link" href="mailto:&#x72;&#121;&#97;&#x6e;&#119;&#101;&#x69;&#110;&#115;&#116;&#101;&#105;&#110;&#x31;&#x39;&#x31;&#x35;&#64;&#115;&#x70;&#109;&#x65;&#x69;&#97;&#x62;&#x2e;&#x63;&#x6f;&#109;">ryanweinstein1915@spmeiab.com<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，看起来是一个一次性的邮箱账号，应该是自动化脚本攻击。我首先在账号中心内看到了微软让我重新认证账号的按钮，就在那里我成功的重新设置了我的密码，我拿回了账号的部分控制权，但是并没有结束，这时候一定还有更大的问题，我随即用我手头上的 MacBook 登录了 outlook 的网页版，并设置了通行密钥和将被移除的 outlook 邮箱地址重新设置为了账号别名。进入安全中心之后，果然安全信息内只剩下了这一个黑客的邮箱地址，而且由于短时间内修改了过多的安全信息，这个账号现在的安全中心是进不去的，我要想修改密保邮箱必须等待一个月之后，屏幕上显示的内容告诉我这一个月里我可以继续正常使用微软的包括 outlook 在内的各种服务，使我以为一切准备尘埃落定，剩下只是时间问题</p><h2 id="第二章——黑客的手段"><a href="#第二章——黑客的手段" class="headerlink" title="第二章——黑客的手段"></a>第二章——黑客的手段</h2><p>我翻遍了我所有的密保邮箱，没有任何的异地登录通知，手机里的 Authenticator （微软安全验证器）也没有收到任何的异常通知，这个号，就这么被黑客……登上了，修改信息了，我立刻反应过来是 Cookie 盗号，而且是广撒网的那种，不是针对某一个人，而是任意一个中招的普通用户。</p><p>这里我要科普一下什么叫 Cookie 盗号了，首先从什么是 Cookie 开始，我们和网站通信，网站需要知道我们谁是谁，于是在我们登录之后网站会发给我们的浏览器一个 Cookie，它代表了你在这个网站登录的状态，也就是说我的电脑中病毒了，黑客直接把我登录的这个状态整个打包带走，冒充我和网站通信。</p><p>冒充我和网站通信之后也不是黑客本人登录我的账号，这种广撒网式的攻击一般由脚本自动操作，黑客的电脑拿到被攻击者的 Cookie 的那一刻自动操作，自动解绑信息，将账号进行利用，投入可用账号池，准备用于黑产活动</p><p>后面查出来了，冲着我的 Minecraft 的 Hypixel 账号来的，因为我后续登录小号发现大号被登录了，应该是被盗号然后当做黑卡去开挂了</p><h2 id="第三章——封号"><a href="#第三章——封号" class="headerlink" title="第三章——封号"></a>第三章——封号</h2><p>就当我以为能回归正常的生活之后，又一个晴天霹雳打了下了，账号被锁定了，如 P1 所示，我彻底无法登录了。这次我是彻底慌了，连夜打开微软支持联系客服代理，由于是夜间所以没有中文客服我切换了语言选择了与英语客服联系，希望能有所转机，但是微软的客服代理仅仅是客服代理，他没有任何权限处理事情，只能让我填表单，交由安全团队处理，然后没有任何实质性的成果，到这里，我也只能阶段性放弃了</p><p>现在的结果是，完全放弃了，彻底回不来了</p><h2 id="第四章——补救"><a href="#第四章——补救" class="headerlink" title="第四章——补救"></a>第四章——补救</h2><p>现在要做的，是立刻换绑全部平台绑定的密保邮箱，尤其是修改邮箱绑定，因为我已经将原来的 <a class="link" href="mailto:&#122;&#101;&#114;&#x6f;&#95;&#112;&#x6c;&#102;&#x6a;&#x79;&#64;&#111;&#x75;&#116;&#x6c;&#111;&#x6f;&#107;&#46;&#x63;&#111;&#109;">zero_plfjy@outlook.com<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 添加了回了，理论上只要没封号我还是能正常接收邮件的，但是问题就是，被封号了。不过我发现了微软 Outlook 网页版的 bug，在网页版依旧可以接收邮件但实质上账号已被封号，于是我开始疯狂的修改各个账号的密保邮箱。但好景不长，过了一段时间网页版 outlook 也无法接收邮件了，彻底进不去了，不过此时又被我卡出了一个 bug，我的 iPhone 登录过 outlook 客户端，那里的通知服务器还没被踢下线，我依旧可以利用 iPhone 的通知预览去查看邮件发来的验证码，只要验证码在邮件的开头我就能看到，我借助这个完成了最后几个平台的邮箱换绑，至此，脱离完成</p><h2 id="终章——回顾与反思"><a href="#终章——回顾与反思" class="headerlink" title="终章——回顾与反思"></a>终章——回顾与反思</h2><p>到这里几乎已经可以宣判账号的死刑了，我不得不放弃我用了多年的微软账号，放弃了我一直以来游玩的 Minecraft 账号，这个号还有迁移披风，还有大冤种披风，还有 FoFTG 的 Hypixel 好友，真的好可惜，我也尽可能的去尝试几天后再次申诉（就在我写到这里的时候邮件过来了，申诉维持原判，不予解封）</p><p>那么至于我是怎么被被盗号的呢……我猛然想起来前两天在 Windows 的主力机上寻找破解软件的时候出现了奇怪的安装包，打开了在某一个进度条而不是正常的安装程序界面，我意识到不是我要的东西立刻关闭了那个窗口，但是我当时没当回事就删除了那个木马病毒程序，现在想来，在我关闭窗口的时候我的 Cookie 信息已经被打包带走了，目前除了微软账号没有其它账号收到伤害，同时黑客甚至还翻出了我以前用 qq 邮箱注册的微软账号也想盗取，被我及时按死了。</p><p>这个事情对我的冲击还是很大的，因为我的日历日程、待办清单深度依赖 Outlook，且 Edge 浏览器还存储了我的各平台密码，不过幸好我在被盗号前的两周我心血来潮，觉得安全性不够高刚刚修改了几个核心平台的密码，且所有核心平台都有开启两步验证，目前暂时不用担心其他平台被盗号的风险，主力浏览器也早已转移至了 FireFox，所以可能黑客只拿走了 Edge 的 Cookie 目前问题还不算大。</p><p>反思过后，我觉得现在我的账号架构和网络安全结构应该被彻底重构，我现在准备开始施行登录账号与对外账号的隔离，注册账号与主力账号的隔离，同时破解软件现在沙盒里面跑，避免再次出现类似的情况。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>事情到这里基本也就告一段落了，感谢你能耐心看到这里，看我分享的故事，也希望看到这里的大家能够对账号安全的问题提起重视，安全不是儿戏，盗号就在身边，不要以为自己是个小角色就不会有人盗你的号，自动化脚本可不会管你是谁，露头就秒，注意隐私保护，开启双重验证，也不要嫌各种平台的安全机制烦，它们也是在保护你的账号和你的生活不被干扰。</p><p>在此祝愿各位永不被盗号，找的破解软件没有后门，Cookie 永不泄露！</p></div><div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8"><div class="article-copyright-info-container"><ul><li><strong>Title:</strong> 记录一次微软账号被盗的经历</li><li><strong>Author:</strong> 零风PLFJY</li><li><strong>Created at :</strong> 2026-08-04 08:40:05</li><li><strong>Updated at :</strong> 2026-08-07 17:37:34</li><li><strong>Link:</strong> https://blog.plfjy.top/ms-account-hacked/</li><li><strong>License: </strong>This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.</li></ul></div></div><ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden"><li class="tag-item mx-0.5"><a href="/tags/microsoft/">#microsoft</a>&nbsp;</li><li class="tag-item mx-0.5"><a href="/tags/account/">#account</a>&nbsp;</li><li class="tag-item mx-0.5"><a href="/tags/cyber-serucity/">#cyber serucity</a>&nbsp;</li></ul><div class="recommended-article px-2 sm:px-6 md:px-8"><div class="recommended-desktop"><div class="recommended-article-header text-xl md:text-3xl font-bold mt-10"><i aria-hidden="true"></i><span>Suggestions</span></div><div class="recommended-article-group"><a class="recommended-article-item" href="/hexo-blog-admin/" title="一个基于 Cloudflare Workers 的 Hexo 博客管理后台  " rel="bookmark"><img src="https://t.alcy.cc/xhl" alt="一个基于 Cloudflare Workers 的 Hexo 博客管理后台  " class="!max-w-none"> <span class="title">一个基于 Cloudflare Workers 的 Hexo 博客管理后台  </span></a><a class="recommended-article-item" href="/new-menu-lock-bug/" title="死磕一个 Windows 右键“新建菜单”锁定 Bug：从权限地狱到终于跑通" rel="bookmark"><img src="https://t.alcy.cc/xhl" alt="死磕一个 Windows 右键“新建菜单”锁定 Bug：从权限地狱到终于跑通" class="!max-w-none"> <span class="title">死磕一个 Windows 右键“新建菜单”锁定 Bug：从权限地狱到终于跑通</span> </a><a class="recommended-article-item" href="/new-menu-lock-v2/" title="再死磕一次 Windows 右键“新建菜单”锁：从暴力 ACL 修复到温和可逆的 v2 方案" rel="bookmark"><img src="https://t.alcy.cc/xhl" alt="再死磕一次 Windows 右键“新建菜单”锁：从暴力 ACL 修复到温和可逆的 v2 方案" class="!max-w-none"> <span class="title">再死磕一次 Windows 右键“新建菜单”锁：从暴力 ACL 修复到温和可逆的 v2 方案</span></a></div></div><div class="recommended-mobile"><div class="recommended-article-header text-xl md:text-3xl font-bold mt-10"><i aria-hidden="true"></i><span>Suggestions</span></div><div class="recommended-article-group"><a class="recommended-article-item" href="/hexo-blog-admin/" title="一个基于 Cloudflare Workers 的 Hexo 博客管理后台  " rel="bookmark"><img src="https://t.alcy.cc/xhl" alt="一个基于 Cloudflare Workers 的 Hexo 博客管理后台  " class="!max-w-none"> <span class="title">一个基于 Cloudflare Workers 的 Hexo 博客管理后台  </span></a><a class="recommended-article-item" href="/new-menu-lock-bug/" title="死磕一个 Windows 右键“新建菜单”锁定 Bug：从权限地狱到终于跑通" rel="bookmark"><img src="https://t.alcy.cc/xhl" alt="死磕一个 Windows 右键“新建菜单”锁定 Bug：从权限地狱到终于跑通" class="!max-w-none"> <span class="title">死磕一个 Windows 右键“新建菜单”锁定 Bug：从权限地狱到终于跑通</span></a></div></div></div><div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8"><div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2"><a class="prev" rel="prev" href="/arch-linux-firefox-passkey-credentialsd-sidecar/"><span class="left arrow-icon flex justify-center items-center"><i class="fa-solid fa-chevron-left"></i> </span><span class="title flex justify-center items-center"><span class="post-nav-title-item truncate max-w-48">在 Arch Linux 上为 Firefox 启用手机扫码 Passkey：credentialsd 自改版部署指南</span> <span class="post-nav-item">Prev posts</span></span></a></div><div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2"><a class="next" rel="next" href="/ap-csa/06-class/"><span class="title flex justify-center items-center"><span class="post-nav-title-item truncate max-w-48">AP CSA 06 - 面向对象编程 Pt.1</span> <span class="post-nav-item">Next posts</span> </span><span class="right arrow-icon flex justify-center items-center"><i class="fa-solid fa-chevron-right"></i></span></a></div></div><div class="comment-container px-2 sm:px-6 md:px-8 pb-8"><div class="comments-container mt-10 w-full"><div id="comment-anchor" class="w-full h-2.5"></div><div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">Comments</div><div id="giscus-container"></div><script data-swup-reload-script defer>(function() {
+            const containerId = "giscus-container";
+            const mapping = "pathname";
+            const lang = "en";
+            const inputPosition = "top";
+            const reactionsEnabled = "1" === "1";
+            const emitMetadata = "1" === "1";
+            const strict = "0" === "1";
+            const loading = "not-lazy";
+
+            const getTerm = () => {
+                if (mapping === "pathname") return location.pathname;
+                if (mapping === "url") return location.href;
+                if (mapping === "title") return document.title;
+                if (mapping === "og:title") {
+                    const ogTitle = document.querySelector("meta[property='og:title']");
+                    return ogTitle?.content || document.title;
+                }
+                return "";
+            };
+
+            const sendUpdate = () => {
+                const iframe = document.querySelector("iframe.giscus-frame");
+                if (!iframe) {
+                    return;
+                }
+
+                const setConfig = {
+                    theme: "preferred_color_scheme",
+                    lang,
+                    inputPosition,
+                    reactionsEnabled,
+                    emitMetadata,
+                    strict,
+                };
+
+                if (mapping !== "number") {
+                    const term = getTerm();
+                    if (term) {
+                        setConfig.term = term;
+                    }
+                }
+
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig } },
+                    "https://giscus.app",
+                );
+            };
+
+            const loadGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                const iframe = container.querySelector("iframe.giscus-frame");
+                if (iframe) {
+                    sendUpdate();
+                    return;
+                }
+
+                if (container.dataset.giscusInit === "true") {
+                    return;
+                }
+
+                const giscusConfig = {
+                    src: "https://giscus.app/client.js",
+                    "data-repo": "PLFJY/blog",
+                    "data-repo-id": "R_kgDOPPLvfA",
+                    "data-category": "Announcements",
+                    "data-category-id": "DIC_kwDOPPLvfM4CtLAK",
+                    "data-mapping": mapping,
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "1",
+                    "data-theme": "preferred_color_scheme",
+                    "data-lang": lang,
+                    "data-input-position": inputPosition,
+                    "data-loading": loading,
+                    crossorigin: "anonymous",
+                    async: true,
+                };
+
+                const giscusScript = document.createElement("script");
+                for (const key in giscusConfig) {
+                    giscusScript.setAttribute(key, giscusConfig[key]);
+                }
+                container.appendChild(giscusScript);
+                container.dataset.giscusInit = "true";
+            };
+
+            const runGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                if (container.querySelector("iframe.giscus-frame")) {
+                    sendUpdate();
+                    return;
+                }
+
+                loadGiscus();
+            };
+
+            runGiscus();
+        })();</script></div></div></div><div class="toc-content-container"><div class="post-toc-wrap"><div class="post-toc"><div class="toc-title">On this page</div><div class="page-title">记录一次微软账号被盗的经历</div><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E2%80%94%E2%80%94%E5%BC%80%E7%AB%AF"><span class="nav-text">序——开端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%E2%80%94%E2%80%94%E8%87%AA%E6%95%91"><span class="nav-text">第一章——自救</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%E2%80%94%E2%80%94%E9%BB%91%E5%AE%A2%E7%9A%84%E6%89%8B%E6%AE%B5"><span class="nav-text">第二章——黑客的手段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%E2%80%94%E2%80%94%E5%B0%81%E5%8F%B7"><span class="nav-text">第三章——封号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E2%80%94%E2%80%94%E8%A1%A5%E6%95%91"><span class="nav-text">第四章——补救</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%88%E7%AB%A0%E2%80%94%E2%80%94%E5%9B%9E%E9%A1%BE%E4%B8%8E%E5%8F%8D%E6%80%9D"><span class="nav-text">终章——回顾与反思</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-text">结语</span></a></li></ol></div></div></div></div></div></div><div class="main-content-footer"><footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color"><div class="info-container py-3 text-center"><div class="text-center">&copy; <span>2025</span> - 2026&nbsp;&nbsp;<a target="_blank" rel="noopener" href="https://plfjy.top/"> <img src="/img/logo.png" style="width:40px;margin:auto;transition:transform .2s ease" onmouseover='this.style.transform="scale(1.1)"' onmouseout='this.style.transform="scale(1)"'> </a>&nbsp;&nbsp;<a href="/">零风PLFJY</a><p class="post-count space-x-0.5"><span>21 posts in total </span><span>40.6k words in total</span></p></div><script data-swup-reload-script src="https://cn.vercount.one/js"></script><div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right"><span id="busuanzi_container_site_uv" class="lg:!block"><span class="text-sm">VISITOR COUNT</span> <span id="busuanzi_value_site_uv"></span> </span><span id="busuanzi_container_site_pv" class="lg:!block"><span class="text-sm">TOTAL PAGE VIEWS</span> <span id="busuanzi_value_site_pv"></span></span></div><div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left"><span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span> <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span></div><div class="icp-info my-1"><a target="_blank" rel="nofollow" href="https://icp.gov.moe/?keyword=20259514">萌ICP备20259514号</a></div><div>Blog up for <span class="odometer" id="runtime_days"></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec</div><script data-swup-reload-script>try{function odometer_init(){document.querySelectorAll(".odometer").forEach(e=>{new Odometer({el:e,format:"( ddd).dd",duration:200})})}odometer_init()}catch(e){}</script><script data-swup-reload-script src="/js/redefine-theme-mode-toggle.js"></script><script data-swup-reload-script src="/js/simple-i18n.js"></script></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="article-tools-list"><li class="right-bottom-tools page-aside-toggle"><i class="fa-regular fa-outdent"></i></li><li class="go-comment"><i class="fa-regular fa-comments"></i></li></ul></div></div><div class="right-side-tools-container"><div class="side-tools-container"><ul class="hidden-tools-list"><li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center"><i class="fa-regular fa-magnifying-glass-plus"></i></li><li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center"><i class="fa-regular fa-magnifying-glass-minus"></i></li><li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center"><i class="fa-regular fa-moon"></i></li><li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center"><i class="fa-regular fa-arrow-down"></i></li></ul><ul class="visible-tools-list"><li class="right-bottom-tools toggle-tools-list flex justify-center items-center"><i class="fa-regular fa-cog fa-spin"></i></li><li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="Image viewer"><button class="image-viewer-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button> <button class="image-viewer-prev" type="button" aria-label="Prev"><i class="fa-solid fa-chevron-left"></i></button><div class="image-viewer-frame"><img src="" alt=""></div><div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true"><div class="flex items-center justify-between mb-3"><span class="text-sm font-semibold text-first-text-color">EXIF</span> <button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="Close"><i class="fa-solid fa-xmark text-[0.65rem]"></i></button></div><div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div><template class="image-viewer-exif-card-template"><div class="rounded-lg bg-background-color-transparent-40 px-3 py-2"><div class="image-viewer-exif-card-header flex items-center gap-2 mb-1"><i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i><div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div></div><div class="image-viewer-exif-card-items flex flex-col gap-1"></div></div></template></div><button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false"><i class="fa-solid fa-circle-info text-xs"></i> <span class="text-xs font-semibold uppercase tracking-wider">EXIF</span></button> <button class="image-viewer-next" type="button" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button></div><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-input-field-pre"><i class="fa-solid fa-keyboard"></i></span><div class="search-input-container"><input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close"><i class="fa-solid fa-times"></i></span></div><div id="search-result"><div id="no-result"><i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i></div></div></div></div></main><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/Swup.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/SwupSlideTheme.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/SwupScriptsPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/SwupProgressPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/SwupScrollPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/SwupPreloadPlugin.min.js"></script><script>window.swup=new Swup({plugins:[new SwupScriptsPlugin({optin:!0}),new SwupProgressPlugin,new SwupScrollPlugin({offset:80}),new SwupSlideTheme({mainElement:".main-content-body"}),new SwupPreloadPlugin],containers:["#swup"]}),window.dispatchEvent(new CustomEvent("redefine:swup:ready",{detail:{swup:window.swup}}))</script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/main.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/odometer.min.js"></script><link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/assets/odometer-theme-minimal.css"><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/Typed.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/mermaid.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.9.0/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script></body></html>

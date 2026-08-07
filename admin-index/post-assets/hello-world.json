@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-07T09:38:10.429Z",
+  "sourceCommitSha": "11416a401384deca9b040e23fb9f1205a772f97b",
+  "relativeId": "hello-world",
+  "postPath": "source/_posts/hello-world.md",
+  "folderPath": "",
+  "postSlug": "hello-world",
+  "assetDir": "source/_posts/hello-world/",
+  "markdownAssetPrefix": "hello-world",
+  "assetCount": 0,
+  "assetTotalSize": 0,
+  "assets": []
+}
