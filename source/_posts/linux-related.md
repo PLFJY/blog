@@ -354,7 +354,7 @@ hl.bind(mainMod .. " + V", hl.dsp.exec_cmd([[entry="$(clipvault list | wofi -d -
 
 最终效果就是：
 
-![clipboard-20260804-133711.webp](linux-related/clipboard-20260804-133711.webp)!
+![clipboard-20260804-133711.webp](linux-related/clipboard-20260804-133711.webp)
 
 可以显示图片
 
@@ -496,7 +496,11 @@ QT_QPA_PLATFORM=offscreen QT_QPA_PLATFORMTHEME=kde \
 ~~~
 
 ### 前置条件
-需要安装：`darkman`、`breeze`、`breeze-gtk`、`dconf`、`gsettings-desktop-schemas`、`xdg-desktop-portal`、`xdg-desktop-portal-hyprland`、`xdg-desktop-portal-gtk`、`xdg-desktop-portal-kde`、`plasma-integration`、`kde-gtk-config`、`breeze5`、`plasma5-integration`。当前方案不使用 `qt5ct` 或 `qt6ct`。
+需要安装：
+
+```bash
+paru -S darkman breeze breeze-gtk dconf gsettings-desktop-schemas xdg-desktop-portal xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal-kde plasma-integration kde-gtk-config breeze5 plasma5-integration
+```
 
 ### 配置
 
