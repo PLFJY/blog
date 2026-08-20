@@ -556,26 +556,58 @@ fi
 #!/usr/bin/env bash
 set -euo pipefail
 
+# darkman 主题适配器
+#
+# 职责：
+# 1. 读取 darkman 当前主题状态（dark/light）
+# 2. 根据状态同步 KDE Plasma、KWin、GTK2/3/4 的主题配置
+# 3. 保证在 Plasma、Hyprland 等不同桌面环境中都能正确持久化配置
+#
+# 设计原则：
+# - darkman 是唯一主题状态来源
+# - 本脚本负责把状态转换为不同桌面组件能够理解的配置
+
+
 readonly config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+# darkman 状态文件。
+# systemd user service 环境中优先读取这个文件，
+# 避免依赖当前图形会话环境变量。
 readonly state_file="${XDG_STATE_HOME:-$HOME/.local/state}/darkman/theme-mode"
+
+# GTK 配置文件路径
 readonly gtk2_rc="$config_home/gtkrc"
 readonly gtk2_user_rc="$HOME/.gtkrc-2.0"
 readonly gtk3_settings="$config_home/gtk-3.0/settings.ini"
 readonly gtk4_settings="$config_home/gtk-4.0/settings.ini"
 
+
 log() {
   printf '[darkman-adapter] %s\n' "$*"
 }
 
+
+# 获取当前主题模式。
+#
+# 优先读取 darkman 写入的 state 文件；
+# 如果 state 文件不存在，则回退到 darkman CLI 查询。
+#
+# 输出：
+#   dark
+#   light
 read_mode() {
   local value
+
   if [[ -r "$state_file" ]]; then
     value="$(<"$state_file")"
   else
     value="$(/usr/bin/darkman get 2>/dev/null || true)"
   fi
+
   case "$value" in
-    dark|light) printf '%s\n' "$value" ;;
+    dark|light)
+      printf '%s\n' "$value"
+      ;;
     *)
       log "invalid or missing mode: ${value:-<empty>}" >&2
       return 2
@@ -583,6 +615,16 @@ read_mode() {
   esac
 }
 
+
+# 更新 GTK3/GTK4 的 settings.ini。
+#
+# GTK 使用 ini 格式保存主题设置：
+#
+# [Settings]
+# gtk-theme-name=Breeze-Dark
+# gtk-application-prefer-dark-theme=true
+#
+# 这里通过 awk 修改已有字段，同时保留其他用户配置。
 update_settings_ini() {
   local file="$1"
   local gtk_theme="$2"
@@ -596,32 +638,61 @@ update_settings_ini() {
 
   tmp="$(mktemp "${file}.tmp.XXXXXX")"
   mode_bits="$(stat -c '%a' "$file")"
+
   if ! awk -v theme="$gtk_theme" -v dark="$prefer_dark" '
-    BEGIN { in_settings=0; settings_seen=0; theme_seen=0; dark_seen=0 }
-    /^\[Settings\][[:space:]]*$/ { in_settings=1; settings_seen=1; print; next }
+    BEGIN {
+      in_settings=0
+      settings_seen=0
+      theme_seen=0
+      dark_seen=0
+    }
+
+    /^\[Settings\][[:space:]]*$/ {
+      in_settings=1
+      settings_seen=1
+      print
+      next
+    }
+
     /^\[/ {
-      if (in_settings && !theme_seen) { print "gtk-theme-name=" theme; theme_seen=1 }
-      if (in_settings && !dark_seen) { print "gtk-application-prefer-dark-theme=" dark; dark_seen=1 }
+      if (in_settings && !theme_seen) {
+        print "gtk-theme-name=" theme
+        theme_seen=1
+      }
+
+      if (in_settings && !dark_seen) {
+        print "gtk-application-prefer-dark-theme=" dark
+        dark_seen=1
+      }
+
       in_settings=0
       print
       next
     }
+
     {
       if (in_settings && $0 ~ /^gtk-theme-name[[:space:]]*=/) {
         print "gtk-theme-name=" theme
         theme_seen=1
         next
       }
+
       if (in_settings && $0 ~ /^gtk-application-prefer-dark-theme[[:space:]]*=/) {
         print "gtk-application-prefer-dark-theme=" dark
         dark_seen=1
         next
       }
+
       print
     }
+
     END {
-      if (in_settings && !theme_seen) print "gtk-theme-name=" theme
-      if (in_settings && !dark_seen) print "gtk-application-prefer-dark-theme=" dark
+      if (in_settings && !theme_seen)
+        print "gtk-theme-name=" theme
+
+      if (in_settings && !dark_seen)
+        print "gtk-application-prefer-dark-theme=" dark
+
       if (!settings_seen) {
         print ""
         print "[Settings]"
@@ -633,11 +704,69 @@ update_settings_ini() {
     rm -f -- "$tmp"
     return 1
   fi
+
   chmod "$mode_bits" "$tmp"
   mv -- "$tmp" "$file"
+
   log "updated $file"
 }
 
+
+# 修改 KWin Window Decoration。
+#
+# KDE 的窗口装饰由 KWin 读取 kwinrc 中：
+#
+# [org.kde.kdecoration2]
+# library=
+# theme=
+#
+# 在 Plasma 环境：
+#   写入配置后立即调用 KWin.reconfigure 生效。
+#
+# 在 Hyprland 环境：
+#   当前没有运行 KWin，只保存配置。
+#   下次进入 Plasma 时 KWin 会读取该配置。
+apply_kwin_decoration() {
+  local library="$1"
+  local theme="$2"
+
+  /usr/bin/kwriteconfig6 \
+    --file kwinrc \
+    --group org.kde.kdecoration2 \
+    --key library "$library"
+
+  /usr/bin/kwriteconfig6 \
+    --file kwinrc \
+    --group org.kde.kdecoration2 \
+    --key theme "$theme"
+
+  log "KWin decoration persisted: library=$library theme=$theme"
+
+
+  # 尝试通知正在运行的 KWin 重新读取配置。
+  # gdbus 失败时说明当前没有 KWin 会话，
+  # 这种情况不会影响配置保存。
+  if /usr/bin/gdbus call \
+      --session \
+      --dest org.kde.KWin \
+      --object-path /KWin \
+      --method org.kde.KWin.reconfigure \
+      >/dev/null 2>&1; then
+
+    log "KWin decoration reloaded"
+
+  else
+
+    log "KWin is not running; decoration will apply on next KWin session"
+
+  fi
+}
+
+
+# 更新 GTK2 主题。
+#
+# GTK2 不使用 settings.ini，
+# 而是通过 gtkrc include 指向主题文件。
 update_gtkrc() {
   local file="$1"
   local gtk_theme="$2"
@@ -651,33 +780,63 @@ update_gtkrc() {
 
   tmp="$(mktemp "${file}.tmp.XXXXXX")"
   mode_bits="$(stat -c '%a' "$file")"
+
   if ! awk -v theme="$gtk_theme" -v theme_dir="$theme_dir" '
-    BEGIN { theme_seen=0; include_seen=0 }
+    BEGIN {
+      theme_seen=0
+      include_seen=0
+    }
+
     /^[[:space:]]*include[[:space:]]+"\/usr\/share\/themes\/[^/"]+\/gtk-2\.0\/gtkrc"[[:space:]]*$/ {
       print "include \"/usr/share/themes/" theme_dir "/gtk-2.0/gtkrc\""
       include_seen=1
       next
     }
+
     /^[[:space:]]*gtk-theme-name[[:space:]]*=/ {
       print "gtk-theme-name=\"" theme "\""
       theme_seen=1
       next
     }
-    { print }
+
+    {
+      print
+    }
+
     END {
-      if (!include_seen) print "include \"/usr/share/themes/" theme_dir "/gtk-2.0/gtkrc\""
-      if (!theme_seen) print "gtk-theme-name=\"" theme "\""
+      if (!include_seen)
+        print "include \"/usr/share/themes/" theme_dir "/gtk-2.0/gtkrc\""
+
+      if (!theme_seen)
+        print "gtk-theme-name=\"" theme "\""
     }
   ' "$file" > "$tmp"; then
     rm -f -- "$tmp"
     return 1
   fi
+
   chmod "$mode_bits" "$tmp"
   mv -- "$tmp" "$file"
+
   log "updated $file"
 }
 
+
+# 根据 darkman 状态选择各组件主题。
+#
+# 这里是整个 adapter 的核心映射：
+#
+# dark:
+#   KDE Color Scheme      → BreezeDark
+#   GTK Theme             → Breeze-Dark
+#   KWin Decoration       → 可通过 kreadconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme 获取
+#
+# light:
+#   KDE Color Scheme      → BreezeLight
+#   GTK Theme             → Breeze
+#   KWin Decoration       → 可通过 kreadconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme 获取
 mode="$(read_mode)"
+
 case "$mode" in
   dark)
     gtk_theme='Breeze-Dark'
@@ -685,55 +844,99 @@ case "$mode" in
     plasma_scheme='BreezeDark'
     prefer_dark='true'
     color_scheme='prefer-dark'
+
+    # kwin_decoration_library='org.kde.kwin.aurorae'
+    # kwin_decoration_theme='__aurorae__svg__WillowDarkBlur'
     ;;
+
   light)
     gtk_theme='Breeze'
     gtk2_theme_dir='Breeze'
     plasma_scheme='BreezeLight'
     prefer_dark='false'
     color_scheme='default'
+
+    # kwin_decoration_library='org.kde.kwin.aurorae'
+    # kwin_decoration_theme='__aurorae__svg__WillowLightBlur'
     ;;
 esac
+
 
 log "applying mode=$mode KDE=$plasma_scheme GTK=$gtk_theme"
 
-# Use the live Plasma display when this user session is Plasma. In Hyprland,
-# or when no graphical session is available, use offscreen so the global
-# Darkman service can still persist the KDE scheme without X11/Wayland.
+
+# plasma-apply-colorscheme 需要 Qt 图形平台。
+#
+# Plasma session:
+#   使用真实 Wayland/X11 环境，让 KDE 组件立即更新。
+#
+# Hyprland 或后台 service:
+#   使用 offscreen，只修改 KDE 配置文件。
 qt_platform='offscreen'
+
 case "${XDG_CURRENT_DESKTOP:-}:${XDG_SESSION_DESKTOP:-}" in
   KDE:*|*:KDE|Plasma:*|*:Plasma)
+
     if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
       qt_platform='wayland'
+
     elif [[ -n "${DISPLAY:-}" ]]; then
       qt_platform='xcb'
     fi
+
     ;;
 esac
+
+
 log "KDE adapter Qt platform=$qt_platform desktop=${XDG_CURRENT_DESKTOP:-<unset>}"
 
+
 kde_status=0
+
+
+# 修改 KDE Color Scheme。
 if QT_QPA_PLATFORM="$qt_platform" QT_QPA_PLATFORMTHEME=kde \
     /usr/bin/plasma-apply-colorscheme "$plasma_scheme"; then
+
   log "KDE color scheme applied: $plasma_scheme"
+
 else
+
   kde_status=$?
   log "warning: KDE color scheme adapter failed with status $kde_status" >&2
+
 fi
 
+
+# 修改 KWin Window Decoration。
+apply_kwin_decoration \
+  "$kwin_decoration_library" \
+  "$kwin_decoration_theme"
+
+
+# 修改 GTK 全局主题。
 /usr/bin/gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
 /usr/bin/gsettings set org.gnome.desktop.interface color-scheme "$color_scheme"
 
+
+# 修改 GTK2/3/4 配置文件。
 update_gtkrc "$gtk2_rc" "$gtk_theme" "$gtk2_theme_dir"
 update_gtkrc "$gtk2_user_rc" "$gtk_theme" "$gtk2_theme_dir"
+
 update_settings_ini "$gtk3_settings" "$gtk_theme" "$prefer_dark"
 update_settings_ini "$gtk4_settings" "$gtk_theme" "$prefer_dark"
 
-# This is a notification only; it does not write KDE configuration.
+
+# 通知 KDE 应用刷新主题。
+#
+# 这里发送的是刷新信号，不负责写入 KDE 配置。
 /usr/bin/dbus-send --session --type=signal \
-  /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:0 int32:0 2>/dev/null || true
+  /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:0 int32:0 \
+  2>/dev/null || true
+
 
 log "completed mode=$mode"
+
 exit "$kde_status"
 ```
 
