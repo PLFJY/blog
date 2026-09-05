@@ -285,7 +285,7 @@ Arch 用户部署就是这样子：
 ```bash
 mkdir credentialsd-firefox-sidecar-git
 cd credentialsd-firefox-sidecar-git
-curl -L -O https://raw.githubusercontent.com/PLFJY/credentialsd/integration/credential-portal-sidecar/packaging/credentialsd-firefox-sidecar-git/PKGBUILD
+curl -L -O https://raw.githubusercontent.com/PLFJY/credentialsd/refs/heads/integration/credential-portal-sidecar-upstream-sync/packaging/credentialsd-firefox-sidecar-git/PKGBUILD
 ```
 
 然后，开始构建并安装：
@@ -301,6 +301,14 @@ https://github.com/PLFJY/credentialsd/releases/latest
 ![安装 Firefox 扩展](arch-linux-firefox-passkey-credentialsd-sidecar/clipboard-20260806-124157.webp)
 
 就是这样，扩展会自动看 Github Releases latest 完成自动更新，当然对应的包我没传 AUR 就没法自动更新了，所以你发现扩展如果更新了（概率很小）就去看一眼
+
+然后启动相关服务：
+
+```sh
+systemctl --user daemon-reload
+systemctl --user start credentials-portal-sidecar.service
+systemctl --user start xyz.iinuwa.credentialsd.Credentials.service
+```
 
 ---
 
