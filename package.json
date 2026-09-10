@@ -10,7 +10,8 @@
     "deploy": "hexo deploy",
     "generate:admin-index": "node tools/generate-admin-index.mjs",
     "preserver": "node tools/ensure-nodejieba.mjs",
-    "server": "hexo server"
+    "server": "hexo server",
+    "build:pages": "pnpm run build && pnpm run generate:admin-index"
   },
   "hexo": {
     "version": "8.1.2"
