@@ -51,7 +51,7 @@ common
 Endpoint Host: 
 
 ```text
-login.microsoftonline.com 
+login.microsoftonline.com
 ```
 
 输入框报错不用管，不要加 `https://`
