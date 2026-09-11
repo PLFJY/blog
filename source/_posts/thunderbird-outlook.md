@@ -21,7 +21,11 @@ tags:
 
 ![Pick Email Account Type](thunderbird-outlook/pick_email_account_type.webp)
 
-service URL 填 `https://graph.microsoft.com/` 然后 Finish Settings
+service URL 按按照如下填写，然后 Finish Settings：
+
+```text
+https://graph.microsoft.com/
+```
 
 ![clipboard-20260910-205051](thunderbird-outlook/exchange_settings.webp)
 
