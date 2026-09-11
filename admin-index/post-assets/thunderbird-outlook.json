@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-11T10:59:47.335Z",
+  "sourceCommitSha": "665da14c749b0fceb57fb24db3614dd047e46a63",
+  "relativeId": "thunderbird-outlook",
+  "postPath": "source/_posts/thunderbird-outlook.md",
+  "folderPath": "",
+  "postSlug": "thunderbird-outlook",
+  "assetDir": "source/_posts/thunderbird-outlook/",
+  "markdownAssetPrefix": "thunderbird-outlook",
+  "assetCount": 6,
+  "assetTotalSize": 548634,
+  "assets": [
+    {
+      "filename": "Advanced-Account-Settings.webp",
+      "repoPath": "source/_posts/thunderbird-outlook/Advanced-Account-Settings.webp",
+      "markdownPath": "thunderbird-outlook/Advanced-Account-Settings.webp",
+      "size": 132752
+    },
+    {
+      "filename": "exchange_settings.webp",
+      "repoPath": "source/_posts/thunderbird-outlook/exchange_settings.webp",
+      "markdownPath": "thunderbird-outlook/exchange_settings.webp",
+      "size": 57956
+    },
+    {
+      "filename": "local_folders.webp",
+      "repoPath": "source/_posts/thunderbird-outlook/local_folders.webp",
+      "markdownPath": "thunderbird-outlook/local_folders.webp",
+      "size": 118200
+    },
+    {
+      "filename": "pick_email_account_type_2.webp",
+      "repoPath": "source/_posts/thunderbird-outlook/pick_email_account_type_2.webp",
+      "markdownPath": "thunderbird-outlook/pick_email_account_type_2.webp",
+      "size": 93706
+    },
+    {
+      "filename": "pick_email_account_type.webp",
+      "repoPath": "source/_posts/thunderbird-outlook/pick_email_account_type.webp",
+      "markdownPath": "thunderbird-outlook/pick_email_account_type.webp",
+      "size": 76174
+    },
+    {
+      "filename": "Thunderbird_login1.webp",
+      "repoPath": "source/_posts/thunderbird-outlook/Thunderbird_login1.webp",
+      "markdownPath": "thunderbird-outlook/Thunderbird_login1.webp",
+      "size": 69846
+    }
+  ]
+}
