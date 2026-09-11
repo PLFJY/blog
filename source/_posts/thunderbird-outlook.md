@@ -1,5 +1,5 @@
 ---
-title: 解决个人 Outlook 邮箱在 Thunderbird 只能接收不能发送邮件的问题
+title: Thunderbird 使用 Graph 通道登录 Outlook 个人邮箱
 date: 2026-09-10T12:40:37.911Z
 tags:
  - thunderbird
@@ -11,15 +11,17 @@ tags:
 
 于是在我和 GPT 进行了激烈的讨论之后发现了一些端倪，微软基本上在个人用户的邮箱侧封死了 SMTP 发件的认证端口。转而推它自家的 Exchange 和 Graph API，那么今天我带来的是怎么正确利用 Graph API 在 Thunderbird 登录 outlook 邮箱。
 
-首先，在 Thunderbird 的登录界面填好名字和邮箱账号之后点击 Manual Configuration 手动配置，千万不要直接点击 Continue
+首先需要保证 Thunderbird 版本在 1.5.3 以上
+
+然后，在 Thunderbird 的登录界面填好名字和邮箱账号之后点击 Manual Configuration 手动配置，千万不要直接点击 Continue
 
 ![Thunderbird Login 1](thunderbird-outlook/Thunderbird_login1.webp)
 
-然后选择 Microsoft，不要选 IMAP 和 POP3，然后点击下一步
+接下来选择 Microsoft，不要选 IMAP 和 POP3，然后点击下一步
 
 ![Pick Email Account Type](thunderbird-outlook/pick_email_account_type.webp)
 
-接下来 service URL 填 `https://graph.microsoft.com/` 然后 Finish Settings
+service URL 填 `https://graph.microsoft.com/` 然后 Finish Settings
 
 ![clipboard-20260910-205051](thunderbird-outlook/exchange_settings.webp)
 
@@ -27,7 +29,7 @@ tags:
 
 ![clipboard-20260910-205554](thunderbird-outlook/pick_email_account_type_2.webp)
 
-然后进入 Account Settings 账号设置 → Server Settings 服务器设置 → Advanced 高级，按照如下填写:
+接着进入 Account Settings 账号设置 → Server Settings 服务器设置 → Advanced 高级，按照如下填写:
 
 Application ID:
 ```text
@@ -59,7 +61,7 @@ Redirect URL 留空默认
 
 ![clipboard-20260910-210740.webp](thunderbird-outlook/Advanced-Account-Settings.webp)
 
-然后点击 OK，回到收件箱，点击一下同步，在弹出的浏览器里面登录就好了
+最后点击 OK，回到收件箱，点击一下同步，在弹出的浏览器里面登录就好了
 
 ![clipboard-20260910-210831.webp](thunderbird-outlook/local_folders.webp)
 
