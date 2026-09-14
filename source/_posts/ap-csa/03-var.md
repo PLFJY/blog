@@ -7,6 +7,7 @@ tags:
 - AP CSA
 categories:
 - AP CSA
+published: false
 ---
 
 本章的内容还是在[考纲](../00-about-ap-csa#考试大纲) 1.2 的内容里面，今天讲一个编程中很常见的话题：变量和常量
