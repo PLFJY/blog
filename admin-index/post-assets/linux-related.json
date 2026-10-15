@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-15T06:59:53.122Z",
+  "sourceCommitSha": "6c57b50ad9d17c46aeabc6070f1c6328032a7afc",
+  "relativeId": "linux-related",
+  "postPath": "source/_posts/linux-related.md",
+  "folderPath": "",
+  "postSlug": "linux-related",
+  "assetDir": "source/_posts/linux-related/",
+  "markdownAssetPrefix": "linux-related",
+  "assetCount": 1,
+  "assetTotalSize": 173378,
+  "assets": [
+    {
+      "filename": "clipboard-20260804-133711.webp",
+      "repoPath": "source/_posts/linux-related/clipboard-20260804-133711.webp",
+      "markdownPath": "linux-related/clipboard-20260804-133711.webp",
+      "size": 173378
+    }
+  ]
+}
