@@ -1,5 +1,5 @@
 ---
-title: 目前来说真的是最强的第五人格 BP 展示软件【neo-bpsys-wpf】
+title: 【neo-bpsys-wpf】目前来说真的是最强的第五人格 BP 展示软件（赛事导播软件）
 date: 2026-10-22
 tags:
 - 第五人格
