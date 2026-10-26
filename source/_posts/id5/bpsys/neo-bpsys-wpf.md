@@ -16,7 +16,7 @@ categories:
 
 之前我在这个博客里介绍过两个自己做的第五人格 BP 展示软件：最早用易语言写的 [idv-bp-asg-e](/id5/bpsys/idv-bp-asg-e/)，以及后面用 C# / WPF 重写的 [bp-sys-wpf](/id5/bpsys/bp-sys-wpf/)。现在它们都已经停止维护了。
 
-从最开始给自己所在的赛事组做一套能用的 BP 画面，到后来有越来越多的民间赛事开始使用，软件也逐渐不只是“选个角色然后把立绘放到直播间”这么简单了。旧项目虽然也能继续堆功能，但一些早期设计留下来的限制确实越来越难处理。
+从最开始给自己所在的赛事组做一套能用的 BP 画面，到后来有越来越多的民间赛事开始使用，软件也逐渐不只是选个角色然后把立绘放到直播间这么简单了。旧项目虽然也能继续堆功能，但一些早期设计留下来的限制确实越来越难处理。
 
 所以有了这次的新作：**neo-bpsys-wpf**。
 
@@ -27,7 +27,7 @@ categories:
 **GitHub 开源地址：** [PLFJY/neo-bpsys-wpf](https://github.com/PLFJY/neo-bpsys-wpf/)  
 **下载地址：** [GitHub Releases](https://github.com/PLFJY/neo-bpsys-wpf/releases/latest)
 
-本软件基于 **C#、.NET 10 和 WPF** 开发，使用 WPF-UI 作为界面组件库，以 **GPL-3.0** 协议开源，软件本身完全免费。
+本软件基于 C#、.NET 10 和 WPF 开发，使用 WPF-UI 作为界面组件库，以 **GPL-3.0** 协议开源，软件本身完全免费。
 
 ![主界面](https://docs.bpsys.plfjy.top/user-guide/images/Introduction-MainPage.webp)
 
@@ -41,7 +41,7 @@ categories:
 
 **角色 Ban/Pick：** 支持使用角色全称、拼音全拼或首拼进行检索，确认之后才会把对应角色同步到前台。这里保留了我之前一直在用的操作习惯：**输入角色后按 Tab（或回车）确认，以预览框里的头像为准**。如果仅仅改了输入框里的文字而没有确认，前台不会变。
 
-至于 26 号守卫，依然可以直接输入 `bb` 搜索。这个习惯依旧可用 🤣。
+至于 26 号守卫……依然可以直接输入 `bb` 搜索。这个习惯依旧可用 🤣。
 
 ![角色禁用界面](https://docs.bpsys.plfjy.top/user-guide/images/BanCharacter-HunBanSelection.webp)
 
