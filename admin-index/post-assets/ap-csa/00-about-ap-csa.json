@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-08T09:27:29.032Z",
+  "sourceCommitSha": "fa86b523d7e510d083d2c822b3a76eb9caf59b2e",
+  "relativeId": "ap-csa/00-about-ap-csa",
+  "postPath": "source/_posts/ap-csa/00-about-ap-csa.md",
+  "folderPath": "ap-csa",
+  "postSlug": "00-about-ap-csa",
+  "assetDir": "source/_posts/ap-csa/00-about-ap-csa/",
+  "markdownAssetPrefix": "00-about-ap-csa",
+  "assetCount": 1,
+  "assetTotalSize": 67426,
+  "assets": [
+    {
+      "filename": "syllabus.png",
+      "repoPath": "source/_posts/ap-csa/00-about-ap-csa/syllabus.png",
+      "markdownPath": "00-about-ap-csa/syllabus.png",
+      "size": 67426
+    }
+  ]
+}
