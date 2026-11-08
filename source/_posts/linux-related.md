@@ -1110,3 +1110,9 @@ flock -n "$XDG_RUNTIME_DIR/唯一名称.lock" 命令 参数
 ```bash
 exec 9>"$XDG_RUNTIME_DIR/唯一名称.lock"; flock -n 9 || exit 0; 后面的完整命令流程
 ```
+
+## 未能正确让 xdg 选择 dolphin 打开文件夹
+
+```bash
+xdg-mime default org.kde.dolphin.desktop inode/directory
+```
