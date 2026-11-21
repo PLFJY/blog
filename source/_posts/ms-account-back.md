@@ -9,7 +9,7 @@ tags:
 
 怀着激动的心情写下这些文字，我的微软账号，在今天，它终于的回到了我的手里；回望我这期间干过的每一件事情，我都十分的感慨，这一路真的太长了，长到我一度觉得看不到头，但结局总是好的，它至少回来了；
 
-前序在 [记录一次微软账号被盗的经历](ms-account-hacked)
+前序在 [记录一次微软账号被盗的经历](../ms-account-hacked)
 
 先说说它是怎么回来的吧，首先是我前两个星期，又去尝试申请了一次解封，不过这一次，有所不同，我试图严格按照 *[[GUIDE] How to handle hacked account issues with Microsoft support](https://hypixel.net/threads/guide-how-to-handle-hacked-account-issues-with-microsoft-support.5429472/)* 这一篇文章的内容来写微软让我证明所有权的邮件，其中我加上了这一句话：
 
@@ -44,3 +44,5 @@ tags:
 ---
 
 写到这里，想着写个结尾的，但是吧……不想强行升华什么，嗯，就这样吧，感谢你能看到这里
+
+2026.3.30 ~ 2026.11.21
