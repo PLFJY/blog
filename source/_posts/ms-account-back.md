@@ -43,7 +43,8 @@ tags:
 
 之后呢这位天使般的 Joselito 又给我发了一封邮件，告诉我账号已经回退了未授权的更改，这件事总算圆满大结局了
 
-![Final Email](ms-account-back/FinalEmail.jpeg)
+![clipboard-20261123-152904.png](ms-account-back/clipboard-20261123-152904.png)
+
 
 ---
 
