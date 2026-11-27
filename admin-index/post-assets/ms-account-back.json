@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-27T01:33:26.637Z",
+  "sourceCommitSha": "18aede37fc5bb3474648bdcc4a4ef875d2709ee3",
+  "relativeId": "ms-account-back",
+  "postPath": "source/_posts/ms-account-back.md",
+  "folderPath": "",
+  "postSlug": "ms-account-back",
+  "assetDir": "source/_posts/ms-account-back/",
+  "markdownAssetPrefix": "ms-account-back",
+  "assetCount": 6,
+  "assetTotalSize": 613057,
+  "assets": [
+    {
+      "filename": "AbuseNotify.png",
+      "repoPath": "source/_posts/ms-account-back/AbuseNotify.png",
+      "markdownPath": "ms-account-back/AbuseNotify.png",
+      "size": 67426
+    },
+    {
+      "filename": "Final-Email.png",
+      "repoPath": "source/_posts/ms-account-back/Final-Email.png",
+      "markdownPath": "ms-account-back/Final-Email.png",
+      "size": 316411
+    },
+    {
+      "filename": "MicrosoftSupport-RegardingYourAccountInquiry.png",
+      "repoPath": "source/_posts/ms-account-back/MicrosoftSupport-RegardingYourAccountInquiry.png",
+      "markdownPath": "ms-account-back/MicrosoftSupport-RegardingYourAccountInquiry.png",
+      "size": 68463
+    },
+    {
+      "filename": "MsAccountRenamed.png",
+      "repoPath": "source/_posts/ms-account-back/MsAccountRenamed.png",
+      "markdownPath": "ms-account-back/MsAccountRenamed.png",
+      "size": 39645
+    },
+    {
+      "filename": "PasswordReset.png",
+      "repoPath": "source/_posts/ms-account-back/PasswordReset.png",
+      "markdownPath": "ms-account-back/PasswordReset.png",
+      "size": 44226
+    },
+    {
+      "filename": "RegardingYourReportOfAnCccountTakeover.png",
+      "repoPath": "source/_posts/ms-account-back/RegardingYourReportOfAnCccountTakeover.png",
+      "markdownPath": "ms-account-back/RegardingYourReportOfAnCccountTakeover.png",
+      "size": 76886
+    }
+  ]
+}

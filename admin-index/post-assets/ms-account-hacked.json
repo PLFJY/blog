@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-27T01:33:26.637Z",
+  "sourceCommitSha": "18aede37fc5bb3474648bdcc4a4ef875d2709ee3",
+  "relativeId": "ms-account-hacked",
+  "postPath": "source/_posts/ms-account-hacked.md",
+  "folderPath": "",
+  "postSlug": "ms-account-hacked",
+  "assetDir": "source/_posts/ms-account-hacked/",
+  "markdownAssetPrefix": "ms-account-hacked",
+  "assetCount": 1,
+  "assetTotalSize": 247674,
+  "assets": [
+    {
+      "filename": "AccountLocked.png",
+      "repoPath": "source/_posts/ms-account-hacked/AccountLocked.png",
+      "markdownPath": "ms-account-hacked/AccountLocked.png",
+      "size": 247674
+    }
+  ]
+}

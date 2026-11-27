@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-27T01:33:26.637Z",
+  "sourceCommitSha": "18aede37fc5bb3474648bdcc4a4ef875d2709ee3",
+  "relativeId": "natsumi-browser",
+  "postPath": "source/_posts/natsumi-browser.md",
+  "folderPath": "",
+  "postSlug": "natsumi-browser",
+  "assetDir": "source/_posts/natsumi-browser/",
+  "markdownAssetPrefix": "natsumi-browser",
+  "assetCount": 7,
+  "assetTotalSize": 1005581,
+  "assets": [
+    {
+      "filename": "browser-support.png",
+      "repoPath": "source/_posts/natsumi-browser/browser-support.png",
+      "markdownPath": "natsumi-browser/browser-support.png",
+      "size": 287097
+    },
+    {
+      "filename": "natsumi-browser-readme.webp",
+      "repoPath": "source/_posts/natsumi-browser/natsumi-browser-readme.webp",
+      "markdownPath": "natsumi-browser/natsumi-browser-readme.webp",
+      "size": 188192
+    },
+    {
+      "filename": "preview-1.webp",
+      "repoPath": "source/_posts/natsumi-browser/preview-1.webp",
+      "markdownPath": "natsumi-browser/preview-1.webp",
+      "size": 232192
+    },
+    {
+      "filename": "preview-2.webp",
+      "repoPath": "source/_posts/natsumi-browser/preview-2.webp",
+      "markdownPath": "natsumi-browser/preview-2.webp",
+      "size": 81344
+    },
+    {
+      "filename": "preview-3.webp",
+      "repoPath": "source/_posts/natsumi-browser/preview-3.webp",
+      "markdownPath": "natsumi-browser/preview-3.webp",
+      "size": 56366
+    },
+    {
+      "filename": "preview-4.webp",
+      "repoPath": "source/_posts/natsumi-browser/preview-4.webp",
+      "markdownPath": "natsumi-browser/preview-4.webp",
+      "size": 121650
+    },
+    {
+      "filename": "preview-5.webp",
+      "repoPath": "source/_posts/natsumi-browser/preview-5.webp",
+      "markdownPath": "natsumi-browser/preview-5.webp",
+      "size": 38740
+    }
+  ]
+}
